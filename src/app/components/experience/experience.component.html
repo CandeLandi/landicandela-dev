@@ -1,0 +1,62 @@
+<section id="experience" class="min-h-screen py-16 md:py-24 px-4 sm:px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Work <span class="text-purple-400">Experience</span>
+      </h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">
+        My professional journey developing modern web solutions.
+      </p>
+    </div>
+
+    <div class="relative max-w-4xl mx-auto">
+      <!-- Timeline Line -->
+      <div class="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-purple-400 via-purple-500 to-transparent"></div>
+
+      <div class="space-y-12">
+        <div *ngFor="let experience of experience; let index = index"
+             class="relative flex items-start gap-8">
+
+          <!-- Timeline Point -->
+          <div class="relative z-10 flex-shrink-0">
+            <div [class]="'w-4 h-4 rounded-full border-2 ' +
+                          (experience.current ? 'bg-purple-400 border-purple-400 animate-pulse' : 'bg-gray-800 border-purple-400')">
+            </div>
+            <div *ngIf="experience.current"
+                 class="absolute -inset-2 rounded-full bg-purple-400/20 animate-ping">
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="flex-1">
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+              <div>
+                <h3 class="text-xl font-bold mb-1 text-white">{{ experience.title }}</h3>
+                <p class="text-purple-300 mb-1">{{ experience.company }}</p>
+                <p class="text-gray-400 text-sm">{{ experience.startDate }} - {{ experience.endDate || 'Present' }}</p>
+              </div>
+
+              <!-- Current Badge -->
+              <div *ngIf="experience.current"
+                   class="inline-flex items-center gap-2 bg-green-600/20 border border-green-400/30 text-green-400 px-3 py-1 rounded-full text-sm mt-2 md:mt-0">
+                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                Current
+              </div>
+            </div>
+
+            <!-- Description -->
+            <p class="text-gray-300 mb-4 leading-relaxed">{{ experience.description }}</p>
+
+            <!-- Technologies -->
+            <div class="flex flex-wrap gap-2">
+              <span *ngFor="let tech of experience.technologies"
+                    class="bg-gray-800/50 border border-purple-400/30 text-purple-200 px-3 py-1 rounded-lg text-sm">
+                {{ tech }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

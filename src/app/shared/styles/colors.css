@@ -1,0 +1,99 @@
+/* ===== PALETA DE COLORES GLOBAL ===== */
+
+:root {
+  /* Colores Base */
+  --color-background: #000000;
+  --color-foreground: #FFFFFF;
+
+  /* Colores de Tarjetas */
+  --color-card-bg: #0D0D0D;
+  --color-card-fg: #FFFFFF;
+
+  /* Colores Primarios */
+  --color-primary: #8B5CF6;
+  --color-primary-foreground: #FFFFFF;
+
+  /* Colores Secundarios */
+  --color-secondary: #1A1A1A;
+  --color-secondary-foreground: #FFFFFF;
+
+  /* Colores de Acento */
+  --color-accent: #8B5CF6;
+  --color-accent-foreground: #FFFFFF;
+
+  /* Colores Neutros */
+  --color-muted: #1A1A1A;
+  --color-muted-foreground: #999999;
+
+  /* Colores de Borde */
+  --color-border: #2D1B69;
+  --color-input: #1A1A1A;
+  --color-ring: #8B5CF6;
+
+  /* Scrollbar */
+  --color-scrollbar-track: #000000;
+  --color-scrollbar-thumb: #8B5CF6;
+  --color-scrollbar-thumb-hover: #7C3AED;
+}
+
+/* ===== CLASES UTILITARIAS ===== */
+
+.bg-primary { background-color: var(--color-primary); }
+.bg-secondary { background-color: var(--color-secondary); }
+.bg-accent { background-color: var(--color-accent); }
+.bg-card { background-color: var(--color-card-bg); }
+.bg-muted { background-color: var(--color-muted); }
+
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary-foreground); }
+.text-accent { color: var(--color-accent); }
+.text-muted { color: var(--color-muted-foreground); }
+
+.border-primary { border-color: var(--color-primary); }
+.border-secondary { border-color: var(--color-secondary); }
+.border-accent { border-color: var(--color-accent); }
+.border-muted { border-color: var(--color-muted); }
+
+/* ===== GRADIENTES ===== */
+
+.gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary), #7C3AED);
+}
+
+.gradient-card {
+  background: linear-gradient(135deg, var(--color-card-bg), var(--color-secondary));
+}
+
+/* ===== ANIMACIONES PERSONALIZADAS ===== */
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ===== SCROLLBAR PERSONALIZADO ===== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-thumb-hover);
+}

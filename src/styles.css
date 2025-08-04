@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importar estilos globales de colores */
+@import './app/shared/styles/colors.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
