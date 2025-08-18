@@ -1,6 +1,85 @@
-/* Importar estilos globales de colores */
-@import './app/shared/styles/colors.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Global MDC input styles (remove blue outline and add violet focus) */
+/* 1) Remove native blue outline */
+input.mat-mdc-input-element:focus,
+textarea.mat-mdc-input-element:focus {
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+/* 2) Remove outline on container when focused within */
+.mat-mdc-form-field:focus-within {
+	outline: none !important;
+}
+
+/* 3) Disable MDC blue focus overlay */
+.mat-mdc-form-field .mat-mdc-form-field-focus-overlay {
+	background-color: transparent !important;
+}
+
+/* 4) Transparent default outline (normal state) */
+.mdc-text-field--outlined .mdc-notched-outline {
+	border-color: transparent !important;
+	box-shadow: none !important;
+}
+
+/* 5) Subtle hover (optional) */
+.mdc-text-field--outlined:hover .mdc-notched-outline {
+	border-color: rgba(147, 51, 234, 0.35) !important;
+}
+
+/* 6) Accessible violet focus */
+.mat-mdc-form-field.mat-focused .mdc-notched-outline {
+	border-color: rgba(147, 51, 234, 0.85) !important;
+	box-shadow: 0 0 0 1px rgba(147, 51, 234, 0.45) !important; /* thinner glow */
+	border-radius: 8px; /* optional */
+}
+
+/* 7) Text color for dark theme */
+.mat-mdc-form-field .mat-mdc-input-element,
+.mat-mdc-select {
+	color: #ffffff !important;
+}
+
+/* Remove default blue border from MDC notched outline */
+.mdc-notched-outline__leading,
+.mdc-notched-outline__trailing,
+.mdc-notched-outline__notch {
+	border-color: transparent !important;
+}
+
+/* Default subtle border for MDC notched outline (normal state) */
+.mdc-notched-outline__leading,
+.mdc-notched-outline__trailing,
+.mdc-notched-outline__notch {
+	border-color: rgba(148, 163, 184, 0.22) !important; /* slate-400 ~ 22% */
+}
+
+/* Subtle hover */
+.mdc-text-field--outlined:hover .mdc-notched-outline__leading,
+.mdc-text-field--outlined:hover .mdc-notched-outline__trailing,
+.mdc-text-field--outlined:hover .mdc-notched-outline__notch {
+	border-color: rgba(147, 51, 234, 0.35) !important; /* violet hover */
+}
+
+/* Violet border only on focus (segments) */
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch {
+	border-color: rgba(147, 51, 234, 0.85) !important;
+}
+
+/* Remove empty subscript space under MDC form fields (hints/errors) */
+.mat-mdc-form-field-subscript-wrapper {
+	display: none !important;
+	height: 0 !important;
+	min-height: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}

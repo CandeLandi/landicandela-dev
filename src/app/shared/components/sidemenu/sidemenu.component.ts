@@ -1,30 +1,30 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-sidemenu',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    LucideAngularModule
+  ],
   templateUrl: './sidemenu.component.html'
 })
-export class SidemenuComponent implements OnInit {
+export class SidemenuComponent {
   isMobileMenuOpen = false;
   activeSection = 'hero';
 
   menuItems = [
-    { id: 'hero', label: 'Home', icon: 'home' },
-    { id: 'projects', label: 'Projects', icon: 'code' },
-    { id: 'experience', label: 'Experience', icon: 'briefcase' },
-    { id: 'education', label: 'Education', icon: 'graduation-cap' },
-    { id: 'contact', label: 'Contact', icon: 'phone' }
+    { id: 'hero', label: 'Inicio', icon: 'home' },
+    { id: 'projects', label: 'Proyectos', icon: 'briefcase' },
+    { id: 'experience', label: 'Experiencia', icon: 'user' },
+    { id: 'education', label: 'Educación', icon: 'graduation-cap' },
+    { id: 'contact', label: 'Contacto', icon: 'mail' }
   ];
 
-  ngOnInit(): void {
-    this.updateActiveSection();
-  }
-
-  @HostListener('window:scroll', [])
-  onWindowScroll(): void {
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
     this.updateActiveSection();
   }
 
@@ -50,8 +50,9 @@ export class SidemenuComponent implements OnInit {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      this.activeSection = sectionId;
+      this.isMobileMenuOpen = false;
     }
-    this.isMobileMenuOpen = false;
   }
 
   toggleMobileMenu(): void {

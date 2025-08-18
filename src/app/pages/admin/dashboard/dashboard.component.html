@@ -1,0 +1,192 @@
+<app-admin-sidemenu>
+  <div class="max-w-7xl mx-auto px-6 py-8 text-white">
+
+    <div class="mb-8">
+      <h1 class="text-3xl font-light text-white mb-2 flex items-center gap-2">
+        <i-lucide name="FolderOpen" class="w-6 h-6 text-purple-400"></i-lucide>
+        My projects
+      </h1>
+
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 text-center">
+        <div class="flex items-center justify-center gap-2 mb-1">
+          <i-lucide name="Briefcase" class="w-4 h-4 text-gray-400"></i-lucide>
+          <span class="text-3xl font-light text-white">{{ projectService.stats().totalProjects }}</span>
+        </div>
+        <div class="text-sm text-gray-400">Projects</div>
+      </div>
+
+      <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 text-center">
+        <div class="flex items-center justify-center gap-2 mb-1">
+          <i-lucide name="CheckCircle" class="w-4 h-4 text-green-400"></i-lucide>
+          <span class="text-3xl font-light text-green-400">{{ projectService.stats().publishedProjects }}</span>
+        </div>
+        <div class="text-sm text-gray-400">Published</div>
+      </div>
+
+      <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 text-center">
+        <div class="flex items-center justify-center gap-2 mb-1">
+          <i-lucide name="Clock" class="w-4 h-4 text-orange-400"></i-lucide>
+          <span class="text-3xl font-light text-orange-400">{{ projectService.stats().draftProjects }}</span>
+        </div>
+        <div class="text-sm text-gray-400">Drafts</div>
+      </div>
+
+      <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 text-center">
+        <div class="flex items-center justify-center gap-2 mb-1">
+          <i-lucide name="Eye" class="w-4 h-4 text-blue-400"></i-lucide>
+          <span class="text-3xl font-light text-blue-400">{{ projectService.stats().totalViews }}</span>
+        </div>
+        <div class="text-sm text-gray-400">Views</div>
+      </div>
+    </div>
+
+    <div class="space-y-8">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div class="border-b border-gray-800/50 pb-2">
+          <h2 class="text-2xl font-light text-white">Projects</h2>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Search..."
+              [ngModel]="searchTerm()"
+              (input)="onSearchChange($event)"
+              class="w-full sm:w-64 px-4 py-3 bg-gray-900/30 border border-gray-800/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-400/50 transition-colors"
+            />
+            <i-lucide name="search" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i-lucide>
+          </div>
+
+          <div class="flex gap-3">
+            <select
+              [ngModel]="filterStatus()"
+              (change)="onFilterChange($event)"
+              class="px-4 py-3 bg-gray-900/30 border border-gray-800/50 rounded-xl text-white focus:outline-none focus:border-purple-400/50 transition-colors"
+            >
+              <option value="all">All</option>
+              <option value="published">Published</option>
+              <option value="draft">Drafts</option>
+            </select>
+
+            <!-- Removed Recent filter dropdown as requested -->
+          </div>
+
+                         <button
+                 (click)="navigateToNewProject()"
+                 class="px-6 py-3 bg-white text-black rounded-xl hover:bg-gray-100 transition-colors font-medium"
+               >
+                 New
+               </button>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        @for (project of filteredProjects(); track project.id) {
+          <div
+            class="group bg-gray-900/20 backdrop-blur-sm border border-gray-800/30 rounded-2xl overflow-hidden hover:border-gray-700/50 transition-all duration-500 cursor-pointer hover:bg-gray-900/30"
+            (click)="editProject(project.id)"
+          >
+            <div class="relative aspect-[4/3] bg-gray-900/50">
+              @if ((project.images || []).length > 0) {
+                <img
+                  [src]="(project.images || [])[0] || '/placeholder.svg?height=240&width=320&text=Project'"
+                  [alt]="project.name"
+                  class="w-full h-full object-cover"
+                />
+              } @else {
+                <div class="w-full h-full flex items-center justify-center">
+                  <div class="w-16 h-16 bg-gray-800/50 rounded-2xl flex items-center justify-center">
+                    <i-lucide name="image" class="w-8 h-8 text-gray-600"></i-lucide>
+                  </div>
+                </div>
+              }
+
+              <div class="absolute top-4 left-4 flex items-center gap-2">
+                <div
+                  class="w-2 h-2 rounded-full"
+                  [class]="project.status === 'PUBLISHED' ? 'bg-green-400' : 'bg-orange-400'"
+                ></div>
+                @if (project.featured) {
+                  <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                }
+              </div>
+
+              <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                <button
+                  (click)="toggleFeatured(project.id); $event.stopPropagation()"
+                  class="w-10 h-10 rounded-full border transition-colors"
+                  [class]="project.featured ? 'bg-yellow-400 border-yellow-400 text-black' : 'border-gray-600 text-gray-400 hover:border-yellow-400 hover:text-yellow-400'"
+                >
+                  <i-lucide name="star" class="w-4 h-4 mx-auto" [class]="project.featured ? 'fill-current' : ''"></i-lucide>
+                </button>
+
+                <button
+                  (click)="toggleStatus(project.id); $event.stopPropagation()"
+                  class="w-10 h-10 rounded-full border transition-colors"
+                  [class]="project.status === 'PUBLISHED' ? 'border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-black' : 'border-green-400 text-green-400 hover:bg-green-400 hover:text-black'"
+                >
+                  @if (project.status === 'PUBLISHED') {
+                    <i-lucide name="clock" class="w-4 h-4 mx-auto"></i-lucide>
+                  } @else {
+                    <i-lucide name="check-circle" class="w-4 h-4 mx-auto"></i-lucide>
+                  }
+                </button>
+
+                <button
+                  (click)="deleteProject(project.id); $event.stopPropagation()"
+                  class="w-10 h-10 rounded-full border border-gray-600 text-gray-400 hover:border-red-400 hover:text-red-400 transition-colors"
+                >
+                  <i-lucide name="trash-2" class="w-4 h-4 mx-auto"></i-lucide>
+                </button>
+              </div>
+            </div>
+
+            <div class="p-6">
+              <h3 class="text-lg font-medium text-white mb-2 group-hover:text-purple-300 transition-colors">
+                {{ project.name }}
+              </h3>
+              <p class="text-sm text-gray-400 line-clamp-2 leading-relaxed mb-4">{{ project.description }}</p>
+
+              <!-- Minimal Tech Tags -->
+              <div class="flex flex-wrap gap-1 mb-4">
+                @for (tech of (project.technologies || []).slice(0, 3); track tech) {
+                  <span class="px-2 py-1 bg-gray-800/50 text-gray-400 text-xs rounded-lg">
+                    {{ tech }}
+                  </span>
+                }
+                @if ((project.technologies || []).length > 3) {
+                  <span class="px-2 py-1 bg-gray-800/30 text-gray-500 text-xs rounded-lg">
+                    +{{ (project.technologies || []).length - 3 }}
+                  </span>
+                }
+              </div>
+
+              <div class="flex items-center justify-between text-xs text-gray-500">
+                <div class="flex items-center gap-3">
+                  <span>{{ project.views || 0 }} views</span>
+                  <span>{{ (project.images || []).length }} photos</span>
+                </div>
+                <span>{{ project.createdAt | date:'shortDate' }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      @if (filteredProjects().length === 0) {
+        <div class="text-center py-20">
+          <div class="w-20 h-20 bg-gray-900/30 rounded-3xl flex items-center justify-center mx-auto mb-6">
+            <i-lucide name="folder-open" class="w-10 h-10 text-gray-600"></i-lucide>
+          </div>
+          <p class="text-gray-400 text-lg font-light">
+            {{ searchTerm() || filterStatus() !== 'all' ? 'No projects found' : 'No projects yet' }}
+          </p>
+        </div>
+      }
+    </div>
+  </div>
+</app-admin-sidemenu>

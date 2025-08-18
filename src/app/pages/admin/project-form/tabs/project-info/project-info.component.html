@@ -1,0 +1,159 @@
+<div class="space-y-10">
+
+  <div class="grid lg:grid-cols-2 gap-4 items-start mt-4">
+    <div class="space-y-6">
+
+      <div>
+        <label class="block text-lg font-medium text-white mb-2">
+          Project name <span class="text-purple-400">*</span>
+        </label>
+        <mat-form-field appearance="outline" class="w-full">
+                     <input
+             matInput
+             type="text"
+             [value]="formData.title"
+             (input)="onInputEvent($event, 'title')"
+             placeholder="Ex: Landing page "
+             class="text-xl"
+           />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <label class="block text-lg font-medium text-white mb-2 flex items-center gap-2">
+          <i-lucide name="FolderOpen" class="w-4 h-4 text-purple-300"></i-lucide>
+          Type of project
+        </label>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-select
+            [value]="formData.category"
+            (selectionChange)="onInputChange('category', $event.value)"
+          >
+            @for (category of categories; track category.value) {
+              <mat-option [value]="category.value">{{ category.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <label class="block text-lg font-medium text-white mb-2 flex items-center gap-2">
+          <i-lucide name="Settings" class="w-4 h-4 text-purple-300"></i-lucide>
+          Technologies
+        </label>
+        <mat-form-field appearance="outline" class="w-full">
+          <input
+            matInput
+            type="text"
+            [value]="formData.technologies"
+            (input)="onInputEvent($event, 'technologies')"
+            (keydown)="onTechKeydown($event)"
+            (blur)="onTechBlur($event)"
+            placeholder="Angular, TypeScript, Firebase (separated by commas)"
+          />
+        </mat-form-field>
+<!--         <p class="text-sm text-gray-500 mt-1">Separate technologies with enter</p> -->
+
+        @if (technologyTags().length > 0) {
+          <div class="flex flex-wrap gap-2 mt-2">
+            @for (tech of technologyTags(); track $index) {
+              <span class="px-3 py-1 bg-purple-600/20 text-purple-300 rounded-full text-sm flex items-center gap-2 transition-all duration-200 hover:bg-purple-600/30 hover:-translate-y-0.5">
+                {{ tech }}
+                <button
+                  (click)="removeTechnology($index)"
+                  class="hover:text-purple-400 transition-colors"
+                >
+                  <i-lucide name="X" class="w-3 h-3"></i-lucide>
+                </button>
+              </span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-lg font-medium text-white mb-2">
+        Description <span class="text-purple-400">*</span>
+      </label>
+      <mat-form-field appearance="outline" class="w-full">
+                 <textarea
+           matInput
+           [value]="formData.description"
+           (input)="onInputEvent($event, 'description')"
+           rows="12"
+           placeholder="Detailed description of the project, functionalities and technologies used..."
+           class="resize-none"
+         ></textarea>
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4 items-start">
+    <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 transition-all duration-300 hover:border-purple-400/30 hover:-translate-y-1">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-blue-600/20 rounded-lg flex items-center justify-center">
+          <i-lucide name="ExternalLink" class="w-5 h-5 text-blue-400"></i-lucide>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-white">Live Demo</h3>
+          <p class="text-gray-400 text-sm">URL where the project can be seen working</p>
+        </div>
+      </div>
+      <mat-form-field appearance="outline" class="w-full">
+                 <input
+           matInput
+           type="url"
+           [value]="formData.demo"
+           (input)="onInputEvent($event, 'demo')"
+           placeholder="https://project-name.com"
+         />
+      </mat-form-field>
+      @if (formData.demo) {
+        <a
+          [href]="formData.demo"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm mt-3 transition-colors"
+        >
+          <i-lucide name="ExternalLink" class="w-4 h-4"></i-lucide>
+          Open demo
+        </a>
+      }
+    </div>
+
+
+    <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 transition-all duration-300 hover:border-purple-400/30 hover:-translate-y-1">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-gray-600/20 rounded-lg flex items-center justify-center">
+          <i-lucide name="Github" class="w-5 h-5 text-gray-400"></i-lucide>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-white">Source Code</h3>
+          <p class="text-gray-400 text-sm">Link to the GitHub repository</p>
+        </div>
+      </div>
+      <mat-form-field appearance="outline" class="w-full">
+                 <input
+           matInput
+           type="url"
+           [value]="formData.github"
+           (input)="onInputEvent($event, 'github')"
+           placeholder="https://github.com/CandeLandi/project"
+         />
+      </mat-form-field>
+      @if (formData.github) {
+        <a
+          [href]="formData.github"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-gray-400 hover:text-white text-sm mt-3 transition-colors"
+        >
+          <i-lucide name="Github" class="w-4 h-4"></i-lucide>
+          View repository
+        </a>
+      }
+    </div>
+  </div>
+</div>
