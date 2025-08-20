@@ -1,6 +1,11 @@
 import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
+import { UploadService } from '../../../../../services/upload.service';
+import { GalleryService } from '../../../../../services/gallery.service';
+import { GalleryImage } from '../../../../../models/project.interface';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-project-gallery',
@@ -13,11 +18,19 @@ import { LucideAngularModule } from 'lucide-angular';
   styleUrls: ['./project-gallery.component.css']
 })
 export class ProjectGalleryComponent {
-  @Input() images: string[] = [];
-  @Output() imagesChange = new EventEmitter<string[]>();
+  @Input() projectId: string | null = null;
+  @Input() images: (string | GalleryImage)[] = [];
+  @Output() imagesChange = new EventEmitter<(string | GalleryImage)[]>();
+  @Output() refreshRequested = new EventEmitter<void>();
 
   currentImageIndex = signal(0);
   uploading = signal(false);
+  uploadError = signal<string | null>(null);
+
+  constructor(
+    private uploadService: UploadService,
+    private galleryService: GalleryService
+  ) {}
 
   onFileSelected(event: any) {
     const files = event.target.files;
@@ -42,53 +55,56 @@ export class ProjectGalleryComponent {
   }
 
   private uploadImages(files: FileList) {
+    if (!this.projectId) {
+      this.uploadError.set('Create the project first to upload images');
+      return;
+    }
+
     this.uploading.set(true);
+    this.uploadError.set(null);
 
-    // Simulate upload process
-    setTimeout(() => {
-      const newImages: string[] = [];
+    const fileArray = Array.from(files).filter(file => file.type.startsWith('image/'));
+    const uploads = fileArray.map(file =>
+      this.uploadService.uploadToProjectGallery(this.projectId!, file).pipe(
+        catchError((err) => {
+          console.error('Upload error', err);
+          this.uploadError.set('Error uploading one or more images');
+          return of(null);
+        })
+      )
+    );
 
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-
-        // Validate file type
-        if (!file.type.startsWith('image/')) {
-          console.warn(`File ${file.name} is not an image`);
-          continue;
-        }
-
-        // Validate file size (5MB)
-        if (file.size > 5 * 1024 * 1024) {
-          console.warn(`File ${file.name} is too large (max 5MB)`);
-          continue;
-        }
-
-        // Create preview URL
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const result = e.target?.result as string;
-          newImages.push(result);
-
-          // Update images array when all files are processed
-          if (newImages.length === files.length) {
-            this.imagesChange.emit([...this.images, ...newImages]);
-            this.uploading.set(false);
-          }
-        };
-        reader.readAsDataURL(file);
-      }
-    }, 1000);
+    forkJoin(uploads).subscribe(() => {
+      this.uploading.set(false);
+      // Pide al padre refrescar la galería desde el backend
+      this.refreshRequested.emit();
+    });
   }
 
   removeImage(index: number) {
-    const newImages = [...this.images];
-    newImages.splice(index, 1);
-    this.imagesChange.emit(newImages);
+    const image = this.images[index];
+    if (!image) return;
 
-    // Adjust current index if necessary
-    if (this.currentImageIndex() >= newImages.length) {
-      this.currentImageIndex.set(Math.max(0, newImages.length - 1));
+    // If local string, remove locally
+    if (typeof image === 'string' || !(image as GalleryImage).id) {
+      const newImages = [...this.images];
+      newImages.splice(index, 1);
+      this.imagesChange.emit(newImages);
+      if (this.currentImageIndex() >= newImages.length) {
+        this.currentImageIndex.set(Math.max(0, newImages.length - 1));
+      }
+      return;
     }
+
+    if (!this.projectId) return;
+
+    this.galleryService.removeImage(this.projectId, (image as GalleryImage).id).subscribe({
+      next: () => {
+        // Delega refresco al padre para evitar estados inconsistentes
+        this.refreshRequested.emit();
+      },
+      error: (err: any) => console.error('Error deleting image', err)
+    });
   }
 
   setCurrentImage(index: number) {
@@ -107,5 +123,9 @@ export class ProjectGalleryComponent {
       ? 0
       : this.currentImageIndex() + 1;
     this.currentImageIndex.set(newIndex);
+  }
+
+  getImageUrl(image: string | GalleryImage): string {
+    return typeof image === 'string' ? image : image.url;
   }
 }

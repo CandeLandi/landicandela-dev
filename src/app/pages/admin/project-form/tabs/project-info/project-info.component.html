@@ -26,11 +26,11 @@
         </label>
         <mat-form-field appearance="outline" class="w-full">
           <mat-select
-            [value]="formData.category"
-            (selectionChange)="onInputChange('category', $event.value)"
+            [value]="formData.type"
+            (selectionChange)="onInputChange('type', $event.value)"
           >
-            @for (category of categories; track category.value) {
-              <mat-option [value]="category.value">{{ category.label }}</mat-option>
+            @for (type of types; track type.value) {
+              <mat-option [value]="type.value">{{ type.label }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
@@ -45,8 +45,8 @@
           <input
             matInput
             type="text"
-            [value]="formData.technologies"
-            (input)="onInputEvent($event, 'technologies')"
+            [value]="formData.features"
+            (input)="onInputEvent($event, 'features')"
             (keydown)="onTechKeydown($event)"
             (blur)="onTechBlur($event)"
             placeholder="Angular, TypeScript, Firebase (separated by commas)"
@@ -74,7 +74,7 @@
 
     <div>
       <label class="block text-lg font-medium text-white mb-2">
-        Description <span class="text-purple-400">*</span>
+        Description
       </label>
       <mat-form-field appearance="outline" class="w-full">
                  <textarea
@@ -105,14 +105,14 @@
                  <input
            matInput
            type="url"
-           [value]="formData.demo"
-           (input)="onInputEvent($event, 'demo')"
+           [value]="formData.demoUrl"
+           (input)="onInputEvent($event, 'demoUrl')"
            placeholder="https://project-name.com"
          />
       </mat-form-field>
-      @if (formData.demo) {
+      @if (formData.demoUrl) {
         <a
-          [href]="formData.demo"
+          [href]="formData.demoUrl"
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm mt-3 transition-colors"
@@ -138,14 +138,14 @@
                  <input
            matInput
            type="url"
-           [value]="formData.github"
-           (input)="onInputEvent($event, 'github')"
+           [value]="formData.githubUrl"
+           (input)="onInputEvent($event, 'githubUrl')"
            placeholder="https://github.com/CandeLandi/project"
          />
       </mat-form-field>
-      @if (formData.github) {
+      @if (formData.githubUrl) {
         <a
-          [href]="formData.github"
+          [href]="formData.githubUrl"
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-2 text-gray-400 hover:text-white text-sm mt-3 transition-colors"

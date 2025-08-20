@@ -6,11 +6,11 @@ import { Project } from '../../../../../models/project.interface';
 interface FormData {
   title: string;
   description: string;
-  category: string;
-  technologies: string;
-  demo: string;
-  github: string;
-  images: string[];
+  type: string;
+  features: string;
+  demoUrl: string;
+  githubUrl: string;
+  gallery: any[];
   visible: boolean;
   featured: boolean;
 }

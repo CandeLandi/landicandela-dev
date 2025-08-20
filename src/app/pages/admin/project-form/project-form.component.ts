@@ -38,11 +38,11 @@ export class ProjectFormComponent implements OnInit {
   formData = signal({
     title: '',
     description: '',
-    category: '',
-    technologies: '',
-    demo: '',
-    github: '',
-    images: [] as string[],
+    type: '',
+    features: '', // comma-separated for UI; will map to string[]
+    demoUrl: '',
+    githubUrl: '',
+    gallery: [] as any[],
     visible: true,
     featured: false
   });
@@ -68,8 +68,37 @@ export class ProjectFormComponent implements OnInit {
 
   loadProject(projectId: string) {
     this.loading.set(true);
-    // TODO: Implement load project from service
-    this.loading.set(false);
+    this.projectService.getProjectById(projectId).subscribe({
+      next: (p: any) => {
+        const technologiesRaw = (p.features ?? p.technologies) as unknown;
+        const features = Array.isArray(technologiesRaw)
+          ? technologiesRaw
+          : typeof technologiesRaw === 'string'
+            ? technologiesRaw.split(',').map((t: string) => t.trim()).filter(Boolean)
+            : [];
+        const project: Project = {
+          ...p,
+          gallery: p.gallery ?? p.images ?? [],
+          features,
+          demoUrl: p.demoUrl ?? p.url ?? undefined,
+          githubUrl: p.githubUrl ?? p.github ?? undefined
+        };
+        this.project.set(project);
+        this.formData.set({
+          title: project.name || '',
+          description: project.description || '',
+          type: project.type || '',
+          features: (project.features || []).join(', '),
+          demoUrl: project.demoUrl || '',
+          githubUrl: project.githubUrl || '',
+          gallery: project.gallery || [],
+          visible: project.visible,
+          featured: project.featured
+        });
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false)
+    });
   }
 
   onTabChange(index: number) {
@@ -85,14 +114,17 @@ export class ProjectFormComponent implements OnInit {
       this.loading.set(true);
       const projectData = {
         name: this.formData().title,
-        description: this.formData().description,
+        description: this.formData().description || undefined,
+        type: this.formData().type || undefined,
         status: 'DRAFT' as const,
         featured: this.formData().featured,
         visible: this.formData().visible,
-        technologies: this.formData().technologies.split(',').map(t => t.trim()).filter(Boolean),
-        images: this.formData().images,
-        url: this.formData().demo,
-        github: this.formData().github
+        features: (this.formData().features || '')
+          .split(',')
+          .map(t => t.trim())
+          .filter(Boolean),
+        demoUrl: this.formData().demoUrl || undefined,
+        githubUrl: this.formData().githubUrl || undefined
       };
 
       this.projectService.createProject(projectData).subscribe({
@@ -106,6 +138,37 @@ export class ProjectFormComponent implements OnInit {
         complete: () => {
           this.loading.set(false);
         }
+      });
+    } else {
+      // Edit mode: Save Changes
+      const id = this.project()?.id;
+      if (!id) return;
+      this.loading.set(true);
+      const updates: any = {
+        name: this.formData().title || undefined,
+        description: this.formData().description || undefined,
+        type: this.formData().type || undefined,
+        featured: this.formData().featured,
+        visible: this.formData().visible,
+        demoUrl: this.formData().demoUrl || undefined,
+        githubUrl: this.formData().githubUrl || undefined,
+        technologies: (this.formData().features || '')
+          .split(',')
+          .map(t => t.trim())
+          .filter(Boolean)
+          .join(', ')
+      };
+
+      this.projectService.updateProject(id, updates).subscribe({
+        next: () => {
+          // TODO: reemplazar con toast bonito (Angular Material Snackbar / custom)
+          console.log('Changes saved');
+          this.router.navigate(['/admin/dashboard']);
+        },
+        error: (error) => {
+          console.error('Error saving changes:', error);
+        },
+        complete: () => this.loading.set(false)
       });
     }
   }

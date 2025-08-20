@@ -1,0 +1,34 @@
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+  <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 text-center">
+    <div class="flex items-center justify-center gap-2 mb-1">
+      <i-lucide name="Briefcase" class="w-4 h-4 text-gray-400"></i-lucide>
+      <span class="text-3xl font-light text-white">{{ stats.totalProjects }}</span>
+    </div>
+    <div class="text-sm text-gray-400">Projects</div>
+  </div>
+
+  <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 text-center">
+    <div class="flex items-center justify-center gap-2 mb-1">
+      <i-lucide name="CheckCircle" class="w-4 h-4 text-green-400"></i-lucide>
+      <span class="text-3xl font-light text-green-400">{{ stats.publishedProjects }}</span>
+    </div>
+    <div class="text-sm text-gray-400">Published</div>
+  </div>
+
+  <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 text-center">
+    <div class="flex items-center justify-center gap-2 mb-1">
+      <i-lucide name="Clock" class="w-4 h-4 text-orange-400"></i-lucide>
+      <span class="text-3xl font-light text-orange-400">{{ stats.draftProjects }}</span>
+    </div>
+    <div class="text-sm text-gray-400">Drafts</div>
+  </div>
+
+  <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6 text-center">
+    <div class="flex items-center justify-center gap-2 mb-1">
+      <i-lucide name="Eye" class="w-4 h-4 text-blue-400"></i-lucide>
+      <span class="text-3xl font-light text-blue-400">{{ stats.totalViews }}</span>
+    </div>
+    <div class="text-sm text-gray-400">Views</div>
+  </div>
+</div>
+

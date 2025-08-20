@@ -35,7 +35,7 @@
                 <div class="text-gray-400">Views</div>
               </div>
               <div class="text-center">
-                <div class="text-white font-medium">{{ formData().images.length }}</div>
+                <div class="text-white font-medium">{{ formData().gallery.length }}</div>
                 <div class="text-gray-400">Images</div>
               </div>
             </div>
@@ -122,8 +122,10 @@
               <div>
                 <h2 class="text-2xl font-bold text-white mb-8">Gallery</h2>
                 <app-project-gallery
-                  [images]="formData().images"
-                  (imagesChange)="onFormDataChange({ images: $event })"
+                  [projectId]="project()?.id || null"
+                  [images]="formData().gallery"
+                  (imagesChange)="onFormDataChange({ gallery: $event })"
+                  (refreshRequested)="loadProject(project()?.id!)"
                 ></app-project-gallery>
               </div>
             }

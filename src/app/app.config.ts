@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import {
@@ -30,7 +30,9 @@ import {
   Settings,
   LogOut,
   ExternalLink,
-  Upload
+  Upload,
+  ArrowRight,
+  Copy
 } from 'lucide-angular';
 
 import { routes } from './app.routes';
@@ -40,6 +42,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(
+      withFetch(),
       withInterceptors([AuthInterceptor, ErrorInterceptor])
     ),
     importProvidersFrom(LucideAngularModule.pick({
@@ -73,11 +76,13 @@ export const appConfig: ApplicationConfig = {
       Image,
       FolderOpen,
       ArrowLeft,
+      ArrowRight,
       FileText,
       Settings,
       LogOut,
       ExternalLink,
-      Upload
+      Upload,
+      Copy
     }))
   ]
 };

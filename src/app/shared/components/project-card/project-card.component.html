@@ -1,0 +1,88 @@
+<div
+  class="group bg-gray-900/20 backdrop-blur-sm border border-gray-800/30 rounded-2xl overflow-hidden hover:border-gray-700/50 transition-all duration-500 cursor-pointer hover:bg-gray-900/30"
+  (click)="onEdit()"
+>
+  <div class="relative bg-gray-900/50" style="aspect-ratio: 4 / 3;">
+    @if ((project.gallery || []).length > 0) {
+      <img
+        [src]="getCoverUrl() || '/placeholder.svg?height=240&width=320&text=Project'"
+        [alt]="project.name"
+        class="w-full h-full object-cover"
+      />
+    } @else {
+      <div class="w-full h-full flex items-center justify-center">
+        <div class="w-16 h-16 bg-gray-800/50 rounded-2xl flex items-center justify-center">
+          <i-lucide name="image" class="w-8 h-8 text-gray-600"></i-lucide>
+        </div>
+      </div>
+    }
+
+    <div class="absolute top-4 left-4 flex items-center gap-2">
+      <div
+        class="w-2 h-2 rounded-full"
+        [class]="project.status === 'PUBLISHED' ? 'bg-green-400' : 'bg-orange-400'"
+      ></div>
+      @if (project.featured) {
+        <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+      }
+    </div>
+
+    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+      <button
+        (click)="onToggleFeatured($event)"
+        class="w-10 h-10 rounded-full border transition-colors"
+        [class]="project.featured ? 'bg-yellow-400 border-yellow-400 text-black' : 'border-gray-600 text-gray-400 hover:border-yellow-400 hover:text-yellow-400'"
+      >
+        <i-lucide name="star" class="w-4 h-4 mx-auto" [class]="project.featured ? 'fill-current' : ''"></i-lucide>
+      </button>
+
+      <button
+        (click)="onToggleStatus($event)"
+        class="w-10 h-10 rounded-full border transition-colors"
+        [class]="project.status === 'PUBLISHED' ? 'border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-black' : 'border-green-400 text-green-400 hover:bg-green-400 hover:text-black'"
+      >
+        @if (project.status === 'PUBLISHED') {
+          <i-lucide name="clock" class="w-4 h-4 mx-auto"></i-lucide>
+        } @else {
+          <i-lucide name="check-circle" class="w-4 h-4 mx-auto"></i-lucide>
+        }
+      </button>
+
+      <button
+        (click)="onDelete($event)"
+        class="w-10 h-10 rounded-full border border-gray-600 text-gray-400 hover:border-red-400 hover:text-red-400 transition-colors"
+      >
+        <i-lucide name="trash-2" class="w-4 h-4 mx-auto"></i-lucide>
+      </button>
+    </div>
+  </div>
+
+  <div class="p-6">
+    <h3 class="text-lg font-medium text-white mb-2 group-hover:text-purple-300 transition-colors">
+      {{ project.name }}
+    </h3>
+    <p class="text-sm text-gray-400 line-clamp-2 leading-relaxed mb-4">{{ project.description }}</p>
+
+    <div class="flex flex-wrap gap-1 mb-4">
+      @for (tech of (project.features || []).slice(0, 3); track tech) {
+        <span class="px-2 py-1 bg-gray-800/50 text-gray-400 text-xs rounded-lg">
+          {{ tech }}
+        </span>
+      }
+      @if ((project.features || []).length > 3) {
+        <span class="px-2 py-1 bg-gray-800/30 text-gray-500 text-xs rounded-lg">
+          +{{ (project.features || []).length - 3 }}
+        </span>
+      }
+    </div>
+
+    <div class="flex items-center justify-between text-xs text-gray-500">
+      <div class="flex items-center gap-3">
+        <span>{{ project.views || 0 }} views</span>
+        <span>{{ (project.gallery || []).length }} photos</span>
+      </div>
+      <span>{{ project.createdAt | date:'shortDate' }}</span>
+    </div>
+  </div>
+</div>
+

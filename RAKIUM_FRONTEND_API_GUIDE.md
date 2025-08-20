@@ -93,38 +93,22 @@ const headers = {
 
 ## 🏗️ Gestión de Proyectos
 
-### Estructura del Proyecto
+### Estructura del Proyecto (Portfolio de Programación)
 
 ```typescript
 interface Project {
   id: string;
   name: string;
-  type?: 'LANDING' | 'ECOMMERCE' | 'INMOBILIARIA' | 'CUSTOM';
+  type?: string; // WEB_APP, MOBILE_APP, ECOMMERCE, LANDING, OTHER
   status: 'DRAFT' | 'PUBLISHED' | 'PENDING';
-  category?: 'ESTACIONES' | 'TIENDAS' | 'COMERCIALES';
   description?: string;
   longDescription?: string;
-  imageBefore?: string;
-  imageAfter?: string;
-  latitude?: number;
-  longitude?: number;
-  address?: {
-    address: string;
-    lat: number;
-    lng: number;
-  };
-  country?: string;
-  state?: string;
-  city?: string;
-  area?: string;
   duration?: string;
-  date?: string;
-  startDate?: string;
-  endDate?: string;
-  url?: string;
+  demoUrl?: string;
+  githubUrl?: string;
+  features?: string[]; // chips de tecnologías
+  gallery?: string[];  // URLs de imágenes
   clientId: string;
-  challenge?: string;
-  solution?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -147,26 +131,19 @@ Authorization: Bearer {token}
 
 // Ejemplo completo
 {
-  "name": "Remodelación Estación Norte",
-  "category": "ESTACIONES",
-  "type": "LANDING",
+  "name": "Portfolio Website",
+  "type": "WEB_APP",
   "status": "DRAFT",
-  "description": "Remodelación completa de la estación",
-  "longDescription": "Descripción detallada del proyecto...",
-  "address": {
-    "address": "Lobería, Buenos Aires Province, Argentina",
-    "lat": -38.1634422,
-    "lng": -58.7816955
-  },
-  "country": "Argentina",
-  "state": "Buenos Aires",
-  "city": "Lobería",
-  "area": "500m²",
-  "duration": "3 meses",
-  "startDate": "2024-01-01T00:00:00.000Z",
-  "endDate": "2024-03-31T23:59:59.999Z",
-  "challenge": "Mantener operaciones durante la remodelación",
-  "solution": "Trabajo por fases y horarios especiales",
+  "description": "Modern responsive portfolio.",
+  "longDescription": "Detailed description of features and stack...",
+  // duration no se usa en este portfolio
+  "demoUrl": "https://candela-landi.dev",
+  "githubUrl": "https://github.com/candelandi/portfolio",
+  "features": ["Angular", "Tailwind", "SSR"],
+  "gallery": [
+    "https://cdn.example.com/projects/portfolio/home.jpg",
+    "https://cdn.example.com/projects/portfolio/about.jpg"
+  ],
   "clientId": "88b59ed0-4d52-45db-bd21-ef72a8338fbc"
 }
 ```
@@ -197,7 +174,11 @@ Authorization: Bearer {token}
 {
   "name": "Nuevo nombre",
   "status": "PUBLISHED",
-  "description": "Nueva descripción"
+  "description": "Nueva descripción",
+  "demoUrl": "https://demo.com",
+  "githubUrl": "https://github.com/user/repo",
+  "features": ["Angular", "Tailwind"],
+  "gallery": ["https://cdn.example.com/img1.jpg"]
 }
 ```
 

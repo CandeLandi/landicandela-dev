@@ -1,9 +1,11 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { AdminSidemenuComponent } from '../../../shared/components/admin-sidemenu/admin-sidemenu.component';
+import { StatsCardsComponent } from '../../../shared/components/stats-cards/stats-cards.component';
+import { ProjectCardComponent } from '../../../shared/components/project-card/project-card.component';
 import { ProjectService } from '../../../services/project.service';
 import { AuthService } from '../../../services/auth.service';
 import { Project } from '../../../models/project.interface';
@@ -15,7 +17,9 @@ import { Project } from '../../../models/project.interface';
     CommonModule,
     FormsModule,
     LucideAngularModule,
-    AdminSidemenuComponent
+    AdminSidemenuComponent,
+    StatsCardsComponent,
+    ProjectCardComponent
   ],
   templateUrl: './dashboard.component.html'
 })
@@ -24,45 +28,32 @@ export class DashboardComponent implements OnInit {
   searchTerm = signal('');
   filterStatus = signal('all');
   sortBy = signal('newest'); // kept for internal ordering but hidden in UI
-  filteredProjects = signal<Project[]>([]);
+  projects = signal<Project[]>([]);
 
-  constructor(
-    private router: Router,
-    public projectService: ProjectService,
-    public authService: AuthService
-  ) {}
+  stats = computed(() => {
+    const list = this.projects();
+    return {
+      totalProjects: list.length,
+      publishedProjects: list.filter(p => p.status === 'PUBLISHED').length,
+      draftProjects: list.filter(p => p.status === 'DRAFT').length,
+      totalViews: list.reduce((sum, p) => sum + (p.views || 0), 0)
+    };
+  });
 
-  ngOnInit() {
-    this.loadProjects();
-  }
-
-  loadProjects() {
-    this.projectService.loadProjects().subscribe({
-      next: () => {
-        this.updateFilteredProjects();
-      },
-      error: (error) => {
-        console.error('Error loading projects:', error);
-      }
-    });
-  }
-
-  updateFilteredProjects() {
-    let filtered = [...this.projectService.projects()];
+  filteredProjects = computed(() => {
+    let filtered = [...this.projects()];
     const searchTerm = this.searchTerm();
     const filterStatus = this.filterStatus();
     const sortBy = this.sortBy();
 
-    // Filter by search term
     if (searchTerm) {
       filtered = filtered.filter(project =>
         (project.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
         (project.description || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (project.technologies || []).some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()))
+        (project.features || []).some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
 
-    // Filter by status
     if (filterStatus !== 'all') {
       const statusMap: { [key: string]: string } = {
         'published': 'PUBLISHED',
@@ -71,7 +62,6 @@ export class DashboardComponent implements OnInit {
       filtered = filtered.filter(project => project.status === statusMap[filterStatus]);
     }
 
-    // Sort projects
     switch (sortBy) {
       case 'newest':
         filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -87,22 +77,62 @@ export class DashboardComponent implements OnInit {
         break;
     }
 
-    this.filteredProjects.set(filtered);
+    return filtered;
+  });
+
+  constructor(
+    private router: Router,
+    public projectService: ProjectService,
+    public authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.loadProjects();
+  }
+
+  loadProjects() {
+    const clientId = this.authService.getClientId() || '';
+    this.projectService.getProjectsByClientId(clientId, { page: 1, limit: 100 }).subscribe({
+      next: (response: any) => {
+        const raw: any[] = Array.isArray(response) ? response : (response?.data ?? response?.items ?? []);
+        const clientId = this.authService.getClientId();
+        const mapped: Project[] = (raw || [])
+          .filter((p: any) => {
+            if (!clientId) return true;
+            const ownerId = p.clientId ?? p.client?.id;
+            return ownerId === clientId;
+          })
+          .map((p: any) => {
+            const technologiesRaw = (p.features ?? p.technologies) as unknown;
+            const features = Array.isArray(technologiesRaw)
+              ? technologiesRaw
+              : typeof technologiesRaw === 'string'
+                ? technologiesRaw.split(',').map((t: string) => t.trim()).filter(Boolean)
+                : [];
+            return {
+              ...p,
+              gallery: p.gallery ?? p.images ?? [],
+              features,
+              demoUrl: p.demoUrl ?? p.url ?? undefined,
+              githubUrl: p.githubUrl ?? p.github ?? undefined
+            } as Project;
+          });
+        this.projects.set(mapped);
+      },
+      error: (error: any) => console.error('Error loading projects:', error)
+    });
   }
 
   onSearchChange(event: any) {
     this.searchTerm.set(event.target.value);
-    this.updateFilteredProjects();
   }
 
   onFilterChange(event: any) {
     this.filterStatus.set(event.target.value);
-    this.updateFilteredProjects();
   }
 
   onSortChange(event: any) {
     this.sortBy.set(event.target.value);
-    this.updateFilteredProjects();
   }
 
   navigateToNewProject() {
@@ -119,13 +149,24 @@ export class DashboardComponent implements OnInit {
   }
 
   toggleFeatured(projectId: string) {
-    this.projectService.toggleFeatured(projectId);
-    this.updateFilteredProjects();
+    const project = this.projects().find(p => p.id === projectId);
+    if (!project) return;
+    this.projectService.updateProject(projectId, { featured: !project.featured }).subscribe({
+      next: (updated) => {
+        this.projects.set(this.projects().map(p => p.id === projectId ? { ...p, featured: updated.featured } : p));
+      }
+    });
   }
 
   toggleStatus(projectId: string) {
-    this.projectService.toggleStatus(projectId);
-    this.updateFilteredProjects();
+    const project = this.projects().find(p => p.id === projectId);
+    if (!project) return;
+    const newStatus = project.status === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED';
+    this.projectService.updateProject(projectId, { status: newStatus }).subscribe({
+      next: (updated) => {
+        this.projects.set(this.projects().map(p => p.id === projectId ? { ...p, status: updated.status } : p));
+      }
+    });
   }
 
   deleteProject(projectId: string) {
@@ -133,7 +174,7 @@ export class DashboardComponent implements OnInit {
       this.projectService.deleteProject(projectId).subscribe({
         next: () => {
           console.log('Project deleted successfully');
-          this.updateFilteredProjects();
+          this.projects.set(this.projects().filter(p => p.id !== projectId));
         },
         error: (error) => {
           console.error('Error deleting project:', error);

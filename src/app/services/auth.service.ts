@@ -1,93 +1,58 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { User } from '../pages/admin/interfaces/user.interface';
 
-export interface User {
-  id: string;
-  username: string;
-  email: string;
-  clientId: string;
-}
 
-export interface LoginResponse {
-  token: string;
-  user: User;
-}
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
+  private readonly API_URL = `${environment.apiUrl}/auth`;
+  private readonly TOKEN_KEY = 'access_token';
+  private readonly USER_KEY = 'user';
 
-  constructor(private http: HttpClient) {
-    this.loadUserFromStorage();
-  }
+  public clientIdSignal: WritableSignal<string | null> = signal(this.getClientId());
 
-  private loadUserFromStorage() {
-    const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
+  constructor(private http: HttpClient) {}
 
-    if (token && user) {
-      try {
-        const userData = JSON.parse(user);
-        this.currentUserSubject.next(userData);
-      } catch (error) {
-        this.logout();
-      }
-    }
-  }
-
-  login(email: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, {
-      email,
-      password
-    }).pipe(
-      map(response => {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('user', JSON.stringify(response.user));
-        this.currentUserSubject.next(response.user);
-        return response;
+  login(email: string, password: string): Observable<{ access_token: string; user: User }> {
+    return this.http.post<{ access_token: string; user: User }>(`${this.API_URL}/login`, { email, password }).pipe(
+      tap(res => {
+        if (res.access_token) {
+          localStorage.setItem(this.TOKEN_KEY, res.access_token);
+          localStorage.setItem(this.USER_KEY, JSON.stringify(res.user));
+          this.clientIdSignal.set(res.user.clientId || null);
+        }
       })
     );
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.currentUserSubject.next(null);
+  logout(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.USER_KEY);
+    this.clientIdSignal.set(null);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    if (typeof window === 'undefined') return null;
+    const raw = localStorage.getItem(this.TOKEN_KEY) ?? localStorage.getItem('token');
+    if (!raw || raw === 'undefined' || raw === 'null') return null;
+    return raw;
   }
 
-  getCurrentUser(): User | null {
-    return this.currentUserSubject.value;
+  getUser(): User | null {
+    if (typeof window === 'undefined') return null;
+    const userStr = localStorage.getItem(this.USER_KEY);
+    return userStr ? JSON.parse(userStr) as User : null;
   }
 
-  getClientId(): string {
-    const user = this.getCurrentUser();
-    if (!user?.clientId) {
-      console.warn('No clientId found in user data');
-      return '';
-    }
-    return user.clientId;
+  getClientId(): string | null {
+    const user = this.getUser();
+    return user?.clientId || null;
   }
 
-  getUserId(): string {
-    const user = this.getCurrentUser();
-    if (!user?.id) {
-      console.warn('No userId found in user data');
-      return '';
-    }
-    return user.id;
-  }
-
-  isAuthenticated(): boolean {
-    return !!this.getToken() && !!this.getCurrentUser();
+  isLoggedIn(): boolean {
+    return !!this.getToken();
   }
 }

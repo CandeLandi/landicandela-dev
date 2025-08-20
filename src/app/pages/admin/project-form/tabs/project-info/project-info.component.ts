@@ -10,11 +10,11 @@ import { Project } from '../../../../../models/project.interface';
 interface FormData {
   title: string;
   description: string;
-  category: string;
-  technologies: string;
-  demo: string;
-  github: string;
-  images: string[];
+  type: string;
+  features: string; // comma-separated
+  demoUrl: string;
+  githubUrl: string;
+  gallery: any[];
   visible: boolean;
   featured: boolean;
 }
@@ -42,11 +42,11 @@ export class ProjectInfoComponent {
   // Computed values
   characterCount = computed(() => this.formData.description.length);
   wordCount = computed(() =>
-    this.formData.description.split(' ').filter(word => word.length > 0).length
+    (this.formData.description || '').split(' ').filter(word => word.length > 0).length
   );
 
   technologyTags() {
-    const value = this.formData?.technologies || '';
+    const value = this.formData?.features || '';
     const tokens = value
       .split(',')
       .map(tech => tech.trim())
@@ -54,14 +54,12 @@ export class ProjectInfoComponent {
     return Array.from(new Set(tokens));
   }
 
-  categories = [
-    { value: '', label: 'Select category' },
-    { value: 'web', label: 'Web Application' },
-    { value: 'mobile', label: 'Mobile Application' },
-    { value: 'ecommerce', label: 'E-commerce' },
-    { value: 'dashboard', label: 'Dashboard' },
-    { value: 'landing', label: 'Landing Page' },
-    { value: 'other', label: 'Other' }
+  types = [
+    { value: '', label: 'Select type' },
+    { value: 'LANDING', label: 'Landing Page' },
+    { value: 'ECOMMERCE', label: 'E-commerce' },
+    { value: 'INMOBILIARIA', label: 'Real Estate' },
+    { value: 'CUSTOM', label: 'Custom' }
   ];
 
   onInputChange(field: keyof FormData, value: any) {
@@ -76,7 +74,7 @@ export class ProjectInfoComponent {
   removeTechnology(index: number) {
     const tags = this.technologyTags();
     tags.splice(index, 1);
-    this.onInputChange('technologies', tags.join(', '));
+    this.onInputChange('features', tags.join(', '));
   }
 
   // Add technology on Enter or comma and normalize string
@@ -96,7 +94,7 @@ export class ProjectInfoComponent {
     // ensure uniqueness
     const unique = Array.from(new Set(tokens));
     const normalized = unique.join(', ') + ', ';
-    this.onInputChange('technologies', normalized);
+    this.onInputChange('features', normalized);
     target.value = normalized;
   }
 
@@ -108,6 +106,6 @@ export class ProjectInfoComponent {
       .split(',')
       .map(t => t.trim())
       .filter(t => t.length > 0);
-    this.onInputChange('technologies', Array.from(new Set(tokens)).join(', '));
+    this.onInputChange('features', Array.from(new Set(tokens)).join(', '));
   }
 }
