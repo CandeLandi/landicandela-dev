@@ -10,21 +10,21 @@
     </div>
 
     <div class="space-y-16">
-      <div *ngFor="let project of projects; let index = index"
-           [class]="'grid lg:grid-cols-2 gap-8 items-center ' + (index % 2 === 1 ? 'lg:grid-flow-col-dense' : '')">
+      @for (project of projects; track project.id; let index = $index) {
+      <div [class]="'grid lg:grid-cols-2 gap-8 items-center ' + (index % 2 === 1 ? 'lg:grid-flow-col-dense' : '')">
 
         <!-- Image -->
         <div [class]="index % 2 === 1 ? 'lg:col-start-2' : ''">
           <div class="relative group">
             <img
-              [src]="project.images[currentImageIndex[project.id] || 0]"
-              [alt]="project.title"
+              [src]="project.gallery?.[currentImageIndex[project.id] || 0]?.url || ''"
+              [alt]="project.name"
               class="w-full h-[300px] object-cover rounded-lg"
             />
 
-            <div *ngIf="project.images.length > 1">
+            @if ((project.gallery?.length || 0) > 1) {
               <button
-                (click)="prevImage(project.id, project.images.length)"
+                (click)="prevImage(project.id, (project.gallery?.length || 0))"
                 class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,7 +32,7 @@
                 </svg>
               </button>
               <button
-                (click)="nextImage(project.id, project.images.length)"
+                (click)="nextImage(project.id, (project.gallery?.length || 0))"
                 class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,32 +41,34 @@
               </button>
 
               <div class="flex justify-center mt-3 gap-2">
+                @for (image of (project.gallery || []); track $index; let imgIndex = $index) {
                 <button
-                  *ngFor="let image of project.images; let imgIndex = index"
                   (click)="setCurrentImageIndex(project.id, imgIndex)"
                   [class]="'w-2 h-2 rounded-full transition-colors ' +
                     ((currentImageIndex[project.id] || 0) === imgIndex ? 'bg-purple-400' : 'bg-gray-600')"
                 ></button>
+                }
               </div>
-            </div>
+            }
           </div>
         </div>
 
         <!-- Content -->
         <div [class]="index % 2 === 1 ? 'lg:col-start-1' : ''">
-          <h3 class="text-2xl font-bold mb-4">{{ project.title }}</h3>
+          <h3 class="text-2xl font-bold mb-4">{{ project.name }}</h3>
           <p class="text-gray-300 mb-6 leading-relaxed">{{ project.description }}</p>
 
           <div class="flex flex-wrap gap-2 mb-6">
-            <span *ngFor="let tech of project.technologies"
-                  class="px-3 py-1 text-sm bg-gray-700 text-gray-300 hover:bg-purple-600 rounded-full transition-colors">
-              {{ tech }}
-            </span>
+            @for (tech of (project.features || []); track tech) {
+              <span class="px-3 py-1 text-sm bg-gray-700 text-gray-300 hover:bg-purple-600 rounded-full transition-colors">
+                {{ tech }}
+              </span>
+            }
           </div>
 
           <div class="flex items-center gap-4">
-            <a *ngIf="project.liveUrl"
-               [href]="project.liveUrl"
+            @if (project.demoUrl) {
+            <a [href]="project.demoUrl"
                target="_blank"
                rel="noopener noreferrer"
                class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
@@ -75,8 +77,9 @@
               </svg>
               View Demo
             </a>
-            <a *ngIf="project.githubUrl"
-               [href]="project.githubUrl"
+            }
+            @if (project.githubUrl) {
+            <a [href]="project.githubUrl"
                target="_blank"
                rel="noopener noreferrer"
                class="border border-gray-600 text-gray-300 hover:bg-gray-600 bg-transparent px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
@@ -85,9 +88,11 @@
               </svg>
               Code
             </a>
+            }
           </div>
         </div>
       </div>
+      }
     </div>
   </div>
 </section>

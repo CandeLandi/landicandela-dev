@@ -3,6 +3,7 @@
 /* Estilos para inputs personalizados */
 input {
   background: transparent;
+  color: #ffffff;
 }
 
 input::placeholder {
@@ -16,4 +17,5 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-background-clip: text;
   transition: background-color 5000s !important;
+  -webkit-text-fill-color: #ffffff !important;
 }

@@ -10,6 +10,7 @@ import { ProjectService } from '../../../services/project.service';
 import { AuthService } from '../../../services/auth.service';
 import { Project } from '../../../models/project.interface';
 
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -21,6 +22,7 @@ import { Project } from '../../../models/project.interface';
     StatsCardsComponent,
     ProjectCardComponent
   ],
+  providers: [],
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
@@ -83,7 +85,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     public projectService: ProjectService,
-    public authService: AuthService
+    public authService: AuthService,
+
   ) {}
 
   ngOnInit() {
@@ -109,9 +112,18 @@ export class DashboardComponent implements OnInit {
               : typeof technologiesRaw === 'string'
                 ? technologiesRaw.split(',').map((t: string) => t.trim()).filter(Boolean)
                 : [];
+            const galleryRaw = (p.gallery ?? p.images ?? []) as any[];
+            const gallerySorted = [...galleryRaw].sort((a: any, b: any) => {
+              const ao = typeof a?.order === 'number' ? a.order : Number.MAX_SAFE_INTEGER;
+              const bo = typeof b?.order === 'number' ? b.order : Number.MAX_SAFE_INTEGER;
+              if (ao !== bo) return ao - bo;
+              const ac = a?.createdAt ? new Date(a.createdAt).getTime() : 0;
+              const bc = b?.createdAt ? new Date(b.createdAt).getTime() : 0;
+              return ac - bc;
+            });
             return {
               ...p,
-              gallery: p.gallery ?? p.images ?? [],
+              gallery: gallerySorted,
               features,
               demoUrl: p.demoUrl ?? p.url ?? undefined,
               githubUrl: p.githubUrl ?? p.github ?? undefined
@@ -170,16 +182,15 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteProject(projectId: string) {
-    if (confirm('¿Estás seguro de que quieres eliminar este proyecto?')) {
-      this.projectService.deleteProject(projectId).subscribe({
-        next: () => {
-          console.log('Project deleted successfully');
-          this.projects.set(this.projects().filter(p => p.id !== projectId));
-        },
-        error: (error) => {
-          console.error('Error deleting project:', error);
-        }
-      });
-    }
+    const confirmed = window.confirm('Delete this project? This action cannot be undone.');
+    if (!confirmed) return;
+    this.projectService.deleteProject(projectId).subscribe({
+      next: () => {
+        this.projects.set(this.projects().filter(p => p.id !== projectId));
+      },
+      error: () => {
+        // Optionally handle error UI here
+      }
+    });
   }
 }

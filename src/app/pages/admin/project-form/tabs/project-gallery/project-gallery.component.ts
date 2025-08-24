@@ -26,6 +26,8 @@ export class ProjectGalleryComponent {
   currentImageIndex = signal(0);
   uploading = signal(false);
   uploadError = signal<string | null>(null);
+  dragIndex = signal<number | null>(null);
+  dragOverIndex = signal<number | null>(null);
 
   constructor(
     private uploadService: UploadService,
@@ -56,7 +58,7 @@ export class ProjectGalleryComponent {
 
   private uploadImages(files: FileList) {
     if (!this.projectId) {
-      this.uploadError.set('Create the project first to upload images');
+      this.uploadError.set('Creating draft...');
       return;
     }
 
@@ -105,6 +107,48 @@ export class ProjectGalleryComponent {
       },
       error: (err: any) => console.error('Error deleting image', err)
     });
+  }
+
+  // Drag & Drop reordering for thumbnails
+  onThumbDragStart(index: number, event: DragEvent) {
+    this.dragIndex.set(index);
+    event.dataTransfer?.setData('text/plain', String(index));
+    event.dataTransfer?.setDragImage(new Image(), 0, 0);
+  }
+
+  onThumbDragOver(index: number, event: DragEvent) {
+    event.preventDefault();
+    this.dragOverIndex.set(index);
+  }
+
+  onThumbDrop(targetIndex: number, event: DragEvent) {
+    event.preventDefault();
+    const from = this.dragIndex();
+    if (from === null || from === targetIndex) return;
+
+    const reordered = [...this.images];
+    const [moved] = reordered.splice(from, 1);
+    reordered.splice(targetIndex, 0, moved);
+    this.images = reordered;
+    this.imagesChange.emit(reordered);
+    this.dragIndex.set(null);
+    this.dragOverIndex.set(null);
+
+    // Persist order if gallery items have IDs
+    if (this.projectId) {
+      const ids = reordered
+        .map((it) => (typeof it === 'string' ? null : (it as GalleryImage).id))
+        .filter((id): id is string => !!id);
+      if (ids.length > 0) {
+        this.galleryService.reorderGallery(this.projectId, ids).subscribe({
+          next: () => {
+            // tras guardar orden, solicitar refresco al padre para traer orden del backend
+            this.refreshRequested.emit();
+          },
+          error: (err: any) => console.error('Reorder error', err)
+        });
+      }
+    }
   }
 
   setCurrentImage(index: number) {

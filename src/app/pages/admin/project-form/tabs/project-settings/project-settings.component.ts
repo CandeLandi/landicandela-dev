@@ -4,7 +4,7 @@ import { LucideAngularModule } from 'lucide-angular';
 import { Project } from '../../../../../models/project.interface';
 
 interface FormData {
-  title: string;
+  name: string;
   description: string;
   type: string;
   features: string;

@@ -1,11 +1,19 @@
+import { Gallery } from "./gallery.interface";
+import { ProjectType, ProjectStatus } from "./project.types";
+
 export interface Project {
   id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  images: string[];
-  technologies: string[];
-  liveUrl?: string;
+  name: string;
+  description?: string;
+  longDescription?: string;
+  type?: ProjectType;
+  status: ProjectStatus;
+  url?: string;
+  demoUrl?: string;
   githubUrl?: string;
-  featured: boolean;
+  gallery: Gallery[];
+  technologies?: string[];
+  clientId: string;
+  createdAt: string;
+  updatedAt: string;
 }

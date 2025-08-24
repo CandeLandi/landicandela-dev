@@ -57,11 +57,17 @@
             <div class="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-1 gap-2">
               @for (image of images; track $index) {
                 <button
+                  draggable="true"
+                  (dragstart)="onThumbDragStart($index, $event)"
+                  (dragover)="onThumbDragOver($index, $event)"
+                  (drop)="onThumbDrop($index, $event)"
                   (click)="setCurrentImage($index)"
                   class="rounded-lg overflow-hidden border-2 transition-all"
                   [class]="$index === currentImageIndex()
                     ? 'border-purple-400 opacity-100 scale-105'
                     : 'border-gray-700 opacity-60 hover:opacity-80'"
+                  [style.borderColor]="dragOverIndex() === $index ? 'rgb(168 85 247 / 0.8)' : null"
+                  [style.boxShadow]="dragOverIndex() === $index ? '0 0 0 2px rgb(168 85 247 / 0.5)' : null"
                   style="aspect-ratio: 4 / 3;"
                 >
                   <img

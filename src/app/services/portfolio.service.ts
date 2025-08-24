@@ -10,79 +10,32 @@ import { Education } from '../interfaces/education.interface';
 export class PortfolioService {
   constructor() { }
 
-  getFeaturedProjects(): Observable<Project[]> {
-    const projects: Project[] = [
-      {
-        id: '1',
-        title: 'E-Commerce Platform',
-        description: 'A full-stack e-commerce platform built with Angular and Node.js. Features include user authentication, product management, shopping cart, and payment integration.',
-        imageUrl: 'https://via.placeholder.com/500x300/8B5CF6/FFFFFF?text=E-Commerce+Platform',
-        images: [
-          'https://via.placeholder.com/500x300/8B5CF6/FFFFFF?text=E-Commerce+1',
-          'https://via.placeholder.com/500x300/7C3AED/FFFFFF?text=E-Commerce+2',
-          'https://via.placeholder.com/500x300/6D28D9/FFFFFF?text=E-Commerce+3'
-        ],
-        technologies: ['Angular', 'TypeScript', 'Node.js', 'MongoDB', 'Stripe'],
-        liveUrl: 'https://ecommerce-demo.com',
-        githubUrl: 'https://github.com/candelandi/ecommerce-platform',
-        featured: true
-      },
-      {
-        id: '2',
-        title: 'Task Management App',
-        description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.',
-        imageUrl: 'https://via.placeholder.com/500x300/8B5CF6/FFFFFF?text=Task+App',
-        images: [
-          'https://via.placeholder.com/500x300/8B5CF6/FFFFFF?text=Task+App+1',
-          'https://via.placeholder.com/500x300/7C3AED/FFFFFF?text=Task+App+2'
-        ],
-        technologies: ['Angular', 'Firebase', 'TypeScript', 'Tailwind CSS'],
-        liveUrl: 'https://taskapp-demo.com',
-        githubUrl: 'https://github.com/candelandi/task-management',
-        featured: true
-      },
-      {
-        id: '3',
-        title: 'Portfolio Website',
-        description: 'A modern, responsive portfolio website showcasing my skills and projects with smooth animations and interactive elements.',
-        imageUrl: 'https://via.placeholder.com/500x300/8B5CF6/FFFFFF?text=Portfolio',
-        images: [
-          'https://via.placeholder.com/500x300/8B5CF6/FFFFFF?text=Portfolio+1',
-          'https://via.placeholder.com/500x300/7C3AED/FFFFFF?text=Portfolio+2',
-          'https://via.placeholder.com/500x300/6D28D9/FFFFFF?text=Portfolio+3'
-        ],
-        technologies: ['Angular', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-        liveUrl: 'https://candela-landi.dev',
-        githubUrl: 'https://github.com/candelandi/portfolio',
-        featured: true
-      }
-    ];
-    return of(projects);
-  }
 
   getExperience(): Observable<Experience[]> {
     const experience: Experience[] = [
       {
         id: '1',
         title: 'Frontend Developer',
-        company: 'TechCorp',
-        startDate: '2023',
+        company: 'Rakium',
+        startDate: 'Nov 2024',
         endDate: 'Present',
-        period: '2023 - Presente',
+        period: 'Nov 2024 - Present',
         current: true,
-        description: 'Developing modern web applications using Angular, TypeScript, and Tailwind CSS. Collaborating with design and backend teams to deliver high-quality user experiences.',
-        technologies: ['Angular', 'TypeScript', 'Tailwind CSS', 'Git', 'Agile']
+        description:
+          'Freelance developer under the name Rakium, building real client websites and APIs using Angular and Tailwind CSS on the frontend, and NestJS with Prisma and PostgreSQL on the backend.',
+        technologies: ['Angular', 'Tailwind CSS', 'NestJS', 'Prisma', 'PostgreSQL']
       },
       {
         id: '2',
-        title: 'Junior Developer',
-        company: 'StartupXYZ',
-        startDate: '2022',
-        endDate: '2023',
-        period: '2022 - 2023',
+        title: 'Frontend Developer',
+        company: 'Aiko',
+        startDate: 'Feb 2025',
+        endDate: 'Mar 2025',
+        period: 'Feb 2025 - Mar 2025',
         current: false,
-        description: 'Built responsive web applications and maintained existing codebase. Worked with React and Node.js to create user-friendly interfaces.',
-        technologies: ['React', 'JavaScript', 'Node.js', 'CSS3', 'HTML5']
+        description:
+          'Frontend developer working independently on a mobile application using Angular, Tailwind CSS, PrimeNG and Ionic. Contributed to features for trainers, students and clubs to manage routines, diets and training calendars.',
+        technologies: ['Angular', 'Tailwind CSS', 'PrimeNG', 'Ionic']
       }
     ];
     return of(experience);

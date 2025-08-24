@@ -27,7 +27,7 @@ export class GalleryService {
   }
 
   reorderGallery(projectId: string, galleryIds: string[]): Observable<any> {
-    return this.http.post(`${this.baseUrl}/projects/${projectId}/gallery/reorder`, { galleryIds });
+    return this.http.post(`${this.baseUrl}/projects/${projectId}/gallery/reorder`, { imageIds: galleryIds });
   }
 }
 

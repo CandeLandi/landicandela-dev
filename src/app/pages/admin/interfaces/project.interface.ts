@@ -1,28 +1,29 @@
 import { Project as ModelsProject } from '../../../models/project.interface';
+import { ProjectStatus, ProjectType } from '../../../interfaces/project.types';
 
 export type Project = ModelsProject;
 
 export interface CreateProjectDto {
   name: string;
   clientId: string;
-  status?: 'DRAFT' | 'PUBLISHED' | 'PENDING';
+  status?: ProjectStatus;
   description?: string;
   longDescription?: string;
-  type?: string;
+  type?: ProjectType;
   demoUrl?: string;
   githubUrl?: string;
-  technologies?: string; // CSV
+  technologies?: string[]; // array
 }
 
 export interface UpdateProjectDto {
   name?: string;
-  status?: 'DRAFT' | 'PUBLISHED' | 'PENDING';
+  status?: ProjectStatus;
   description?: string;
   longDescription?: string;
-  type?: string;
+  type?: ProjectType;
   demoUrl?: string;
   githubUrl?: string;
-  technologies?: string; // CSV
+  technologies?: string[]; // array
   featured?: boolean;
   visible?: boolean;
 }
