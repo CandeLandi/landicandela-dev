@@ -53,26 +53,21 @@ export class PortfolioService {
         type: 'certification',
         projects: [
           {
-            name: 'Advanced Authentication System',
-            technologies: ['Angular', 'JWT', 'Signals'],
-            demo: 'https://auth-demo.com',
-            github: 'https://github.com/candelandi/auth-system',
-            icon: 'code'
-          },
-          {
-            name: 'Internationalization App',
-            technologies: ['Angular', 'i18n', 'TypeScript'],
-            demo: 'https://i18n-demo.com',
-            github: 'https://github.com/candelandi/i18n-app',
-            icon: 'globe'
-          },
-          {
-            name: 'Custom Package Manager',
-            technologies: ['Node.js', 'Angular', 'CLI'],
-            demo: 'https://package-demo.com',
-            github: 'https://github.com/candelandi/custom-package',
-            icon: 'package'
+            name: 'Zoneless Calculator',
+            technologies: ['Angular', 'Signals', 'Zoneless'],
+            github: 'https://github.com/CandeLandi/zoneless-calculator',
+            icon: 'calculator'
           }
+        ],
+        skills: [
+          'Zoneless patterns and Signals for state management',
+          'Advanced bindings and template structure corrections',
+          'SSR and SSG for performance and SEO',
+          'SEO practices and i18n internationalization',
+          'Testing strategy: unit and e2e (Jasmine/Karma, etc.)',
+          'TanStack data management integrations',
+          'Monorepos and custom packages',
+          'NPM dependency strategies and custom DI tokens'
         ]
       },
       {
@@ -92,6 +87,12 @@ export class PortfolioService {
             icon: 'database'
           },
           {
+            name: 'Hospital App',
+            technologies: ['Angular', 'ExpressJS', 'MongoDB', 'JWT', 'Google Sign-In'],
+            github: 'https://github.com/CandeLandi/admin-pro',
+            icon: 'activity'
+          },
+          {
             name: 'Game of the year - Frontend & Backend',
             technologies: ['Angular', 'Firebase', 'ExpressJS'],
             demo: 'https://firestore-chart-67176.web.app',
@@ -105,6 +106,15 @@ export class PortfolioService {
             github: 'https://github.com/CandeLandi/heroes-app',
             icon: 'shield'
           }
+        ],
+        skills: [
+          'MEAN Stack: Mongo, Express, Angular, Node',
+          'Large-scale Angular architecture: modules & lazy loading',
+          'JWT authentication and role-based admin panel',
+          'Google Sign-In integration',
+          'Express REST API: uploads, CORS, pagination',
+          'Unit and integration testing',
+          'Versioning, releases and deployments (Node/Apache)'
         ]
       },
       {
@@ -137,6 +147,15 @@ export class PortfolioService {
             github: 'https://github.com/CandeLandi/todo-app',
             icon: 'check-square'
           }
+        ],
+        skills: [
+          'Redux fundamentals: actions, reducers, selectors',
+          'NgRx Store for centralized state management',
+          'NgRx Effects for side effects and async flows',
+          'NgRx DevTools for debugging and time-travel',
+          'State control patterns and best practices',
+          'REST API consumption (ReqRes) and integration',
+          'Firebase, AngularFire, Hosting and deploys'
         ]
       },
       {
@@ -168,7 +187,41 @@ export class PortfolioService {
             demo: 'https://login-cl.netlify.app/#/auth/login',
             github: 'https://github.com/CandeLandi/auth-app',
             icon: 'user-check'
+          },
+          {
+            name: 'Search Gifs App',
+            technologies: ['Angular', 'GIPHY API'],
+            demo: 'https://angular-search-gifs-app.netlify.app',
+            github: 'https://github.com/CandeLandi/gifs-app',
+            icon: 'search'
+          },
+          {
+            name: 'Country App',
+            technologies: ['Angular', 'REST Countries API'],
+            github: 'https://github.com/CandeLandi/country-app',
+            icon: 'globe'
+          },
+          {
+            name: 'Pipes App',
+            technologies: ['Angular', 'Custom Pipes'],
+            github: 'https://github.com/CandeLandi/pipes-app',
+            icon: 'filter'
+          },
+          {
+            name: 'Dashboard (Tailwind, Angular 17)',
+            technologies: ['Angular', 'Tailwind CSS'],
+            github: 'https://github.com/CandeLandi/my-dashboard',
+            icon: 'layout'
           }
+        ],
+        skills: [
+          'Standalone components, Signals (writable/computed/input/output)',
+          'Routing: child routes, lazy loading, guards',
+          'HTTP, interceptors, DI and services',
+          'Auth with JWT and route protection',
+          'Integrations: Mapbox, third‑party and non-Angular libs',
+          'APIs, CRUD, file uploads, deploys',
+          'Tailwind, component reuse, RxJS resources/effects'
         ]
       },
       {
@@ -181,26 +234,27 @@ export class PortfolioService {
         type: 'certification',
         projects: [
           {
+            name: 'Reactive Forms – Final Project',
+            technologies: ['Angular', 'Reactive Forms'],
+            github: 'https://github.com/CandeLandi/proyecto-final-landi',
+            icon: 'edit'
+          },
+          {
             name: 'Search Gifs App',
             technologies: ['Angular', 'GIPHY API'],
             demo: 'https://angular-search-gifs-app.netlify.app',
             github: 'https://github.com/CandeLandi/gifs-app',
             icon: 'search'
-          },
-          {
-            name: 'Formularios en Angular',
-            technologies: ['Angular', 'Reactive Forms'],
-            demo: 'https://angular-forms-r.netlify.app',
-            github: 'https://github.com/CandeLandi/forms-app',
-            icon: 'edit'
-          },
-          {
-            name: 'Pipes en Angular',
-            technologies: ['Angular', 'Custom Pipes'],
-            demo: 'https://pipes-in-angular.netlify.app',
-            github: 'https://github.com/CandeLandi/pipes-app',
-            icon: 'filter'
           }
+        ],
+        skills: [
+          'TypeScript basics and typing in Angular',
+          'Component communication (Inputs, Outputs, services)',
+          'Reactive Forms: FormGroup, FormControl, Validators',
+          'Services & RxJS: Observables, Subjects, operators',
+          'Router: routes, params, guards',
+          'Modules: feature modules & lazy loading',
+          'State management intro with NgRx (Redux pattern)'
         ]
       },
       {
@@ -213,26 +267,45 @@ export class PortfolioService {
         type: 'certification',
         projects: [
           {
-            name: 'Gif App',
-            technologies: ['React', 'Jest', 'GIPHY API'],
-            demo: 'https://gifs-expert-react-app.netlify.app',
-            github: 'https://github.com/CandeLandi/gif-expert-app-react',
+            name: 'Image Gallery',
+            technologies: ['JavaScript', 'DOM'],
+            demo: 'https://candelandi.github.io/Galeria',
+            github: 'https://github.com/CandeLandi/Galeria',
             icon: 'image'
           },
           {
-            name: 'Películas',
-            technologies: ['JavaScript', 'DOM', 'API'],
+            name: 'Store Product Page + Cart',
+            technologies: ['JavaScript', 'DOM'],
+            github: 'https://github.com/CandeLandi/Formulario',
+            icon: 'shopping-cart'
+          },
+          {
+            name: 'Step Form with Validations',
+            technologies: ['JavaScript', 'DOM', 'Validation'],
+            github: 'https://github.com/CandeLandi/Formulario',
+            icon: 'file-text'
+          },
+          {
+            name: 'Movies & Series Explorer',
+            technologies: ['JavaScript', 'API', 'Fetch'],
             demo: 'https://candelandi.github.io/Peliculas',
             github: 'https://github.com/CandeLandi/Peliculas',
             icon: 'film'
           },
           {
-            name: 'Galería',
-            technologies: ['JavaScript', 'DOM'],
-            demo: 'https://candelandi.github.io/Galeria',
-            github: '',
-            icon: 'image'
+            name: 'Monthly Expenses Tracker',
+            technologies: ['JavaScript', 'LocalStorage'],
+            github: 'https://github.com/CandeLandi/app_gastos',
+            icon: 'wallet'
           }
+        ],
+        skills: [
+          'Programming fundamentals: variables, types, operators, conditionals, functions, loops',
+          'BOM & DOM manipulation to build interactive UIs',
+          'Forms: handling, processing and real‑time validation',
+          'APIs: fetch, consume and send data to external services',
+          'Modern JavaScript (ES6+): let/const, arrow functions, classes, modules, promises, spread/rest',
+          'Hands‑on practice with 6 real projects'
         ]
       },
       {
@@ -245,19 +318,19 @@ export class PortfolioService {
         type: 'certification',
         projects: [
           {
-            name: 'Formulario por pasos',
-            technologies: ['JavaScript', 'DOM', 'Validation'],
-            demo: 'https://candelandi.github.io/Formulario',
-            github: 'https://github.com/CandeLandi/Formulario',
-            icon: 'file-text'
-          },
-          {
-            name: 'Card Component',
-            technologies: ['JavaScript', 'CSS', 'DOM'],
-            demo: 'https://candelandi.github.io/card-component',
-            github: 'https://github.com/CandeLandi/card-component',
-            icon: 'credit-card'
+            name: 'TrustTicket - Ticket sales simulator',
+            technologies: ['JavaScript', 'DOM'],
+            github: 'https://github.com/CandeLandi/TrustTicket',
+            icon: 'ticket'
           }
+        ],
+        skills: [
+          'Functions, arrays and objects',
+          'DOM manipulation',
+          'Storage & JSON (localStorage/sessionStorage)',
+          'Libraries usage',
+          'Asynchrony & Promises',
+          'Intro to Frameworks & Node.js'
         ]
       },
       {
@@ -271,18 +344,22 @@ export class PortfolioService {
         projects: [
           {
             name: 'Estilo Pet',
-            technologies: ['HTML', 'CSS', 'Responsive'],
+            technologies: ['HTML', 'CSS'],
             demo: 'https://candelandi.github.io/entrega-coder/index.html',
             github: 'https://github.com/CandeLandi/entrega-coder',
             icon: 'heart'
-          },
-          {
-            name: 'Card Component',
-            technologies: ['HTML', 'CSS'],
-            demo: 'https://candelandi.github.io/card-component',
-            github: 'https://github.com/CandeLandi/card-component',
-            icon: 'credit-card'
           }
+        ],
+        skills: [
+          'HTML semantics & best practices',
+          'CSS: Flexbox, Grid, Box Model',
+          'Responsive design & media queries',
+          'BEM & CSS architecture',
+          'Prototyping workflow',
+          'CSS animations & transitions',
+          'SEO basics',
+          'Git & GitHub',
+          'Deployment to static hosting'
         ]
       },
       {
@@ -292,28 +369,10 @@ export class PortfolioService {
         date: '2012 - 2018',
         duration: '6 años',
         type: 'degree',
-        projects: [
-          {
-            name: 'Video Production',
-            technologies: ['Video Editing', 'Animation', 'Storytelling'],
-            demo: 'https://video-demo.com',
-            github: 'https://github.com/candelandi/video-production',
-            icon: 'video'
-          },
-          {
-            name: 'Graphic Design Portfolio',
-            technologies: ['Design', 'Illustration', 'Branding'],
-            demo: 'https://design-demo.com',
-            github: 'https://github.com/candelandi/design-portfolio',
-            icon: 'image'
-          },
-          {
-            name: 'Web Development',
-            technologies: ['HTML', 'CSS', 'JavaScript'],
-            demo: 'https://web-demo.com',
-            github: 'https://github.com/candelandi/web-development',
-            icon: 'code'
-          }
+        skills: [
+          'Graphic Design (Photoshop, Illustrator)',
+          'Audiovisual Production (Premiere, Audition)',
+          'Scriptwriting & Communication Principles'
         ]
       }
     ];

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioService } from '../../services/portfolio.service';
-import { Education } from '../../interfaces/education.interface';
+import { Education, EducationProject } from '../../interfaces/education.interface';
 
 @Component({
   selector: 'app-education',
@@ -11,6 +11,8 @@ import { Education } from '../../interfaces/education.interface';
 })
 export class EducationComponent implements OnInit {
   education: Education[] = [];
+  expanded: Record<string, boolean> = {};
+  expandedProjects: Record<string, boolean> = {};
 
   constructor(private portfolioService: PortfolioService) { }
 
@@ -22,6 +24,26 @@ export class EducationComponent implements OnInit {
     this.portfolioService.getEducation().subscribe(education => {
       this.education = education;
     });
+  }
+
+  toggleExpanded(id: string): void {
+    this.expanded[id] = !this.expanded[id];
+  }
+
+  getVisibleSkills(cert: Education): string[] {
+    const skills = cert.skills || [];
+    const isExpanded = this.expanded[cert.id];
+    return isExpanded ? skills : skills.slice(0, 4);
+  }
+
+  toggleProjectsExpanded(id: string): void {
+    this.expandedProjects[id] = !this.expandedProjects[id];
+  }
+
+  getVisibleProjects(cert: Education): EducationProject[] {
+    const projects = cert.projects || [];
+    const isExpanded = this.expandedProjects[cert.id];
+    return isExpanded ? projects : projects.slice(0, 2);
   }
 
   getTotalProjects(): number {

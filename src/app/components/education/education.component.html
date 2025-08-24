@@ -30,7 +30,7 @@
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div *ngFor="let cert of education; let index = index"
-           class="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 border border-gray-700/50 rounded-2xl p-6 hover:border-purple-400/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300 hover:-translate-y-1">
+           class="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 border border-gray-700/50 rounded-2xl p-6 hover:border-purple-400/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300">
 
 
         <div class="flex items-start justify-between mb-4">
@@ -73,7 +73,7 @@
             </span>
           </div>
           <div class="space-y-2">
-            <div *ngFor="let project of cert.projects; let projectIndex = index"
+            <div *ngFor="let project of getVisibleProjects(cert); let projectIndex = index"
                  class="flex items-center gap-3 p-3 bg-gray-800/30 rounded-lg hover:bg-gray-700/30 transition-colors">
               <div class="p-1.5 bg-purple-600/20 rounded-md">
                 <svg class="w-3 h-3 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,6 +109,49 @@
               </div>
             </div>
           </div>
+          <button *ngIf="cert.projects.length > 2"
+                  type="button"
+                  class="mt-3 text-xs text-purple-300 hover:text-purple-200 hover:bg-purple-400/10 px-3 py-1 rounded-lg transition-colors"
+                  (click)="toggleProjectsExpanded(cert.id)"
+                  [attr.aria-expanded]="expandedProjects[cert.id] ? 'true' : 'false'">
+            {{ expandedProjects[cert.id] ? 'Show less' : 'Show more' }}
+            <span *ngIf="!expandedProjects[cert.id]">
+              ( +{{ cert.projects.length - 2 }} )
+            </span>
+          </button>
+        </div>
+
+        <div *ngIf="cert.skills && cert.skills.length > 0">
+          <div class="flex items-center justify-between mb-3 mt-4 p-2 rounded-lg">
+            <span class="text-sm font-medium text-gray-300">
+              Key Topics
+            </span>
+            <span class="text-xs bg-purple-600/20 text-purple-300 px-2 py-1 rounded-full">
+              {{ cert.skills.length }}
+            </span>
+          </div>
+          <div class="space-y-2">
+            <div *ngFor="let skill of getVisibleSkills(cert)"
+                 class="flex items-center gap-3 p-3 bg-gray-800/30 rounded-lg hover:bg-gray-700/30 transition-colors">
+              <div class="p-1.5 bg-purple-600/20 rounded-md">
+                <svg class="w-3 h-3 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="text-xs font-medium text-white truncate">{{ skill }}</div>
+              </div>
+            </div>
+          </div>
+          <button type="button"
+                  class="mt-3 text-xs text-purple-300 hover:text-purple-200 hover:bg-purple-400/10 px-3 py-1 rounded-lg transition-colors"
+                  (click)="toggleExpanded(cert.id)"
+                  [attr.aria-expanded]="expanded[cert.id] ? 'true' : 'false'">
+            {{ expanded[cert.id] ? 'Show less' : 'Show more' }}
+            <span *ngIf="!expanded[cert.id] && cert.skills && cert.skills.length > 4">
+              ( +{{ cert.skills.length - 4 }} )
+            </span>
+          </button>
         </div>
 
         <div class="absolute inset-0 bg-gradient-to-br from-purple-600/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
