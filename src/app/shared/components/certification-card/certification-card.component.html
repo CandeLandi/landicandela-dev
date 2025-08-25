@@ -1,0 +1,83 @@
+<div reveal class="group relative h-full flex flex-col bg-gradient-to-br from-gray-900/50 to-gray-800/30 border border-gray-700/50 rounded-2xl p-6 hover:border-purple-400/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300 opacity-0 translate-y-2">
+  <div class="flex items-start justify-between mb-4">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white">
+        <i-lucide name="graduation-cap" class="w-6 h-6"></i-lucide>
+      </div>
+      <div>
+        <div class="text-xs text-purple-400 font-medium">{{ cert.institution }}</div>
+        <div class="text-xs text-gray-500">{{ cert.date }}</div>
+      </div>
+    </div>
+    <a *ngIf="cert.certificate"
+       [href]="cert.certificate"
+       target="_blank"
+       class="text-purple-400 hover:text-purple-300 hover:bg-purple-400/10 p-2 rounded-lg transition-colors"
+       title="View Certificate">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+    </a>
+  </div>
+
+  <h3 class="text-lg font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">{{ cert.title }}</h3>
+  <p *ngIf="cert.summary" class="text-sm text-gray-400 mb-4">{{ cert.summary }}</p>
+
+  <div class="flex items-center gap-2 mb-4">
+    <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+    <span class="text-sm text-gray-400">{{ cert.duration }}</span>
+  </div>
+
+  <ng-container *ngIf="cert.projects && cert.projects.length > 0">
+    <div class="flex items-center justify-between mb-3 p-2 rounded-lg">
+      <span class="text-sm font-medium text-gray-300">Developed Projects</span>
+      <span class="text-xs bg-purple-600/20 text-purple-300 px-2 py-1 rounded-full">{{ cert.projects.length }}</span>
+    </div>
+    <div class="space-y-2">
+      <div *ngFor="let project of getVisibleProjects()" class="flex items-center gap-3 p-3 bg-gray-800/30 rounded-lg hover:bg-gray-700/30 transition-colors">
+        <div class="p-1.5 bg-purple-600/20 rounded-md">
+          <i-lucide name="code-2" class="w-3 h-3 text-purple-400"></i-lucide>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="text-xs font-medium text-white truncate">{{ project.name }}</div>
+          <div class="text-xs text-gray-500">{{ project.technologies.slice(0,2).join(', ') }}<span *ngIf="project.technologies.length>2"> +{{ project.technologies.length-2 }}</span></div>
+        </div>
+        <div class="flex items-center gap-1">
+          <a *ngIf="project.demo" [href]="project.demo" target="_blank" class="h-6 w-6 p-0 text-gray-400 hover:text-purple-400 hover:bg-purple-400/10 rounded flex items-center justify-center transition-colors" title="View Demo">
+            <i-lucide name="external-link" class="w-3 h-3"></i-lucide>
+          </a>
+          <a *ngIf="project.github" [href]="project.github" target="_blank" class="h-6 w-6 p-0 text-gray-400 hover:text-purple-400 hover:bg-purple-400/10 rounded flex items-center justify-center transition-colors" title="View Code">
+            <i-lucide name="github" class="w-3 h-3"></i-lucide>
+          </a>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="cert.projects.length>2" type="button" class="mt-3 text-xs text-purple-300 hover:text-purple-200 hover:bg-purple-400/10 px-3 py-1 rounded-lg transition-colors self-start" (click)="toggleProjectsExpanded()">
+      {{ expandedProjects ? 'Show less' : 'Show more' }}
+      <span *ngIf="!expandedProjects">( +{{ cert.projects.length - 2 }} )</span>
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="cert.skills && cert.skills.length>0">
+    <div class="flex items-center justify-between mb-3 mt-4 p-2 rounded-lg">
+      <span class="text-sm font-medium text-gray-300">Key Topics</span>
+      <span class="text-xs bg-purple-600/20 text-purple-300 px-2 py-1 rounded-full">{{ cert.skills.length }}</span>
+    </div>
+    <div class="space-y-2">
+      <div *ngFor="let skill of getVisibleSkills()" class="flex items-center gap-3 p-3 bg-gray-800/30 rounded-lg hover:bg-gray-700/30 transition-colors">
+        <div class="p-1.5 bg-purple-600/20 rounded-md">
+          <i-lucide name="check" class="w-3 h-3 text-purple-400"></i-lucide>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="text-xs font-medium text-white">{{ parseSkillTitle(skill) }}</div>
+          <div *ngIf="parseSkillSubtitle(skill)" class="text-[11px] text-gray-400">{{ parseSkillSubtitle(skill) }}</div>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="cert.skills.length>4" type="button" class="mt-3 text-xs text-purple-300 hover:text-purple-200 hover:bg-purple-400/10 px-3 py-1 rounded-lg transition-colors self-start" (click)="toggleExpanded()">
+      {{ expanded ? 'Show less' : 'Show more' }}
+      <span *ngIf="!expanded">( +{{ cert.skills.length - 4 }} )</span>
+    </button>
+  </ng-container>
+
+  <div class="absolute inset-0 bg-gradient-to-br from-purple-600/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+</div>
+

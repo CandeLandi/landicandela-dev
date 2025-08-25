@@ -13,5 +13,5 @@ import { RouterOutlet } from '@angular/router';
   animations: [routeAnim]
 })
 export class AppComponent {
-  title = 'landicandela-dev';
+  title = 'Candela Landi ';
 }

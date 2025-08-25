@@ -3,11 +3,12 @@ import { RevealDirective } from '../../shared/directives/reveal.directive';
 import { CommonModule } from '@angular/common';
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.interface';
+import { GallerySliderComponent } from '../../shared/components/gallery-slider/gallery-slider.component';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, RevealDirective],
+  imports: [CommonModule, RevealDirective, GallerySliderComponent],
   templateUrl: './projects.component.html'
 })
 export class ProjectsComponent implements OnInit {

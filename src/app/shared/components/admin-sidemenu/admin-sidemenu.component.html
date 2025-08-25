@@ -20,8 +20,9 @@
       <nav class="flex-1 p-4">
         <div class="space-y-2">
           <a
-            routerLink="/"
+            href="https://landicandela.com"
             target="_blank"
+            rel="noopener noreferrer"
             class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-gray-300 hover:text-white hover:bg-gray-800/50"
           >
             <i-lucide name="Home" class="w-5 h-5"></i-lucide>
@@ -30,7 +31,7 @@
 
           <a
             routerLink="/admin/dashboard"
-            routerLinkActive="text-white bg-purple-600/20"
+            routerLinkActive="text-white bg-purple-600/20 border border-purple-500/30"
             class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-gray-300 hover:text-white hover:bg-gray-800/50"
           >
             <i-lucide name="FolderOpen" class="w-5 h-5"></i-lucide>
@@ -38,19 +39,12 @@
           </a>
 
           <a
-            href="#"
+            routerLink="/admin/certifications"
+            routerLinkActive="text-white bg-purple-600/20 border border-purple-500/30"
             class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-gray-300 hover:text-white hover:bg-gray-800/50"
           >
-            <i-lucide name="User" class="w-5 h-5"></i-lucide>
-            <span>Profile</span>
-          </a>
-
-          <a
-            href="#"
-            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-colors text-gray-300 hover:text-white hover:bg-gray-800/50"
-          >
-            <i-lucide name="Settings" class="w-5 h-5"></i-lucide>
-            <span>Settings</span>
+            <i-lucide name="GraduationCap" class="w-5 h-5"></i-lucide>
+            <span>Certifications</span>
           </a>
         </div>
       </nav>

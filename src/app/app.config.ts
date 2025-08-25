@@ -35,7 +35,9 @@ import {
   ArrowRight,
   Copy,
   Download,
-  ArrowUp
+  ArrowUp,
+  Check,
+  Code2
 } from 'lucide-angular';
 
 import { routes } from './app.routes';
@@ -89,7 +91,9 @@ export const appConfig: ApplicationConfig = {
       Copy,
       Download,
       // extra UI icons
-      ArrowUp
+      ArrowUp,
+      Check,
+      Code2
     }))
   ]
 };

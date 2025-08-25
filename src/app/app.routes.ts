@@ -10,6 +10,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/admin/dashboard/dashboard.component').then(m => m.DashboardComponent)
   },
   {
+    path: 'admin/certifications',
+    loadComponent: () => import('./pages/admin/certifications/certifications.component').then(m => m.CertificationsComponent)
+  },
+  {
     path: 'admin/dashboard/new',
     loadComponent: () => import('./pages/admin/project-form/project-form.component').then(m => m.ProjectFormComponent)
   },
