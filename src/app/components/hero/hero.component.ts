@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './hero.component.html'
 })
-export class HeroComponent implements OnInit {
+export class HeroComponent implements OnInit, OnDestroy {
   techRoles: string[] = [
     'Angular Developer',
     'Frontend Developer',
@@ -17,6 +17,7 @@ export class HeroComponent implements OnInit {
 
   ];
   currentTechIndex: number = 0;
+  private rotateIntervalId: ReturnType<typeof setInterval> | null = null;
   skills: string[] = [
     'Angular', 'TypeScript', 'JavaScript',
     'Node.js', 'NestJS', 'Express.js',
@@ -32,9 +33,16 @@ export class HeroComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    setInterval(() => {
+    this.rotateIntervalId = setInterval(() => {
       this.currentTechIndex = (this.currentTechIndex + 1) % this.techRoles.length;
     }, 3000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.rotateIntervalId) {
+      clearInterval(this.rotateIntervalId);
+      this.rotateIntervalId = null;
+    }
   }
 
   scrollToSection(sectionId: string): void {

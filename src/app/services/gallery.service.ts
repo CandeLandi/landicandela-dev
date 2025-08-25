@@ -26,8 +26,9 @@ export class GalleryService {
     return this.http.patch<Gallery>(`${this.baseUrl}/projects/${projectId}/gallery/${imageId}`, dto);
   }
 
-  reorderGallery(projectId: string, galleryIds: string[]): Observable<any> {
-    return this.http.post(`${this.baseUrl}/projects/${projectId}/gallery/reorder`, { imageIds: galleryIds });
+  reorderGallery(projectId: string, orderedIds: string[]): Observable<Gallery[]> {
+    // Backend expects raw array body ["id3","id1",...]
+    return this.http.post<Gallery[]>(`${this.baseUrl}/projects/${projectId}/gallery/reorder`, orderedIds);
   }
 }
 

@@ -6,13 +6,15 @@ import { GalleryService } from '../../../../../services/gallery.service';
 import { GalleryImage } from '../../../../../models/project.interface';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-project-gallery',
   standalone: true,
   imports: [
     CommonModule,
-    LucideAngularModule
+    LucideAngularModule,
+    DragDropModule
   ],
   templateUrl: './project-gallery.component.html',
   styleUrls: ['./project-gallery.component.css']
@@ -66,20 +68,29 @@ export class ProjectGalleryComponent {
     this.uploadError.set(null);
 
     const fileArray = Array.from(files).filter(file => file.type.startsWith('image/'));
-    const uploads = fileArray.map(file =>
-      this.uploadService.uploadToProjectGallery(this.projectId!, file).pipe(
-        catchError((err) => {
-          console.error('Upload error', err);
-          this.uploadError.set('Error uploading one or more images');
-          return of(null);
-        })
-      )
-    );
 
-    forkJoin(uploads).subscribe(() => {
+    // Convert to WebP (client-side) to reduce size before upload
+    Promise.all(
+      fileArray.map((file) => this.convertToWebP(file).catch(() => file))
+    ).then((preparedFiles) => {
+      const uploads = preparedFiles.map((file) =>
+        this.uploadService.uploadToProjectGallery(this.projectId!, file).pipe(
+          catchError((err) => {
+            console.error('Upload error', err);
+            this.uploadError.set('Error uploading one or more images');
+            return of(null);
+          })
+        )
+      );
+
+      forkJoin(uploads).subscribe(() => {
+        this.uploading.set(false);
+        // Pide al padre refrescar la galería desde el backend
+        this.refreshRequested.emit();
+      });
+    }).catch((err) => {
+      console.error('Preparation error', err);
       this.uploading.set(false);
-      // Pide al padre refrescar la galería desde el backend
-      this.refreshRequested.emit();
     });
   }
 
@@ -109,42 +120,23 @@ export class ProjectGalleryComponent {
     });
   }
 
-  // Drag & Drop reordering for thumbnails
-  onThumbDragStart(index: number, event: DragEvent) {
-    this.dragIndex.set(index);
-    event.dataTransfer?.setData('text/plain', String(index));
-    event.dataTransfer?.setDragImage(new Image(), 0, 0);
-  }
+  // Angular CDK: drop handler
+  onCdkDrop(event: CdkDragDrop<any[]>) {
+    const prev = event.previousIndex;
+    const curr = event.currentIndex;
+    if (prev === curr) return;
+    const local = [...this.images];
+    moveItemInArray(local, prev, curr);
+    this.images = local;
+    this.imagesChange.emit(local);
 
-  onThumbDragOver(index: number, event: DragEvent) {
-    event.preventDefault();
-    this.dragOverIndex.set(index);
-  }
-
-  onThumbDrop(targetIndex: number, event: DragEvent) {
-    event.preventDefault();
-    const from = this.dragIndex();
-    if (from === null || from === targetIndex) return;
-
-    const reordered = [...this.images];
-    const [moved] = reordered.splice(from, 1);
-    reordered.splice(targetIndex, 0, moved);
-    this.images = reordered;
-    this.imagesChange.emit(reordered);
-    this.dragIndex.set(null);
-    this.dragOverIndex.set(null);
-
-    // Persist order if gallery items have IDs
     if (this.projectId) {
-      const ids = reordered
+      const ids = local
         .map((it) => (typeof it === 'string' ? null : (it as GalleryImage).id))
         .filter((id): id is string => !!id);
       if (ids.length > 0) {
         this.galleryService.reorderGallery(this.projectId, ids).subscribe({
-          next: () => {
-            // tras guardar orden, solicitar refresco al padre para traer orden del backend
-            this.refreshRequested.emit();
-          },
+          next: () => this.refreshRequested.emit(),
           error: (err: any) => console.error('Reorder error', err)
         });
       }
@@ -171,5 +163,48 @@ export class ProjectGalleryComponent {
 
   getImageUrl(image: string | GalleryImage): string {
     return typeof image === 'string' ? image : image.url;
+  }
+
+  // Converts images to WebP with optional downscale to a max side to save bandwidth
+  private async convertToWebP(file: File, maxSide = 1920, quality = 0.82): Promise<File> {
+    if (file.type === 'image/webp') return file;
+    if (!file.type.startsWith('image/')) return file;
+
+    const image = await this.loadImageFromFile(file);
+    const { width, height } = image;
+    const scale = Math.min(1, maxSide / Math.max(width, height));
+    const targetW = Math.max(1, Math.round(width * scale));
+    const targetH = Math.max(1, Math.round(height * scale));
+
+    const canvas = document.createElement('canvas');
+    canvas.width = targetW;
+    canvas.height = targetH;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return file;
+    ctx.drawImage(image, 0, 0, targetW, targetH);
+
+    const blob: Blob | null = await new Promise((resolve) =>
+      canvas.toBlob(resolve, 'image/webp', quality)
+    );
+    if (!blob) return file;
+
+    const newName = file.name.replace(/\.[^.]+$/, '.webp');
+    return new File([blob], newName, { type: 'image/webp' });
+  }
+
+  private loadImageFromFile(file: File): Promise<HTMLImageElement> {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        resolve(img);
+      };
+      img.onerror = (e) => {
+        URL.revokeObjectURL(url);
+        reject(e);
+      };
+      img.src = url;
+    });
   }
 }

@@ -16,11 +16,11 @@ export class SidemenuComponent {
   activeSection = 'hero';
 
   menuItems = [
-    { id: 'hero', label: 'Inicio', icon: 'home' },
-    { id: 'projects', label: 'Proyectos', icon: 'briefcase' },
-    { id: 'experience', label: 'Experiencia', icon: 'user' },
-    { id: 'education', label: 'Educación', icon: 'graduation-cap' },
-    { id: 'contact', label: 'Contacto', icon: 'mail' }
+    { id: 'hero', label: 'Home', icon: 'home' },
+    { id: 'projects', label: 'Projects', icon: 'briefcase' },
+    { id: 'experience', label: 'Experience', icon: 'user' },
+    { id: 'education', label: 'Education', icon: 'graduation-cap' },
+    { id: 'contact', label: 'Contact', icon: 'mail' }
   ];
 
   @HostListener('window:scroll', ['$event'])
