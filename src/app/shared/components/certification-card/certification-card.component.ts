@@ -38,5 +38,10 @@ export class CertificationCardComponent {
     const match = /^(.*?)\s*\((.*)\)\s*$/.exec(skill);
     return match ? match[2].trim() : '';
   }
+
+  get isBrand(): boolean {
+    const name = this.cert?.institution;
+    return name === 'Udemy' || name === 'CoderHouse';
+  }
 }
 
