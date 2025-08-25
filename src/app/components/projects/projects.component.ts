@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
 import { CommonModule } from '@angular/common';
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.interface';
@@ -6,7 +7,7 @@ import { Project } from '../../models/project.interface';
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RevealDirective],
   templateUrl: './projects.component.html'
 })
 export class ProjectsComponent implements OnInit {

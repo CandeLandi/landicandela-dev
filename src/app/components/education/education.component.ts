@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioService } from '../../services/portfolio.service';
 import { Education, EducationProject } from '../../interfaces/education.interface';
+import { RevealDirective } from '../../shared/directives/reveal.directive';
+import { CountUpDirective } from '../../shared/directives/count-up.directive';
 
 @Component({
   selector: 'app-education',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RevealDirective, CountUpDirective],
   templateUrl: './education.component.html'
 })
 export class EducationComponent implements OnInit {

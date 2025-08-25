@@ -10,28 +10,28 @@
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 max-w-4xl mx-auto">
-      <div class="text-center p-6 bg-gradient-to-br from-purple-600/10 to-purple-800/10 rounded-xl border border-purple-400/20">
-        <div class="text-3xl font-bold text-purple-400 mb-2">{{ education.length }}</div>
+      <div reveal class="text-center p-6 bg-gradient-to-br from-purple-600/10 to-purple-800/10 rounded-xl border border-purple-400/20 opacity-0 translate-y-2 transition-all duration-300">
+        <div class="text-3xl font-bold text-purple-400 mb-2"><span [countUp]="education.length"></span></div>
         <div class="text-sm text-gray-400">Certifications</div>
       </div>
-      <div class="text-center p-6 bg-gradient-to-br from-blue-600/10 to-blue-800/10 rounded-xl border border-blue-400/20">
-        <div class="text-3xl font-bold text-blue-400 mb-2">+{{ getTotalProjects() }}</div>
+      <div reveal class="text-center p-6 bg-gradient-to-br from-blue-600/10 to-blue-800/10 rounded-xl border border-blue-400/20 opacity-0 translate-y-2 transition-all duration-300">
+        <div class="text-3xl font-bold text-blue-400 mb-2">+<span [countUp]="getTotalProjects()"></span></div>
         <div class="text-sm text-gray-400">Projects</div>
       </div>
-      <div class="text-center p-6 bg-gradient-to-br from-green-600/10 to-green-800/10 rounded-xl border border-green-400/20">
-        <div class="text-3xl font-bold text-green-400 mb-2">{{ getTotalHours() }}h</div>
+      <div reveal class="text-center p-6 bg-gradient-to-br from-green-600/10 to-green-800/10 rounded-xl border border-green-400/20 opacity-0 translate-y-2 transition-all duration-300">
+        <div class="text-3xl font-bold text-green-400 mb-2"><span [countUp]="getTotalHours()"></span>h</div>
         <div class="text-sm text-gray-400">Study hours</div>
       </div>
-      <div class="text-center p-6 bg-gradient-to-br from-orange-600/10 to-orange-800/10 rounded-xl border border-orange-400/20">
-        <div class="text-3xl font-bold text-orange-400 mb-2">2</div>
+      <div reveal class="text-center p-6 bg-gradient-to-br from-orange-600/10 to-orange-800/10 rounded-xl border border-orange-400/20 opacity-0 translate-y-2 transition-all duration-300">
+        <div class="text-3xl font-bold text-orange-400 mb-2"><span [countUp]="2"></span></div>
         <div class="text-sm text-gray-400">Institutions</div>
       </div>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       @for (cert of education; track cert.id) {
-      <div
-           class="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 border border-gray-700/50 rounded-2xl p-6 hover:border-purple-400/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300">
+      <div reveal
+           class="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/30 border border-gray-700/50 rounded-2xl p-6 hover:border-purple-400/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300 opacity-0 translate-y-2">
 
 
         <div class="flex items-start justify-between mb-4">

@@ -1,12 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
+import { fadeSlideIn, listStagger } from '../../shared/motion';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './hero.component.html'
+  ,
+  animations: [fadeSlideIn(), listStagger]
 })
 export class HeroComponent implements OnInit, OnDestroy {
   techRoles: string[] = [

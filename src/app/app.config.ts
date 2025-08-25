@@ -34,7 +34,8 @@ import {
   Upload,
   ArrowRight,
   Copy,
-  Download
+  Download,
+  ArrowUp
 } from 'lucide-angular';
 
 import { routes } from './app.routes';
@@ -86,7 +87,9 @@ export const appConfig: ApplicationConfig = {
       ExternalLink,
       Upload,
       Copy,
-      Download
+      Download,
+      // extra UI icons
+      ArrowUp
     }))
   ]
 };

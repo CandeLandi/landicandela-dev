@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { routeAnim } from './shared/motion';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -8,7 +9,8 @@ import { RouterOutlet } from '@angular/router';
     RouterOutlet
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  animations: [routeAnim]
 })
 export class AppComponent {
   title = 'landicandela-dev';

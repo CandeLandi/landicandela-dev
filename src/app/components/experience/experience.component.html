@@ -15,7 +15,8 @@
 
       <div class="space-y-12">
         <div *ngFor="let experience of experience; let index = index"
-             class="relative flex items-start gap-8">
+             reveal
+             class="relative flex items-start gap-8 opacity-0 translate-y-2 transition-all duration-300">
 
           <!-- Timeline Point -->
           <div class="relative z-10 flex-shrink-0">
