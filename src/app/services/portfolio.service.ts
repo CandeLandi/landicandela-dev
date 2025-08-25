@@ -72,10 +72,10 @@ export class PortfolioService {
       },
       {
         id: '2',
-        title: 'Angular avanzado: MEAN Stack',
+        title: 'Advanced Angular: MEAN Stack',
         institution: 'Udemy',
         date: '17/8/2024 - 17/10/2024',
-        duration: '32.5 horas',
+        duration: '32.5 hours',
         certificate: 'https://udemy.com/certificate/mean-stack',
         type: 'certification',
         projects: [
@@ -119,22 +119,22 @@ export class PortfolioService {
       },
       {
         id: '3',
-        title: 'REDUX en Angular con NGRX',
+        title: 'Redux in Angular with NgRx',
         institution: 'Udemy',
-        date: 'Finalizado - 1/8/2024',
-        duration: '12.5 horas',
+        date: 'Completed - 1/8/2024',
+        duration: '12.5 hours',
         certificate: 'https://udemy.com/certificate/redux-angular',
         type: 'certification',
         projects: [
           {
-            name: 'Ingresos Egresos App',
+            name: 'Income & Expense App',
             technologies: ['Angular', 'Redux', 'Firebase'],
             demo: 'https://income-exit-adf5b.web.app/login',
             github: 'https://github.com/CandeLandi/income-outcome-app',
             icon: 'dollar-sign'
           },
           {
-            name: 'Effects con Ngrx',
+            name: 'NgRx Effects',
             technologies: ['Angular', 'Redux', 'Firebase'],
             demo: 'https://effects-redux-ngrx.netlify.app',
             github: 'https://github.com/CandeLandi/http-effects',
@@ -160,10 +160,10 @@ export class PortfolioService {
       },
       {
         id: '4',
-        title: 'Angular: De cero a experto',
+        title: 'Angular: From Zero to Expert',
         institution: 'Udemy',
         date: '2/3/2024 - 22/5/2024',
-        duration: '45 horas',
+        duration: '45 hours',
         certificate: 'https://udemy.com/certificate/angular-expert',
         type: 'certification',
         projects: [
@@ -229,7 +229,7 @@ export class PortfolioService {
         title: 'Angular',
         institution: 'CoderHouse',
         date: '11/12/2023 - 21/2/2024',
-        duration: '36 horas en 9 semanas',
+        duration: '36 hours across 9 weeks',
         certificate: 'https://coderhouse.com/certificate/angular',
         type: 'certification',
         projects: [
@@ -259,10 +259,10 @@ export class PortfolioService {
       },
       {
         id: '6',
-        title: 'Javascript: El Curso Completo',
+        title: 'JavaScript: The Complete Course',
         institution: 'Udemy',
         date: '5/11/2023 - 20/1/2024',
-        duration: '34.5 horas',
+        duration: '34.5 hours',
         certificate: 'https://udemy.com/certificate/javascript-complete',
         type: 'certification',
         projects: [
@@ -313,7 +313,7 @@ export class PortfolioService {
         title: 'JavaScript',
         institution: 'CoderHouse',
         date: '5/9/2023 - 2/11/2023',
-        duration: '38 horas en 10 semanas',
+        duration: '38 hours across 10 weeks',
         certificate: 'https://coderhouse.com/certificate/javascript',
         type: 'certification',
         projects: [
@@ -335,10 +335,10 @@ export class PortfolioService {
       },
       {
         id: '8',
-        title: 'Desarrollo web',
+        title: 'Web Development',
         institution: 'CoderHouse',
         date: '22/6/2023 - 24/8/2023',
-        duration: '38 horas',
+        duration: '38 hours',
         certificate: 'https://coderhouse.com/certificate/web-development',
         type: 'certification',
         projects: [
@@ -364,11 +364,12 @@ export class PortfolioService {
       },
       {
         id: '9',
-        title: 'Técnico en Comunicación Multimedial',
+        title: 'Multimedia Communication Technician',
         institution: 'Escuela de Educación Técnica N°3',
         date: '2012 - 2018',
-        duration: '6 años',
+        duration: '6 years',
         type: 'degree',
+        summary: 'Technical high school with a multimedia orientation focused on graphic design, audiovisual production and communication.',
         skills: [
           'Graphic Design (Photoshop, Illustrator)',
           'Audiovisual Production (Premiere, Audition)',

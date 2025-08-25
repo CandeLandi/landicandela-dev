@@ -15,7 +15,7 @@
   </div>
 
   <div class="max-w-6xl mx-auto relative z-10">
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
 
       <div class="relative z-10">
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
@@ -25,10 +25,7 @@
         </h1>
 
         <div class="mb-8">
-          <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent mb-3">
-            Frontend Developer
-          </p>
-          <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-4">
+          <p class="text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-400 bg-clip-text mb-3">
             <span class="animate-pulse">
               {{ techRoles[currentTechIndex] }}
             </span>
@@ -52,14 +49,20 @@
               <span class="text-purple-400">const </span> <span class="text-blue-400">skills</span> = [
             </div>
             <div class="ml-4">
-              <span class="text-green-400">  'Angular'</span>, <span class="text-green-400">'TypeScript'</span>, <span class="text-green-400">'JavaScript'</span>,
-            </div>
-            <div class="ml-4">
-              <span class="text-green-400">'Node.js'</span>, <span class="text-green-400">'Firebase'</span>, <span class="text-green-400">'Tailwind'</span>
+              @for (skill of skills; track skill) {
+                <span class="text-green-400">'{{ skill }}'</span><span class="text-gray-500">{{ $last ? '' : ', ' }}</span>
+              }
             </div>
             <div>];</div>
           </div>
         </div>
+
+        <p class="mt-4 mb-6 text-xs sm:text-sm text-gray-400">
+          Soft skills:
+          @for (s of softSkills; let last = $last; track s) {
+            <span class="text-gray-300">{{ s }}</span><span class="mx-1 text-gray-600" *ngIf="!last">•</span>
+          }
+        </p>
 
         <div class="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4">
           <button class="bg-purple-600 hover:bg-purple-700 rounded-full p-2.5 sm:p-3 transition-all duration-300" title="Download CV">
@@ -101,7 +104,7 @@
         </div>
       </div>
 
-      <div class="flex justify-center relative">
+      <div class="flex justify-center lg:justify-end relative">
         <div class="relative">
           <div class="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-2xl"></div>
           <img
@@ -109,8 +112,6 @@
             alt="Candela Landi"
             class="relative rounded-full border-4 border-purple-400/30 shadow-2xl object-cover w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] lg:w-[450px] lg:h-[450px]"
           />
-          <div class="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-6 h-6 sm:w-8 sm:h-8 bg-purple-500 rounded-full animate-bounce"></div>
-          <div class="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 w-4 h-4 sm:w-6 sm:h-6 bg-pink-500 rounded-full animate-pulse"></div>
         </div>
       </div>
     </div>

@@ -46,6 +46,16 @@ export class EducationComponent implements OnInit {
     return isExpanded ? projects : projects.slice(0, 2);
   }
 
+  parseSkillTitle(skill: string): string {
+    const match = /^(.*?)\s*\((.*)\)\s*$/.exec(skill);
+    return match ? match[1].trim() : skill;
+  }
+
+  parseSkillSubtitle(skill: string): string {
+    const match = /^(.*?)\s*\((.*)\)\s*$/.exec(skill);
+    return match ? match[2].trim() : '';
+  }
+
   getTotalProjects(): number {
     return this.education.reduce((acc, cert) => acc + (cert.projects?.length || 0), 0);
   }

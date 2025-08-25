@@ -16,4 +16,5 @@ export interface Education {
   type: 'certification' | 'degree';
   projects?: EducationProject[];
   skills?: string[];
+  summary?: string;
 }

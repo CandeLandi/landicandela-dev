@@ -10,11 +10,26 @@ import { CommonModule } from '@angular/common';
 export class HeroComponent implements OnInit {
   techRoles: string[] = [
     'Angular Developer',
-    'React Developer',
     'Frontend Developer',
-    'UI/UX Designer'
+    'Full Stack Developer',
+    'Web Designer',
+    'Web Developer',
+
   ];
   currentTechIndex: number = 0;
+  skills: string[] = [
+    'Angular', 'TypeScript', 'JavaScript',
+    'Node.js', 'NestJS', 'Express.js',
+    'Firebase', 'MongoDB', 'Tailwind Css', 'Angular Material', 'Prime NG'
+  ];
+
+  softSkills: string[] = [
+    'Continuous learning',
+    'Proactive',
+    'Strong interpersonal skills',
+    'Effective communication',
+    'Learning agility & adaptability across teams and workflows'
+  ];
 
   ngOnInit(): void {
     setInterval(() => {
