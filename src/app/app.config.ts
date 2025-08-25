@@ -33,7 +33,8 @@ import {
   ExternalLink,
   Upload,
   ArrowRight,
-  Copy
+  Copy,
+  Download
 } from 'lucide-angular';
 
 import { routes } from './app.routes';
@@ -84,7 +85,8 @@ export const appConfig: ApplicationConfig = {
       LogOut,
       ExternalLink,
       Upload,
-      Copy
+      Copy,
+      Download
     }))
   ]
 };

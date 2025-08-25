@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 
@@ -11,7 +11,7 @@ import { LucideAngularModule } from 'lucide-angular';
   ],
   templateUrl: './sidemenu.component.html'
 })
-export class SidemenuComponent {
+export class SidemenuComponent implements OnDestroy {
   isMobileMenuOpen = false;
   activeSection = 'hero';
 
@@ -52,10 +52,22 @@ export class SidemenuComponent {
       element.scrollIntoView({ behavior: 'smooth' });
       this.activeSection = sectionId;
       this.isMobileMenuOpen = false;
+      this.setBodyScrollLocked(false);
     }
   }
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    this.setBodyScrollLocked(this.isMobileMenuOpen);
+  }
+
+  ngOnDestroy(): void {
+    this.setBodyScrollLocked(false);
+  }
+
+  private setBodyScrollLocked(locked: boolean): void {
+    if (typeof document === 'undefined') return;
+    document.body.style.overflow = locked ? 'hidden' : '';
+    document.body.style.touchAction = locked ? 'none' : '';
   }
 }

@@ -15,7 +15,12 @@
 
         <!-- Image -->
         <div [class]="index % 2 === 1 ? 'lg:col-start-2' : ''">
-          <div class="relative group">
+          <div class="relative group select-none"
+               (touchstart)="onTouchStart($event)"
+               (touchend)="onTouchEnd(project.id, (project.gallery?.length || 0), $event)"
+               (mousedown)="onMouseDown($event)"
+               (mouseup)="onMouseUp(project.id, (project.gallery?.length || 0), $event)"
+               (mouseleave)="onMouseLeave(project.id, (project.gallery?.length || 0), $event)">
             <img
               [src]="project.gallery?.[currentImageIndex[project.id] || 0]?.url || ''"
               [alt]="project.name"
