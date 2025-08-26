@@ -1,7 +1,14 @@
 
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+@import "swiper/css/effect-fade";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Swiper base styles imports moved to the top */
+
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }

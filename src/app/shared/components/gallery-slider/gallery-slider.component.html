@@ -1,32 +1,19 @@
-<div class="relative group select-none"
-     (touchstart)="onTouchStart($event)"
-     (touchend)="onTouchEnd($event)"
-     (mousedown)="onMouseDown($event)"
-     (mouseup)="onMouseUp($event)"
-     (mouseleave)="onMouseLeave($event)">
-  <img
-    [src]="(images && images[current]) ? images[current].url : ''"
-    [alt]="alt"
-    class="w-full object-cover rounded-lg"
-    [class]="heightClass"
-  />
-
-  <button *ngIf="images && images.length > 1"
-          (click)="prev()"
-          class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all">
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-  </button>
-  <button *ngIf="images && images.length > 1"
-          (click)="next()"
-          class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all">
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-  </button>
-
-  <div *ngIf="images && images.length > 1" class="flex justify-center mt-3 gap-2">
-    <button *ngFor="let _img of images; index as i"
-            (click)="set(i)"
-            [class]="'w-2 h-2 rounded-full transition-colors ' + (current === i ? 'bg-purple-400' : 'bg-gray-600')">
-    </button>
+<div class="relative select-none">
+  <div class="w-full rounded-xl overflow-hidden bg-black" [class]="heightClass">
+    <ng-container *ngIf="allLoaded; else loadingTpl">
+      <swiper-container
+        class="project-swiper rounded-xl overflow-hidden"
+        [config]="{slidesPerView: 1, navigation: true, pagination: { clickable: true }, effect: 'fade', fadeEffect: { crossFade: true } }">
+        <swiper-slide *ngFor="let item of images">
+          <div class="w-full h-full flex items-center justify-center bg-black rounded-xl overflow-hidden">
+            <img [src]="item.url" [alt]="alt" class="w-full h-full object-cover rounded-xl" />
+          </div>
+        </swiper-slide>
+      </swiper-container>
+    </ng-container>
+    <ng-template #loadingTpl>
+      <div class="h-full grid place-items-center text-gray-400 text-sm animate-pulse">Loading images…</div>
+    </ng-template>
   </div>
 </div>
 

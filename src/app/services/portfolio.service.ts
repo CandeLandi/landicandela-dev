@@ -49,7 +49,7 @@ export class PortfolioService {
         institution: 'Udemy',
         date: '22/3/2025',
         duration: '16.5 horas',
-        certificate: 'https://udemy.com/certificate/angular-pro',
+        certificate: 'https://www.udemy.com/certificate/UC-0ce85d1e-503c-4c2c-8b62-451b8cf36c38/',
         type: 'certification',
         projects: [
           {
@@ -72,11 +72,11 @@ export class PortfolioService {
       },
       {
         id: '2',
-        title: 'Advanced Angular: MEAN Stack',
+        title: 'Angular: From Zero to Expert — 2025 Edition',
         institution: 'Udemy',
         date: '17/8/2024 - 17/10/2024',
         duration: '32.5 hours',
-        certificate: 'https://udemy.com/certificate/mean-stack',
+        certificate: 'https://www.udemy.com/certificate/UC-8c303227-e433-4543-b491-fdaea9a16b37/',
         type: 'certification',
         projects: [
           {
@@ -123,7 +123,7 @@ export class PortfolioService {
         institution: 'Udemy',
         date: 'Completed - 1/8/2024',
         duration: '12.5 hours',
-        certificate: 'https://udemy.com/certificate/redux-angular',
+        certificate: 'https://www.udemy.com/certificate/UC-3504fe62-7ab2-428b-8d73-931ebb48d776/',
         type: 'certification',
         projects: [
           {
@@ -230,7 +230,7 @@ export class PortfolioService {
         institution: 'CoderHouse',
         date: '11/12/2023 - 21/2/2024',
         duration: '36 hours across 9 weeks',
-        certificate: 'https://coderhouse.com/certificate/angular',
+        certificate: 'https://pub.coderhouse.com/legacy-certificates/660093a4d757fa2b16d7573c?lang=es',
         type: 'certification',
         projects: [
           {
@@ -259,11 +259,11 @@ export class PortfolioService {
       },
       {
         id: '6',
-        title: 'JavaScript: The Complete Course',
+        title: 'JavaScript: The Complete Course, Practical and from Scratch',
         institution: 'Udemy',
         date: '5/11/2023 - 20/1/2024',
         duration: '34.5 hours',
-        certificate: 'https://udemy.com/certificate/javascript-complete',
+        certificate: 'https://www.udemy.com/certificate/UC-d8010c94-6952-43b8-998e-0ebc001fb86d/',
         type: 'certification',
         projects: [
           {
@@ -314,7 +314,7 @@ export class PortfolioService {
         institution: 'CoderHouse',
         date: '5/9/2023 - 2/11/2023',
         duration: '38 hours across 10 weeks',
-        certificate: 'https://coderhouse.com/certificate/javascript',
+        certificate: 'https://pub.coderhouse.com/legacy-certificates/65561e91936e8e6407add91b?lang=es',
         type: 'certification',
         projects: [
           {
@@ -339,7 +339,7 @@ export class PortfolioService {
         institution: 'CoderHouse',
         date: '22/6/2023 - 24/8/2023',
         duration: '38 hours',
-        certificate: 'https://coderhouse.com/certificate/web-development',
+        certificate: 'https://pub.coderhouse.com/legacy-certificates/6502049b73048e0e4da3da0b?lang=es',
         type: 'certification',
         projects: [
           {
