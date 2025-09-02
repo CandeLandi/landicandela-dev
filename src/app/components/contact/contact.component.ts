@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LucideAngularModule, Mail, Download, ExternalLink, Linkedin, Github } from 'lucide-angular';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './contact.component.html'
 })
 export class ContactComponent {
@@ -13,7 +14,7 @@ export class ContactComponent {
     const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=landicandela01@gmail.com&su=Let\'s%20work%20together&body=Hi%20Candela,';
     // Defer a tick so the browser can process the anchor href first; if blocked, open Gmail
     setTimeout(() => {
-      // If user email client didn’t open, they can still click the new tab
+      // If user email client didn't open, they can still click the new tab
       window.open(gmailUrl, '_blank', 'noopener');
     }, 50);
   }
