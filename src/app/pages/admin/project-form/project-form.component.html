@@ -10,12 +10,12 @@
           class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-4"
         >
           <i-lucide name="ArrowLeft" class="w-4 h-4"></i-lucide>
-          <span>Dashboard</span>
+          <span>Panel</span>
         </button>
 
         <div class="mb-4">
           <h1 class="text-xl font-bold text-white">
-            {{ mode() === 'create' ? 'Add new project' : (project()?.name || 'Edit project') }}
+            {{ mode() === 'create' ? 'Agregar nuevo proyecto' : (project()?.name || 'Editar proyecto') }}
           </h1>
 
         </div>
@@ -27,17 +27,17 @@
               <span class="text-sm text-gray-300">Visible</span>
               @if (project()?.featured) {
                 <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
-                <span class="text-sm text-gray-300">Featured</span>
+                <span class="text-sm text-gray-300">Destacado</span>
               }
             </div>
             <div class="grid grid-cols-2 gap-3 text-sm">
               <div class="text-center">
                 <div class="text-white font-medium">{{ project()?.views || 0 }}</div>
-                <div class="text-gray-400">Views</div>
+                <div class="text-gray-400">Vistas</div>
               </div>
               <div class="text-center">
                 <div class="text-white font-medium">{{ formData().gallery.length }}</div>
-                <div class="text-gray-400">Images</div>
+                <div class="text-gray-400">Imágenes</div>
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
             [class]="activeTab() === 0 ? 'text-white bg-purple-600/20' : 'text-gray-300 hover:text-white hover:bg-gray-800/50'"
           >
             <i-lucide name="FileText" class="w-5 h-5"></i-lucide>
-            <span>Content</span>
+            <span>Contenido</span>
           </button>
 
           <button
@@ -62,7 +62,7 @@
             [class]="activeTab() === 1 ? 'text-white bg-purple-600/20' : 'text-gray-300 hover:text-white hover:bg-gray-800/50'"
           >
             <i-lucide name="Image" class="w-5 h-5"></i-lucide>
-            <span>Gallery</span>
+            <span>Galería</span>
           </button>
 
           <button
@@ -71,7 +71,7 @@
             [class]="activeTab() === 2 ? 'text-white bg-purple-600/20' : 'text-gray-300 hover:text-white hover:bg-gray-800/50'"
           >
             <i-lucide name="Settings" class="w-5 h-5"></i-lucide>
-            <span>Settings</span>
+            <span>Configuración</span>
           </button>
         </div>
       </nav>
@@ -84,10 +84,10 @@
         >
           @if (loading()) {
             <i-lucide name="RefreshCw" class="w-4 h-4 animate-spin"></i-lucide>
-            <span>Creating...</span>
+            <span>Creando...</span>
           } @else {
             <i-lucide name="FileText" class="w-4 h-4"></i-lucide>
-            <span>{{ mode() === 'create' ? 'Create Project' : 'Save Changes' }}</span>
+            <span>{{ mode() === 'create' ? 'Crear Proyecto' : 'Guardar Cambios' }}</span>
           }
         </button>
       </div>
@@ -99,7 +99,7 @@
           <div class="flex items-center justify-center h-full">
             <div class="text-center">
               <i-lucide name="RefreshCw" class="w-8 h-8 text-purple-400 animate-spin mx-auto mb-4"></i-lucide>
-              <p class="text-gray-400">Loading project...</p>
+              <p class="text-gray-400">Cargando proyecto...</p>
             </div>
           </div>
         } @else {
@@ -109,7 +109,7 @@
               <div class="border-b border-gray-800/50">
                 <h2 class="text-3xl md:text-4xl font-bold text-white leading-tight mb-4 flex items-center gap-2">
                   <i-lucide name="FileText" class="w-6 h-6 text-purple-400"></i-lucide>
-                  Project details
+                  Detalles del proyecto
                 </h2>
               </div>
               <app-project-info
@@ -121,7 +121,7 @@
             }
             @case (1) {
               <div>
-                <h2 class="text-2xl font-bold text-white mb-8">Gallery</h2>
+                <h2 class="text-2xl font-bold text-white mb-8">Galería</h2>
                 <app-project-gallery
                   [projectId]="project()?.id || null"
                   [images]="formData().gallery"
@@ -132,7 +132,7 @@
             }
             @case (2) {
               <div>
-                <h2 class="text-2xl font-bold text-white mb-8">Settings</h2>
+                <h2 class="text-2xl font-bold text-white mb-8">Configuración</h2>
                 <app-project-settings
                   [formData]="formData()"
                   [mode]="mode()"

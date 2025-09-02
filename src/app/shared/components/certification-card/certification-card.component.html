@@ -19,7 +19,7 @@
        [href]="cert.certificate"
        target="_blank"
        class="text-purple-400 hover:text-purple-300 hover:bg-purple-400/10 p-2 rounded-lg transition-colors"
-       title="View Certificate">
+       title="Ver Certificado">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
     </a>
   </div>
@@ -34,7 +34,7 @@
 
   <ng-container *ngIf="cert.projects && cert.projects.length > 0">
     <div class="flex items-center justify-between mb-3 p-2 rounded-lg">
-      <span class="text-sm font-medium text-gray-300">Developed Projects</span>
+      <span class="text-sm font-medium text-gray-300">Proyectos Desarrollados</span>
       <span class="text-xs bg-purple-600/20 text-purple-300 px-2 py-1 rounded-full">{{ cert.projects.length }}</span>
     </div>
     <div class="space-y-2">
@@ -47,24 +47,24 @@
           <div class="text-xs text-gray-500">{{ project.technologies.slice(0,2).join(', ') }}<span *ngIf="project.technologies.length>2"> +{{ project.technologies.length-2 }}</span></div>
         </div>
         <div class="flex items-center gap-1">
-          <a *ngIf="project.demo" [href]="project.demo" target="_blank" class="h-6 w-6 p-0 text-gray-400 hover:text-purple-400 hover:bg-purple-400/10 rounded flex items-center justify-center transition-colors" title="View Demo">
+          <a *ngIf="project.demo" [href]="project.demo" target="_blank" class="h-6 w-6 p-0 text-gray-400 hover:text-purple-400 hover:bg-purple-400/10 rounded flex items-center justify-center transition-colors" title="Ver Demo">
             <i-lucide name="external-link" class="w-3 h-3"></i-lucide>
           </a>
-          <a *ngIf="project.github" [href]="project.github" target="_blank" class="h-6 w-6 p-0 text-gray-400 hover:text-purple-400 hover:bg-purple-400/10 rounded flex items-center justify-center transition-colors" title="View Code">
+          <a *ngIf="project.github" [href]="project.github" target="_blank" class="h-6 w-6 p-0 text-gray-400 hover:text-purple-400 hover:bg-purple-400/10 rounded flex items-center justify-center transition-colors" title="Ver Código">
             <i-lucide name="github" class="w-3 h-3"></i-lucide>
           </a>
         </div>
       </div>
     </div>
     <button *ngIf="cert.projects.length>2" type="button" class="mt-3 text-xs text-purple-300 hover:text-purple-200 hover:bg-purple-400/10 px-3 py-1 rounded-lg transition-colors self-start" (click)="toggleProjectsExpanded()">
-      {{ expandedProjects ? 'Show less' : 'Show more' }}
+      {{ expandedProjects ? 'Mostrar menos' : 'Mostrar más' }}
       <span *ngIf="!expandedProjects">( +{{ cert.projects.length - 2 }} )</span>
     </button>
   </ng-container>
 
   <ng-container *ngIf="cert.skills && cert.skills.length>0">
     <div class="flex items-center justify-between mb-3 mt-4 p-2 rounded-lg">
-      <span class="text-sm font-medium text-gray-300">Key Topics</span>
+      <span class="text-sm font-medium text-gray-300">Temas Clave</span>
       <span class="text-xs bg-purple-600/20 text-purple-300 px-2 py-1 rounded-full">{{ cert.skills.length }}</span>
     </div>
     <div class="space-y-2">
@@ -79,7 +79,7 @@
       </div>
     </div>
     <button *ngIf="cert.skills.length>4" type="button" class="mt-3 text-xs text-purple-300 hover:text-purple-200 hover:bg-purple-400/10 px-3 py-1 rounded-lg transition-colors self-start" (click)="toggleExpanded()">
-      {{ expanded ? 'Show less' : 'Show more' }}
+      {{ expanded ? 'Mostrar menos' : 'Mostrar más' }}
       <span *ngIf="!expanded">( +{{ cert.skills.length - 4 }} )</span>
     </button>
   </ng-container>

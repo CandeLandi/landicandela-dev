@@ -19,7 +19,6 @@ import { SeoService } from '../../shared/services/seo.service';
     SidemenuComponent,
     HeroComponent,
     ProjectsComponent,
-    ExperienceComponent,
     EducationComponent,
     ContactComponent,
     FooterComponent,

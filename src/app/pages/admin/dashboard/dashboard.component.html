@@ -5,7 +5,7 @@
     <div class="mb-8">
       <h1 class="text-3xl font-light text-white mb-2 flex items-center gap-2">
         <i-lucide name="FolderOpen" class="w-6 h-6 text-purple-400"></i-lucide>
-        My projects
+        Mis proyectos
       </h1>
 
     </div>
@@ -15,14 +15,14 @@
     <div class="space-y-8">
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
         <div class="border-b border-gray-800/50 pb-2">
-          <h2 class="text-2xl font-light text-white">Projects</h2>
+          <h2 class="text-2xl font-light text-white">Proyectos</h2>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-4">
           <div class="relative">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Buscar..."
               [ngModel]="searchTerm()"
               (input)="onSearchChange($event)"
               class="w-full sm:w-64 px-4 py-3 bg-gray-900/30 border border-gray-800/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-400/50 transition-colors"
@@ -36,9 +36,9 @@
               (change)="onFilterChange($event)"
               class="px-4 py-3 bg-gray-900/30 border border-gray-800/50 rounded-xl text-white focus:outline-none focus:border-purple-400/50 transition-colors"
             >
-              <option value="all">All</option>
-              <option value="published">Published</option>
-              <option value="draft">Drafts</option>
+              <option value="all">Todos</option>
+              <option value="published">Publicados</option>
+              <option value="draft">Borradores</option>
             </select>
 
             <!-- Removed Recent filter dropdown as requested -->
@@ -48,7 +48,7 @@
                  (click)="navigateToNewProject()"
                  class="px-6 py-3 bg-white text-black rounded-xl hover:bg-gray-100 transition-colors font-medium"
                >
-                 New
+                 Nuevo
                </button>
         </div>
       </div>
@@ -71,7 +71,7 @@
             <i-lucide name="folder-open" class="w-10 h-10 text-gray-600"></i-lucide>
           </div>
           <p class="text-gray-400 text-lg font-light">
-            {{ searchTerm() || filterStatus() !== 'all' ? 'No projects found' : 'No projects yet' }}
+            {{ searchTerm() || filterStatus() !== 'all' ? 'No se encontraron proyectos' : 'Aún no hay proyectos' }}
           </p>
         </div>
       }

@@ -5,8 +5,8 @@
       <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6">
         <div class="flex items-center justify-between mb-4">
           <div>
-            <h3 class="text-lg font-medium text-white mb-2">Visible in Portfolio</h3>
-            <p class="text-gray-400 text-sm">Controls if this project appears in your public portfolio</p>
+            <h3 class="text-lg font-medium text-white mb-2">Visible en el Portafolio</h3>
+            <p class="text-gray-400 text-sm">Controla si este proyecto aparece en tu portafolio público</p>
           </div>
           <button
             (click)="onToggleChange('visible', !formData.visible)"
@@ -27,9 +27,9 @@
         >
           <p class="text-sm" [class]="formData.visible ? 'text-green-400' : 'text-gray-400'">
             @if (formData.visible) {
-              ✓ This project will be shown in your public portfolio
+              ✓ Este proyecto se mostrará en tu portafolio público
             } @else {
-              ⚠ This project is hidden from the public portfolio
+              ⚠ Este proyecto está oculto del portafolio público
             }
           </p>
         </div>
@@ -39,8 +39,8 @@
       <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6">
         <div class="flex items-center justify-between mb-4">
           <div>
-            <h3 class="text-lg font-medium text-white mb-2">Featured Project</h3>
-            <p class="text-gray-400 text-sm">Featured projects appear first in your portfolio</p>
+            <h3 class="text-lg font-medium text-white mb-2">Proyecto Destacado</h3>
+            <p class="text-gray-400 text-sm">Los proyectos destacados aparecen primero en tu portafolio</p>
           </div>
           <button
             (click)="onToggleChange('featured', !formData.featured)"
@@ -61,9 +61,9 @@
         >
           <p class="text-sm" [class]="formData.featured ? 'text-yellow-400' : 'text-gray-400'">
             @if (formData.featured) {
-              ⭐ This project will appear in the featured section
+              ⭐ Este proyecto aparecerá en la sección destacada
             } @else {
-              This project will appear in the regular section
+              Este proyecto aparecerá en la sección regular
             }
           </p>
         </div>
@@ -73,18 +73,18 @@
     <div class="space-y-6">
       <!-- Project Information -->
       <div class="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-2xl p-6">
-        <h3 class="text-lg font-medium text-white mb-4">Project Information</h3>
+        <h3 class="text-lg font-medium text-white mb-4">Información del Proyecto</h3>
         <div class="space-y-3 text-sm">
           <div class="flex justify-between">
-            <span class="text-gray-400">Project ID</span>
+            <span class="text-gray-400">ID del Proyecto</span>
             <span class="text-white font-mono">{{ projectId() }}</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-gray-400">Creation Date</span>
+            <span class="text-gray-400">Fecha de Creación</span>
             <span class="text-white">{{ createdAt() }}</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-gray-400">Total Views</span>
+            <span class="text-gray-400">Total de Vistas</span>
             <span class="text-white">{{ totalViews() }}</span>
           </div>
         </div>
@@ -93,24 +93,24 @@
       <!-- Danger Zone (only in edit mode) -->
       @if (mode === 'edit') {
         <div class="bg-red-500/5 border border-red-500/20 rounded-2xl p-6">
-          <h3 class="text-lg font-medium text-red-400 mb-4">Danger Zone</h3>
+          <h3 class="text-lg font-medium text-red-400 mb-4">Zona de Peligro</h3>
           <div class="space-y-3">
             <button
               (click)="duplicateProject()"
               class="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
             >
               <i-lucide name="Copy" class="w-4 h-4"></i-lucide>
-              Duplicate Project
+              Duplicar Proyecto
             </button>
             <button
               (click)="deleteProject()"
               class="w-full bg-red-600/20 hover:bg-red-600/30 text-red-400 py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
             >
               <i-lucide name="Trash2" class="w-4 h-4"></i-lucide>
-              Delete Project
+              Eliminar Proyecto
             </button>
           </div>
-          <p class="text-red-400/70 text-xs mt-3">⚠ Deletion is permanent and cannot be undone</p>
+          <p class="text-red-400/70 text-xs mt-3">⚠ La eliminación es permanente y no se puede deshacer</p>
         </div>
       }
     </div>

@@ -5,7 +5,7 @@
   <div class="relative bg-gray-900/50" style="aspect-ratio: 4 / 3;">
     @if ((project.gallery || []).length > 0) {
       <img
-        [src]="getCoverUrl() || '/placeholder.svg?height=240&width=320&text=Project'"
+        [src]="getCoverUrl() || '/placeholder.svg?height=240&width=320&text=Proyecto'"
         [alt]="project.name"
         class="w-full h-full object-cover"
       />
@@ -78,8 +78,8 @@
 
     <div class="flex items-center justify-between text-xs text-gray-500">
       <div class="flex items-center gap-3">
-        <span>{{ project.views || 0 }} views</span>
-        <span>{{ (project.gallery || []).length }} photos</span>
+        <span>{{ project.views || 0 }} vistas</span>
+        <span>{{ (project.gallery || []).length }} fotos</span>
       </div>
       <span>{{ project.createdAt | date:'shortDate' }}</span>
     </div>

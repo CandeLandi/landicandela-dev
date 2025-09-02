@@ -5,7 +5,7 @@
 
       <div>
         <label class="block text-lg font-medium text-white mb-2">
-          Project name <span class="text-purple-400">*</span>
+          Nombre del proyecto <span class="text-purple-400">*</span>
         </label>
         <mat-form-field appearance="outline" class="w-full">
                      <input
@@ -13,7 +13,7 @@
             type="text"
             [value]="formData.name"
             (input)="onInputEvent($event, 'name')"
-            placeholder="Ex: Landing page "
+            placeholder="Ej: Página de inicio"
             class="text-xl"
           />
         </mat-form-field>
@@ -22,7 +22,7 @@
       <div>
         <label class="block text-lg font-medium text-white mb-2 flex items-center gap-2">
           <i-lucide name="FolderOpen" class="w-4 h-4 text-purple-300"></i-lucide>
-          Type of project
+          Tipo de proyecto
         </label>
         <mat-form-field appearance="outline" class="w-full">
           <mat-select
@@ -39,7 +39,7 @@
       <div>
         <label class="block text-lg font-medium text-white mb-2 flex items-center gap-2">
           <i-lucide name="Settings" class="w-4 h-4 text-purple-300"></i-lucide>
-          Technologies
+          Tecnologías
         </label>
         <mat-form-field appearance="outline" class="w-full">
           <input
@@ -49,7 +49,7 @@
             (input)="onInputEvent($event, 'features')"
             (keydown)="onTechKeydown($event)"
             (blur)="onTechBlur($event)"
-            placeholder="Angular, TypeScript, Firebase (separated by commas)"
+            placeholder="Angular, TypeScript, Firebase (separadas por comas)"
           />
         </mat-form-field>
 <!--         <p class="text-sm text-gray-500 mt-1">Separate technologies with enter</p> -->
@@ -74,7 +74,7 @@
 
     <div>
       <label class="block text-lg font-medium text-white mb-2">
-        Description
+        Descripción
       </label>
       <mat-form-field appearance="outline" class="w-full">
                  <textarea
@@ -82,7 +82,7 @@
            [value]="formData.description"
            (input)="onInputEvent($event, 'description')"
            rows="12"
-           placeholder="Detailed description of the project, functionalities and technologies used..."
+           placeholder="Descripción detallada del proyecto, funcionalidades y tecnologías utilizadas..."
            class="resize-none"
          ></textarea>
       </mat-form-field>
@@ -97,8 +97,8 @@
           <i-lucide name="ExternalLink" class="w-5 h-5 text-blue-400"></i-lucide>
         </div>
         <div>
-          <h3 class="text-lg font-semibold text-white">Live Demo</h3>
-          <p class="text-gray-400 text-sm">URL where the project can be seen working</p>
+          <h3 class="text-lg font-semibold text-white">Demo en Vivo</h3>
+          <p class="text-gray-400 text-sm">URL donde se puede ver el proyecto funcionando</p>
         </div>
       </div>
       <mat-form-field appearance="outline" class="w-full">
@@ -107,7 +107,7 @@
            type="url"
            [value]="formData.demoUrl"
            (input)="onInputEvent($event, 'demoUrl')"
-           placeholder="https://project-name.com"
+           placeholder="https://nombre-proyecto.com"
          />
       </mat-form-field>
       @if (formData.demoUrl) {
@@ -118,7 +118,7 @@
           class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 text-sm mt-3 transition-colors"
         >
           <i-lucide name="ExternalLink" class="w-4 h-4"></i-lucide>
-          Open demo
+          Abrir demo
         </a>
       }
     </div>
@@ -130,8 +130,8 @@
           <i-lucide name="Github" class="w-5 h-5 text-gray-400"></i-lucide>
         </div>
         <div>
-          <h3 class="text-lg font-semibold text-white">Source Code</h3>
-          <p class="text-gray-400 text-sm">Link to the GitHub repository</p>
+          <h3 class="text-lg font-semibold text-white">Código Fuente</h3>
+          <p class="text-gray-400 text-sm">Enlace al repositorio de GitHub</p>
         </div>
       </div>
       <mat-form-field appearance="outline" class="w-full">
@@ -140,7 +140,7 @@
            type="url"
            [value]="formData.githubUrl"
            (input)="onInputEvent($event, 'githubUrl')"
-           placeholder="https://github.com/CandeLandi/project"
+           placeholder="https://github.com/CandeLandi/proyecto"
          />
       </mat-form-field>
       @if (formData.githubUrl) {
@@ -151,7 +151,7 @@
           class="inline-flex items-center gap-2 text-gray-400 hover:text-white text-sm mt-3 transition-colors"
         >
           <i-lucide name="Github" class="w-4 h-4"></i-lucide>
-          View repository
+          Ver repositorio
         </a>
       }
     </div>

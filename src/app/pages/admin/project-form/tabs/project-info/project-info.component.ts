@@ -55,11 +55,11 @@ export class ProjectInfoComponent {
   }
 
   types = [
-    { value: '', label: 'Select type' },
-    { value: 'LANDING', label: 'Landing Page' },
+    { value: '', label: 'Seleccionar tipo' },
+    { value: 'LANDING', label: 'Página de Inicio' },
     { value: 'ECOMMERCE', label: 'E-commerce' },
-    { value: 'INMOBILIARIA', label: 'Real Estate' },
-    { value: 'CUSTOM', label: 'Custom' }
+    { value: 'INMOBILIARIA', label: 'Inmobiliaria' },
+    { value: 'CUSTOM', label: 'Personalizado' }
   ];
 
   onInputChange(field: keyof FormData, value: any) {

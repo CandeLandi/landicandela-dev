@@ -20,7 +20,7 @@
       <div class="relative z-10">
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 lg:mb-4" [@fadeSlideIn]>
           <span class="inline-block bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent bg-[length:200%_100%] animate-shimmer">
-            Hi, I'm Candela
+            Hola, soy Candela
           </span>
         </h1>
 
@@ -43,10 +43,9 @@
           </div>
         </div>
 
-        <p class="text-lg sm:text-xl text-gray-300 mb-4 lg:mb-8 leading-relaxed" [@fadeSlideIn]>
-          Passionate about creating <strong class="text-purple-300">modern web experiences</strong> that are
-          functional and beautiful.
-        </p>
+<!--         <p class="text-lg sm:text-xl text-gray-300 mb-4 lg:mb-8 leading-relaxed" [@fadeSlideIn]>Apasionada por desarrollar <strong class="text-purple-300">aplicaciones web</strong> que sean
+          funcionales y visualmente atractivas.
+        </p> -->
 
         <div class="mb-4 lg:mb-8 bg-gray-900/50 border border-gray-700/50 rounded-lg p-4 font-mono text-sm" [@fadeSlideIn]>
           <div class="flex items-center gap-2 mb-3">
@@ -69,7 +68,7 @@
         </div>
 
         <p class="mt-4 mb-6 text-xs sm:text-sm text-gray-400" [@fadeSlideIn]>
-          Soft skills:
+          Habilidades blandas:
           @for (s of softSkills; let last = $last; track s) {
             <span class="text-gray-300">{{ s }}</span><span class="mx-1 text-gray-600" *ngIf="!last">•</span>
           }
@@ -78,13 +77,13 @@
         <div class="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4" [@fadeSlideIn]>
           <a href="assets/cv/Candela Landi CV.pdf" download="Candela Landi CV.pdf" target="_blank"
              class="bg-purple-600 hover:bg-purple-700 rounded-full p-2.5 sm:p-3 transition-all duration-300"
-             title="Download CV">
+             title="Descargar CV">
             <i-lucide name="download" class="w-4 h-4 sm:w-5 sm:h-5"></i-lucide>
           </a>
           <button
             (click)="scrollToSection('contact')"
             class="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-black rounded-full p-2.5 sm:p-3 bg-transparent transition-all duration-300"
-            title="Let's Talk"
+            title="Hablemos"
           >
             <i-lucide name="mail" class="w-4 h-4 sm:w-5 sm:h-5"></i-lucide>
           </button>

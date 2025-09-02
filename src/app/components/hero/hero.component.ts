@@ -18,7 +18,6 @@ export class HeroComponent implements OnInit, OnDestroy {
     'Full Stack Developer',
     'Web Designer',
     'Web Developer',
-
   ];
   currentTechIndex: number = 0;
   private rotateIntervalId: ReturnType<typeof setInterval> | null = null;
@@ -29,11 +28,11 @@ export class HeroComponent implements OnInit, OnDestroy {
   ];
 
   softSkills: string[] = [
-    'Continuous learning',
-    'Proactive',
-    'Strong interpersonal skills',
-    'Effective communication',
-    'Learning agility & adaptability across teams and workflows'
+    'Aprendizaje continuo',
+    'Proactiva',
+    'Fuertes habilidades interpersonales',
+    'Comunicación efectiva',
+    'Agilidad de aprendizaje y adaptabilidad entre equipos y flujos de trabajo'
   ];
 
   ngOnInit(): void {

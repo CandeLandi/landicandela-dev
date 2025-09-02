@@ -15,26 +15,26 @@ export class PortfolioService {
     const experience: Experience[] = [
       {
         id: '1',
-        title: 'Frontend Developer',
+        title: 'Desarrolladora Frontend',
         company: 'Rakium',
         startDate: 'Nov 2024',
-        endDate: 'Present',
-        period: 'Nov 2024 - Present',
+        endDate: 'Presente',
+        period: 'Nov 2024 - Presente',
         current: true,
         description:
-          'Freelance developer under the name Rakium, building real client websites and APIs using Angular and Tailwind CSS on the frontend, and NestJS with Prisma and PostgreSQL on the backend.',
+          'Desarrolladora freelance bajo el nombre Rakium, construyendo sitios web y APIs para clientes reales usando Angular y Tailwind CSS en el frontend, y NestJS con Prisma y PostgreSQL en el backend.',
         technologies: ['Angular', 'Tailwind CSS', 'NestJS', 'Prisma', 'PostgreSQL']
       },
       {
         id: '2',
-        title: 'Frontend Developer',
+        title: 'Desarrolladora Frontend',
         company: 'Aiko',
         startDate: 'Feb 2025',
         endDate: 'Mar 2025',
         period: 'Feb 2025 - Mar 2025',
         current: false,
         description:
-          'Frontend developer working independently on a mobile application using Angular, Tailwind CSS, PrimeNG and Ionic. Contributed to features for trainers, students and clubs to manage routines, diets and training calendars.',
+          'Desarrolladora frontend trabajando independientemente en una aplicación móvil usando Angular, Tailwind CSS, PrimeNG e Ionic. Contribuí a funcionalidades para entrenadores, estudiantes y clubes para gestionar rutinas, dietas y calendarios de entrenamiento.',
         technologies: ['Angular', 'Tailwind CSS', 'PrimeNG', 'Ionic']
       }
     ];
@@ -53,54 +53,54 @@ export class PortfolioService {
         type: 'certification',
         projects: [
           {
-            name: 'Zoneless Calculator',
+            name: 'Calculadora Zoneless',
             technologies: ['Angular', 'Signals', 'Zoneless'],
             github: 'https://github.com/CandeLandi/zoneless-calculator',
             icon: 'calculator'
           }
         ],
         skills: [
-          'Zoneless patterns and Signals for state management',
-          'Advanced bindings and template structure corrections',
-          'SSR and SSG for performance and SEO',
-          'SEO practices and i18n internationalization',
-          'Testing strategy: unit and e2e (Jasmine/Karma, etc.)',
-          'TanStack data management integrations',
-          'Monorepos and custom packages',
-          'NPM dependency strategies and custom DI tokens'
+          'Patrones Zoneless y Signals para gestión de estado',
+          'Vinculaciones avanzadas y correcciones de estructura de plantillas',
+          'SSR y SSG para rendimiento y SEO',
+          'Prácticas de SEO e internacionalización i18n',
+          'Estrategia de testing: unitario y e2e (Jasmine/Karma, etc.)',
+          'Integraciones de gestión de datos TanStack',
+          'Monorepos y paquetes personalizados',
+          'Estrategias de dependencias NPM y tokens DI personalizados'
         ]
       },
       {
         id: '2',
-        title: 'Angular: From Zero to Expert — 2025 Edition',
+        title: 'Angular: De Cero a Experto — Edición 2025',
         institution: 'Udemy',
         date: '17/8/2024 - 17/10/2024',
-        duration: '32.5 hours',
+        duration: '32.5 horas',
         certificate: 'https://www.udemy.com/certificate/UC-8c303227-e433-4543-b491-fdaea9a16b37/',
         type: 'certification',
         projects: [
           {
-            name: 'Admin Pro - Frontend & Backend',
+            name: 'Admin Pro - Frontend y Backend',
             technologies: ['Angular', 'ExpressJS', 'Google Cloud'],
             demo: 'https://adminpro-backend1-993bf28005ef.herokuapp.com',
             github: 'https://github.com/CandeLandi/admin-pro',
             icon: 'database'
           },
           {
-            name: 'Hospital App',
+            name: 'Aplicación Hospital',
             technologies: ['Angular', 'ExpressJS', 'MongoDB', 'JWT', 'Google Sign-In'],
             github: 'https://github.com/CandeLandi/admin-pro',
             icon: 'activity'
           },
           {
-            name: 'Game of the year - Frontend & Backend',
+            name: 'Juego del año - Frontend y Backend',
             technologies: ['Angular', 'Firebase', 'ExpressJS'],
             demo: 'https://firestore-chart-67176.web.app',
             github: 'https://github.com/CandeLandi/goty',
             icon: 'gamepad'
           },
           {
-            name: 'CRUD Heroes App',
+            name: 'Aplicación CRUD Héroes',
             technologies: ['Angular', 'NestJS', 'MongoDB'],
             demo: 'https://angular-heroes-crud-app.netlify.app',
             github: 'https://github.com/CandeLandi/heroes-app',
@@ -108,26 +108,26 @@ export class PortfolioService {
           }
         ],
         skills: [
-          'MEAN Stack: Mongo, Express, Angular, Node',
-          'Large-scale Angular architecture: modules & lazy loading',
-          'JWT authentication and role-based admin panel',
-          'Google Sign-In integration',
-          'Express REST API: uploads, CORS, pagination',
-          'Unit and integration testing',
-          'Versioning, releases and deployments (Node/Apache)'
+          'Stack MEAN: Mongo, Express, Angular, Node',
+          'Arquitectura Angular a gran escala: módulos y lazy loading',
+          'Autenticación JWT y panel de administración basado en roles',
+          'Integración de Google Sign-In',
+          'API REST Express: subidas, CORS, paginación',
+          'Testing unitario e integración',
+          'Versionado, releases y despliegues (Node/Apache)'
         ]
       },
       {
         id: '3',
-        title: 'Redux in Angular with NgRx',
+        title: 'Redux en Angular con NgRx',
         institution: 'Udemy',
-        date: 'Completed - 1/8/2024',
-        duration: '12.5 hours',
+        date: 'Completado - 1/8/2024',
+        duration: '12.5 horas',
         certificate: 'https://www.udemy.com/certificate/UC-3504fe62-7ab2-428b-8d73-931ebb48d776/',
         type: 'certification',
         projects: [
           {
-            name: 'Income & Expense App',
+            name: 'Aplicación de Ingresos y Gastos',
             technologies: ['Angular', 'Redux', 'Firebase'],
             demo: 'https://income-exit-adf5b.web.app/login',
             github: 'https://github.com/CandeLandi/income-outcome-app',
@@ -141,7 +141,7 @@ export class PortfolioService {
             icon: 'zap'
           },
           {
-            name: 'Todo App',
+            name: 'Aplicación Todo',
             technologies: ['Angular', 'Redux'],
             demo: 'https://redux-angular-todo-app.netlify.app',
             github: 'https://github.com/CandeLandi/todo-app',
@@ -149,61 +149,61 @@ export class PortfolioService {
           }
         ],
         skills: [
-          'Redux fundamentals: actions, reducers, selectors',
-          'NgRx Store for centralized state management',
-          'NgRx Effects for side effects and async flows',
-          'NgRx DevTools for debugging and time-travel',
-          'State control patterns and best practices',
-          'REST API consumption (ReqRes) and integration',
-          'Firebase, AngularFire, Hosting and deploys'
+          'Fundamentos de Redux: acciones, reductores, selectores',
+          'NgRx Store para gestión centralizada de estado',
+          'NgRx Effects para efectos secundarios y flujos asíncronos',
+          'NgRx DevTools para debugging y time-travel',
+          'Patrones de control de estado y mejores prácticas',
+          'Consumo de API REST (ReqRes) e integración',
+          'Firebase, AngularFire, Hosting y despliegues'
         ]
       },
       {
         id: '4',
-        title: 'Angular: From Zero to Expert',
+        title: 'Angular: De Cero a Experto',
         institution: 'Udemy',
         date: '2/3/2024 - 22/5/2024',
-        duration: '45 hours',
+        duration: '45 horas',
         certificate: 'https://udemy.com/certificate/angular-expert',
         type: 'certification',
         projects: [
           {
-            name: 'Map App 1',
+            name: 'Aplicación de Mapas 1',
             technologies: ['Angular', 'Mapbox'],
             demo: 'https://angular-mapas-app-mapbox.netlify.app',
             github: 'https://github.com/candelandi/mapas-app',
             icon: 'map-pin'
           },
           {
-            name: 'Map App 2',
+            name: 'Aplicación de Mapas 2',
             technologies: ['Angular', 'Maps'],
             demo: 'https://angular-mapp-app.netlify.app',
             github: 'https://github.com/CandeLandi/map-app-2',
             icon: 'map'
           },
           {
-            name: 'Login/Register',
+            name: 'Login/Registro',
             technologies: ['Angular', 'NestJS', 'MongoDB'],
             demo: 'https://login-cl.netlify.app/#/auth/login',
             github: 'https://github.com/CandeLandi/auth-app',
             icon: 'user-check'
           },
           {
-            name: 'Search Gifs App',
+            name: 'Aplicación de Búsqueda de Gifs',
             technologies: ['Angular', 'GIPHY API'],
             demo: 'https://angular-search-gifs-app.netlify.app',
             github: 'https://github.com/CandeLandi/gifs-app',
             icon: 'search'
           },
           {
-            name: 'Country App',
+            name: 'Aplicación de Países',
             technologies: ['Angular', 'REST Countries API'],
             github: 'https://github.com/CandeLandi/country-app',
             icon: 'globe'
           },
           {
-            name: 'Pipes App',
-            technologies: ['Angular', 'Custom Pipes'],
+            name: 'Aplicación de Pipes',
+            technologies: ['Angular', 'Pipes Personalizados'],
             github: 'https://github.com/CandeLandi/pipes-app',
             icon: 'filter'
           },
@@ -215,13 +215,13 @@ export class PortfolioService {
           }
         ],
         skills: [
-          'Standalone components, Signals (writable/computed/input/output)',
-          'Routing: child routes, lazy loading, guards',
-          'HTTP, interceptors, DI and services',
-          'Auth with JWT and route protection',
-          'Integrations: Mapbox, third‑party and non-Angular libs',
-          'APIs, CRUD, file uploads, deploys',
-          'Tailwind, component reuse, RxJS resources/effects'
+          'Componentes standalone, Signals (writable/computed/input/output)',
+          'Routing: rutas hijas, lazy loading, guards',
+          'HTTP, interceptores, DI y servicios',
+          'Autenticación con JWT y protección de rutas',
+          'Integraciones: Mapbox, librerías de terceros y no-Angular',
+          'APIs, CRUD, subida de archivos, despliegues',
+          'Tailwind, reutilización de componentes, recursos/efectos RxJS'
         ]
       },
       {
@@ -229,18 +229,18 @@ export class PortfolioService {
         title: 'Angular',
         institution: 'CoderHouse',
         date: '11/12/2023 - 21/2/2024',
-        duration: '36 hours across 9 weeks',
+        duration: '36 horas durante 9 semanas',
         certificate: 'https://pub.coderhouse.com/legacy-certificates/660093a4d757fa2b16d7573c?lang=es',
         type: 'certification',
         projects: [
           {
-            name: 'Reactive Forms – Final Project',
-            technologies: ['Angular', 'Reactive Forms'],
+            name: 'Formularios Reactivos – Proyecto Final',
+            technologies: ['Angular', 'Formularios Reactivos'],
             github: 'https://github.com/CandeLandi/proyecto-final-landi',
             icon: 'edit'
           },
           {
-            name: 'Search Gifs App',
+            name: 'Aplicación de Búsqueda de Gifs',
             technologies: ['Angular', 'GIPHY API'],
             demo: 'https://angular-search-gifs-app.netlify.app',
             github: 'https://github.com/CandeLandi/gifs-app',
@@ -248,64 +248,64 @@ export class PortfolioService {
           }
         ],
         skills: [
-          'TypeScript basics and typing in Angular',
-          'Component communication (Inputs, Outputs, services)',
-          'Reactive Forms: FormGroup, FormControl, Validators',
-          'Services & RxJS: Observables, Subjects, operators',
-          'Router: routes, params, guards',
-          'Modules: feature modules & lazy loading',
-          'State management intro with NgRx (Redux pattern)'
+          'Conceptos básicos de TypeScript y tipado en Angular',
+          'Comunicación entre componentes (Inputs, Outputs, servicios)',
+          'Formularios Reactivos: FormGroup, FormControl, Validators',
+          'Servicios y RxJS: Observables, Subjects, operadores',
+          'Router: rutas, parámetros, guards',
+          'Módulos: módulos de características y lazy loading',
+          'Introducción a gestión de estado con NgRx (patrón Redux)'
         ]
       },
       {
         id: '6',
-        title: 'JavaScript: The Complete Course, Practical and from Scratch',
+        title: 'JavaScript: El Curso Completo, Práctico y desde Cero',
         institution: 'Udemy',
         date: '5/11/2023 - 20/1/2024',
-        duration: '34.5 hours',
+        duration: '34.5 horas',
         certificate: 'https://www.udemy.com/certificate/UC-d8010c94-6952-43b8-998e-0ebc001fb86d/',
         type: 'certification',
         projects: [
           {
-            name: 'Image Gallery',
+            name: 'Galería de Imágenes',
             technologies: ['JavaScript', 'DOM'],
             demo: 'https://candelandi.github.io/Galeria',
             github: 'https://github.com/CandeLandi/Galeria',
             icon: 'image'
           },
           {
-            name: 'Store Product Page + Cart',
+            name: 'Página de Producto de Tienda + Carrito',
             technologies: ['JavaScript', 'DOM'],
             github: 'https://github.com/CandeLandi/Formulario',
             icon: 'shopping-cart'
           },
           {
-            name: 'Step Form with Validations',
-            technologies: ['JavaScript', 'DOM', 'Validation'],
+            name: 'Formulario por Pasos con Validaciones',
+            technologies: ['JavaScript', 'DOM', 'Validación'],
             github: 'https://github.com/CandeLandi/Formulario',
             icon: 'file-text'
           },
           {
-            name: 'Movies & Series Explorer',
+            name: 'Explorador de Películas y Series',
             technologies: ['JavaScript', 'API', 'Fetch'],
             demo: 'https://candelandi.github.io/Peliculas',
             github: 'https://github.com/CandeLandi/Peliculas',
             icon: 'film'
           },
           {
-            name: 'Monthly Expenses Tracker',
+            name: 'Rastreador de Gastos Mensuales',
             technologies: ['JavaScript', 'LocalStorage'],
             github: 'https://github.com/CandeLandi/app_gastos',
             icon: 'wallet'
           }
         ],
         skills: [
-          'Programming fundamentals: variables, types, operators, conditionals, functions, loops',
-          'BOM & DOM manipulation to build interactive UIs',
-          'Forms: handling, processing and real‑time validation',
-          'APIs: fetch, consume and send data to external services',
-          'Modern JavaScript (ES6+): let/const, arrow functions, classes, modules, promises, spread/rest',
-          'Hands‑on practice with 6 real projects'
+          'Fundamentos de programación: variables, tipos, operadores, condicionales, funciones, bucles',
+          'Manipulación de BOM y DOM para construir UIs interactivas',
+          'Formularios: manejo, procesamiento y validación en tiempo real',
+          'APIs: fetch, consumir y enviar datos a servicios externos',
+          'JavaScript moderno (ES6+): let/const, arrow functions, clases, módulos, promesas, spread/rest',
+          'Práctica práctica con 6 proyectos reales'
         ]
       },
       {
@@ -313,32 +313,32 @@ export class PortfolioService {
         title: 'JavaScript',
         institution: 'CoderHouse',
         date: '5/9/2023 - 2/11/2023',
-        duration: '38 hours across 10 weeks',
+        duration: '38 horas durante 10 semanas',
         certificate: 'https://pub.coderhouse.com/legacy-certificates/65561e91936e8e6407add91b?lang=es',
         type: 'certification',
         projects: [
           {
-            name: 'TrustTicket - Ticket sales simulator',
+            name: 'TrustTicket - Simulador de venta de entradas',
             technologies: ['JavaScript', 'DOM'],
             github: 'https://github.com/CandeLandi/TrustTicket',
             icon: 'ticket'
           }
         ],
         skills: [
-          'Functions, arrays and objects',
-          'DOM manipulation',
-          'Storage & JSON (localStorage/sessionStorage)',
-          'Libraries usage',
-          'Asynchrony & Promises',
-          'Intro to Frameworks & Node.js'
+          'Funciones, arrays y objetos',
+          'Manipulación del DOM',
+          'Almacenamiento y JSON (localStorage/sessionStorage)',
+          'Uso de librerías',
+          'Asincronía y Promesas',
+          'Introducción a Frameworks y Node.js'
         ]
       },
       {
         id: '8',
-        title: 'Web Development',
+        title: 'Desarrollo Web',
         institution: 'CoderHouse',
         date: '22/6/2023 - 24/8/2023',
-        duration: '38 hours',
+        duration: '38 horas',
         certificate: 'https://pub.coderhouse.com/legacy-certificates/6502049b73048e0e4da3da0b?lang=es',
         type: 'certification',
         projects: [
@@ -351,29 +351,29 @@ export class PortfolioService {
           }
         ],
         skills: [
-          'HTML semantics & best practices',
+          'Semántica HTML y mejores prácticas',
           'CSS: Flexbox, Grid, Box Model',
-          'Responsive design & media queries',
-          'BEM & CSS architecture',
-          'Prototyping workflow',
-          'CSS animations & transitions',
-          'SEO basics',
-          'Git & GitHub',
-          'Deployment to static hosting'
+          'Diseño responsivo y media queries',
+          'BEM y arquitectura CSS',
+          'Flujo de trabajo de prototipado',
+          'Animaciones y transiciones CSS',
+          'Conceptos básicos de SEO',
+          'Git y GitHub',
+          'Despliegue a hosting estático'
         ]
       },
       {
         id: '9',
-        title: 'Multimedia Communication Technician',
+        title: 'Técnico en Comunicación Multimedial',
         institution: 'Escuela de Educación Técnica N°3',
         date: '2012 - 2018',
-        duration: '6 years',
+        duration: '6 años',
         type: 'degree',
-        summary: 'Technical high school with a multimedia orientation focused on graphic design, audiovisual production and communication.',
+        summary: 'Escuela técnica secundaria con orientación multimedial enfocada en diseño gráfico, producción audiovisual y comunicación.',
         skills: [
-          'Graphic Design (Photoshop, Illustrator)',
-          'Audiovisual Production (Premiere, Audition)',
-          'Scriptwriting & Communication Principles'
+          'Diseño Gráfico (Photoshop, Illustrator)',
+          'Producción Audiovisual (Premiere, Audition)',
+          'Guionismo y Principios de Comunicación'
         ]
       }
     ];
