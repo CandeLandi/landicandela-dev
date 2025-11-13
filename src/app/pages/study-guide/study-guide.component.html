@@ -17,8 +17,8 @@
 
       @for (section of sections(); track section.id) {
         <section class="mb-16">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-2xl font-bold translate-y-[3px]" [style.color]="accent">{{ section.number }}</span>
+          <div class="flex items-baseline gap-3 mb-6">
+            <span class="text-2xl font-bold leading-none" [style.color]="accent">{{ section.number }}</span>
             <h2
               class="text-3xl font-semibold text-white pb-2 border-b flex-1 leading-tight"
               [style.borderBottomColor]="accentSoft"
