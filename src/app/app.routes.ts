@@ -22,6 +22,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/admin/project-form/project-form.component').then(m => m.ProjectFormComponent)
   },
   {
+    path: 'study-guide',
+    loadComponent: () => import('./pages/study-guide/study-guide.component').then(m => m.StudyGuideComponent)
+  },
+  {
     path: '',
     loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent)
   },

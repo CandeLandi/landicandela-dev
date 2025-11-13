@@ -4,25 +4,48 @@
       <ul class="space-y-4">
         @for (item of menuItems; track item.id) {
           <li>
-            <button
-              (click)="scrollToSection(item.id)"
-              [class]="'group relative w-full flex items-center justify-center p-3 xl:p-4 rounded-xl transition-all duration-300 ' +
-                (activeSection === item.id
-                  ? 'bg-gradient-to-r from-purple-600/20 to-purple-500/20 text-purple-400 shadow-lg shadow-purple-500/20'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-800/50')"
-              [title]="item.label"
-            >
-              <i-lucide [name]="item.icon" class="w-5 h-5 xl:w-6 xl:h-6"></i-lucide>
+            @if (item.kind === 'route' && item.route) {
+              <a
+                [routerLink]="item.route"
+                (click)="closeMobileMenu()"
+                [class]="'group relative w-full flex items-center justify-center p-3 xl:p-4 rounded-xl transition-all duration-300 ' +
+                  (isItemActive(item)
+                    ? 'bg-gradient-to-r from-purple-600/20 to-purple-500/20 text-purple-400 shadow-lg shadow-purple-500/20'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/50')"
+                [title]="item.label"
+              >
+                <i-lucide [name]="item.icon" class="w-5 h-5 xl:w-6 xl:h-6"></i-lucide>
 
-              @if (activeSection === item.id) {
-                <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full"></div>
-              }
+                @if (isItemActive(item)) {
+                  <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full"></div>
+                }
 
-              <div class="absolute left-full ml-4 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 border border-gray-700">
-                {{ item.label }}
-                <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45 border-l border-b border-gray-700"></div>
-              </div>
-            </button>
+                <div class="absolute left-full ml-4 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 border border-gray-700">
+                  {{ item.label }}
+                  <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45 border-l border-b border-gray-700"></div>
+                </div>
+              </a>
+            } @else {
+              <button
+                (click)="handleItemClick(item)"
+                [class]="'group relative w-full flex items-center justify-center p-3 xl:p-4 rounded-xl transition-all duration-300 ' +
+                  (isItemActive(item)
+                    ? 'bg-gradient-to-r from-purple-600/20 to-purple-500/20 text-purple-400 shadow-lg shadow-purple-500/20'
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/50')"
+                [title]="item.label"
+              >
+                <i-lucide [name]="item.icon" class="w-5 h-5 xl:w-6 xl:h-6"></i-lucide>
+
+                @if (isItemActive(item)) {
+                  <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full"></div>
+                }
+
+                <div class="absolute left-full ml-4 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 border border-gray-700">
+                  {{ item.label }}
+                  <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45 border-l border-b border-gray-700"></div>
+                </div>
+              </button>
+            }
           </li>
         }
       </ul>
@@ -61,32 +84,47 @@
         class="text-gray-400 hover:text-white p-2 rounded-xl bg-black/40 border border-gray-800/60 backdrop-blur-md w-14 h-14 flex items-center justify-center"
         aria-label="Toggle menu"
       >
-        @if (!isMobileMenuOpen) {
+        @if (!isMobileMenuOpen()) {
           <i-lucide name="menu" class="w-6 h-6"></i-lucide>
         }
-        @if (isMobileMenuOpen) {
+        @if (isMobileMenuOpen()) {
           <i-lucide name="x" class="w-6 h-6"></i-lucide>
         }
       </button>
     </div>
   </div>
 
-  @if (isMobileMenuOpen) {
+  @if (isMobileMenuOpen()) {
     <!-- Mini sidemenu panel anchored to the button; no full-width bar -->
     <div class="absolute right-0 top-16">
       <nav class="flex flex-col gap-3 p-2 bg-black/40 backdrop-blur-md border border-gray-800/60 rounded-2xl w-14">
         @for (item of menuItems; track item.id) {
-          <button
-            (click)="scrollToSection(item.id)"
-            [class]="'relative w-10 h-10 flex items-center justify-center rounded-xl transition-all ' +
-              (activeSection === item.id ? 'bg-purple-600/20 text-purple-400 shadow-lg shadow-purple-500/20' : 'text-gray-400 hover:text-white hover:bg-gray-800/50')"
-            [title]="item.label"
-          >
-            <i-lucide [name]="item.icon" class="w-5 h-5"></i-lucide>
-            @if (activeSection === item.id) {
-              <div class="absolute -right-1 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full"></div>
-            }
-          </button>
+          @if (item.kind === 'route' && item.route) {
+            <a
+              [routerLink]="item.route"
+              (click)="closeMobileMenu()"
+              [class]="'relative w-10 h-10 flex items-center justify-center rounded-xl transition-all ' +
+                (isItemActive(item) ? 'bg-purple-600/20 text-purple-400 shadow-lg shadow-purple-500/20' : 'text-gray-400 hover:text-white hover:bg-gray-800/50')"
+              [title]="item.label"
+            >
+              <i-lucide [name]="item.icon" class="w-5 h-5"></i-lucide>
+              @if (isItemActive(item)) {
+                <div class="absolute -right-1 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full"></div>
+              }
+            </a>
+          } @else {
+            <button
+              (click)="handleItemClick(item)"
+              [class]="'relative w-10 h-10 flex items-center justify-center rounded-xl transition-all ' +
+                (isItemActive(item) ? 'bg-purple-600/20 text-purple-400 shadow-lg shadow-purple-500/20' : 'text-gray-400 hover:text-white hover:bg-gray-800/50')"
+              [title]="item.label"
+            >
+              <i-lucide [name]="item.icon" class="w-5 h-5"></i-lucide>
+              @if (isItemActive(item)) {
+                <div class="absolute -right-1 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full"></div>
+              }
+            </button>
+          }
         }
       </nav>
     </div>

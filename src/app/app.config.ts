@@ -37,7 +37,8 @@ import {
   Download,
   ArrowUp,
   Check,
-  Code2
+  Code2,
+  BookOpen
 } from 'lucide-angular';
 
 import { routes } from './app.routes';
@@ -93,7 +94,8 @@ export const appConfig: ApplicationConfig = {
       // extra UI icons
       ArrowUp,
       Check,
-      Code2
+      Code2,
+      BookOpen
     }))
   ]
 };

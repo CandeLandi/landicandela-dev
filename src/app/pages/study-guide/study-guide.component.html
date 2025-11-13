@@ -1,0 +1,47 @@
+<div class="min-h-screen bg-black text-white">
+  <app-sidemenu></app-sidemenu>
+
+  <main class="lg:pl-20 xl:pl-24 px-6 md:px-12 py-16">
+    <div class="max-w-7xl mx-auto">
+      <header class="mb-16">
+        <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 text-balance">
+          {{ intro.title }}
+        </h1>
+        <p class="text-xl text-gray-400 mb-2">
+          {{ intro.subtitle }}
+        </p>
+        <p class="text-sm text-gray-500 italic">
+          {{ intro.note }}
+        </p>
+      </header>
+
+      @for (section of sections(); track section.id) {
+        <section class="mb-16">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-2xl font-bold" [style.color]="accent">{{ section.number }}</span>
+            <h2
+              class="text-3xl font-semibold text-white pb-2 border-b flex-1"
+              [style.borderBottomColor]="accentSoft"
+            >
+              {{ section.title }}
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            @for (card of section.cards; track card.title) {
+              <app-study-card
+                [title]="card.title"
+                [items]="card.items ?? []"
+                [groups]="card.groups ?? []"
+                [variant]="card.variant ?? 'list'"
+                [spanCols]="card.spanCols ?? false"
+                [accent]="accent"
+              />
+            }
+          </div>
+        </section>
+      }
+    </div>
+  </main>
+</div>
+
