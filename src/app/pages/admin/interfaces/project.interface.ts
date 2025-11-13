@@ -1,5 +1,5 @@
-import { Project as ModelsProject } from '../../../models/project.interface';
-import { ProjectStatus, ProjectType } from '../../../interfaces/project.types';
+import { Project as ModelsProject } from '../../../core/models/project.interface';
+import { ProjectStatus, ProjectType } from '../../../core/models/project.types';
 
 export type Project = ModelsProject;
 

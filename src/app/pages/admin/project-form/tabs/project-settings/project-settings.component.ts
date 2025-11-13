@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
-import { Project } from '../../../../../models/project.interface';
+import { Project } from '../../../../../core/models/project.interface';
 
 interface FormData {
   name: string;

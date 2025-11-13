@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
@@ -17,6 +17,9 @@ import { Subscription, filter } from 'rxjs';
 export class SidemenuComponent implements OnInit, OnDestroy {
   private routerSub?: Subscription;
   private isHomeRoute = signal(true);
+  private pendingSection: string | null = null;
+  private sectionObserver?: IntersectionObserver;
+  private intersectionState = new Map<string, number>();
 
   isMobileMenuOpen = signal(false);
   activeSection = signal('hero');
@@ -27,7 +30,7 @@ export class SidemenuComponent implements OnInit, OnDestroy {
     // { id: 'experience', label: 'Experiencia', icon: 'user', kind: 'section' },
     { id: 'education', label: 'Educación', icon: 'graduation-cap', kind: 'section' },
     { id: 'contact', label: 'Contacto', icon: 'mail', kind: 'section' },
-    { id: 'study-guide', label: 'Study Guide', icon: 'book-open', kind: 'route', route: '/study-guide' }
+    { id: 'study-guide', label: 'Guía de estudio', icon: 'book-open', kind: 'route', route: '/study-guide' }
   ];
 
   constructor(private router: Router) {}
@@ -37,35 +40,6 @@ export class SidemenuComponent implements OnInit, OnDestroy {
     this.routerSub = this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe(event => this.handleRouteChange(event.urlAfterRedirects));
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    if (this.isHomeRoute()) {
-      this.updateActiveSection();
-    }
-  }
-
-  updateActiveSection(): void {
-    if (!this.isHomeRoute()) return;
-
-    const sections = this.menuItems
-      .filter(item => item.kind === 'section')
-      .map(item => item.id);
-    const scrollPosition = window.scrollY + 100;
-
-    for (const sectionId of sections) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        const offsetTop = element.offsetTop;
-        const offsetHeight = element.offsetHeight;
-
-        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-          this.activeSection.set(sectionId);
-          break;
-        }
-      }
-    }
   }
 
   handleItemClick(item: MenuItem): void {
@@ -82,8 +56,9 @@ export class SidemenuComponent implements OnInit, OnDestroy {
 
   private scrollToSection(sectionId: string): void {
     if (!this.isHomeRoute()) {
+      this.pendingSection = sectionId;
       this.router.navigateByUrl('/');
-      requestAnimationFrame(() => this.scrollToSection(sectionId));
+      this.closeMobileMenu();
       return;
     }
 
@@ -104,6 +79,7 @@ export class SidemenuComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.setBodyScrollLocked(false);
     this.routerSub?.unsubscribe();
+    this.teardownObserver();
   }
 
   isItemActive(item: MenuItem): boolean {
@@ -126,14 +102,85 @@ export class SidemenuComponent implements OnInit, OnDestroy {
     if (cleanUrl === '/' || cleanUrl === '') {
       this.isHomeRoute.set(true);
       this.activeSection.set('hero');
-      requestAnimationFrame(() => this.updateActiveSection());
+      requestAnimationFrame(() => {
+        this.setupObserver();
+        this.flushPendingScroll();
+      });
     } else if (cleanUrl.startsWith('/study-guide')) {
       this.isHomeRoute.set(false);
       this.activeSection.set('study-guide');
+      this.teardownObserver();
     } else {
       this.isHomeRoute.set(false);
       this.activeSection.set('');
+      this.teardownObserver();
     }
+  }
+
+  private flushPendingScroll(): void {
+    if (!this.pendingSection) return;
+    const target = this.pendingSection;
+    this.pendingSection = null;
+    requestAnimationFrame(() => this.scrollToSection(target));
+  }
+
+  private setupObserver(): void {
+    this.teardownObserver();
+    if (!this.isHomeRoute()) return;
+
+    const sections = this.menuItems
+      .filter(item => item.kind === 'section')
+      .map(item => document.getElementById(item.id))
+      .filter(Boolean) as HTMLElement[];
+
+    if (!sections.length) return;
+
+    this.intersectionState.clear();
+    sections.forEach(section => this.intersectionState.set(section.id, 0));
+
+    this.sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const id = (entry.target as HTMLElement).id;
+        this.intersectionState.set(id, entry.intersectionRatio);
+      });
+
+      const [bestId, bestRatio] = Array.from(this.intersectionState.entries()).reduce<[string, number]>(
+        (best, current) => (current[1] > best[1] ? current : best),
+        [this.activeSection(), -1]
+      );
+
+      if (bestRatio > 0) {
+        if (this.activeSection() !== bestId) {
+          this.activeSection.set(bestId);
+        }
+        return;
+      }
+
+      const offset = window.scrollY + (window.innerHeight || document.documentElement.clientHeight) * 0.4;
+      let fallbackId = sections[0].id;
+      for (const section of sections) {
+        if (offset >= section.offsetTop) {
+          fallbackId = section.id;
+        } else {
+          break;
+        }
+      }
+
+      if (this.activeSection() !== fallbackId) {
+        this.activeSection.set(fallbackId);
+      }
+    }, {
+      rootMargin: '-40% 0px -40% 0px',
+      threshold: [0, 0.25, 0.5, 0.75, 1]
+    });
+
+    sections.forEach(section => this.sectionObserver?.observe(section));
+  }
+
+  private teardownObserver(): void {
+    this.sectionObserver?.disconnect();
+    this.sectionObserver = undefined;
+    this.intersectionState.clear();
   }
 }
 

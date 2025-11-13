@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { LucideAngularModule } from 'lucide-angular';
-import { Project } from '../../../../../models/project.interface';
+import { Project } from '../../../../../core/models/project.interface';
 
 interface FormData {
   name: string;

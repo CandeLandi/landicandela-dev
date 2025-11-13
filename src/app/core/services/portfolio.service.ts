@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Project } from '../interfaces/project.interface';
-import { Experience } from '../interfaces/experience.interface';
-import { Education } from '../interfaces/education.interface';
+import { Project } from '../models/project.interface';
+import { Experience } from '../models/experience.interface';
+import { Education } from '../models/education.interface';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidemenuComponent } from '../../shared/components/sidemenu/sidemenu.component';
 import { StudyCardComponent, StudyCardDefinition } from '../../shared/components/study-card/study-card.component';
+import { LucideAngularModule } from 'lucide-angular';
 
 interface StudyGuideSection {
   id: string;
@@ -22,45 +23,47 @@ interface StudyGuideIntro {
   imports: [
     CommonModule,
     SidemenuComponent,
-    StudyCardComponent
+    StudyCardComponent,
+    LucideAngularModule
   ],
   templateUrl: './study-guide.component.html'
 })
 export class StudyGuideComponent {
   readonly accent = '#8b5cf6';
   readonly accentSoft = 'rgba(139, 92, 246, 0.2)';
+  private readonly scrollThreshold = 320;
 
   readonly intro: StudyGuideIntro = {
-    title: 'Frontend Developer Study Guide',
-    subtitle: 'Guía ordenada cronológicamente para aprender desarrollo frontend según mi experiencia',
-    note: 'Orden recomendado: Fundamentos → Diseño → Patrones → JavaScript → TypeScript → HTTP → Angular → State Management → Testing'
+    title: 'Guía de estudio de desarrollo frontend',
+    subtitle: 'Recorrido ordenado para aprender desarrollo frontend según mi experiencia',
+    note: 'Orden recomendado: Fundamentos → Diseño → Patrones → JavaScript → TypeScript → HTTP → Framework → Gestión de estado → Testing'
   };
 
   readonly sections = signal<StudyGuideSection[]>([
     {
       id: 'fundamentals',
       number: '01',
-      title: 'Fundamentos del Desarrollo Web',
+      title: 'Fundamentos del desarrollo web',
       cards: [
         {
-          title: 'HTML & CSS',
+          title: 'HTML y CSS',
           items: [
-            { label: 'Semantic HTML', description: 'Usar elementos significativos como <article>, <form>, <table> para mejor accesibilidad y SEO.' },
-            { label: 'Box Model', description: 'Contenido, padding, borde y margen definen el tamaño y espacio de los elementos.' },
-            { label: 'Selectores CSS', description: 'Clases, IDs, elementos, pseudo-clases y especificidad.' },
-            { label: 'Accesibilidad', description: 'ARIA labels, alt text, navegación por teclado, contraste de colores.' },
-            { label: 'SEO', description: 'Meta tags, estructura semántica, títulos jerárquicos para mejor posicionamiento.' }
+            { label: 'HTML semántico', description: 'Usar elementos significativos como <article>, <form> o <table> para mejorar la accesibilidad y el SEO.' },
+            { label: 'Modelo de caja', description: 'Contenido, padding, borde y margen definen el tamaño y el espacio de los elementos.' },
+            { label: 'Selectores CSS', description: 'Clases, identificadores, elementos, pseudo-clases y especificidad.' },
+            { label: 'Accesibilidad', description: 'Atributos ARIA, texto alternativo, navegación por teclado y contraste de colores.' },
+            { label: 'SEO', description: 'Metadatos, estructura semántica y jerarquías de títulos para un mejor posicionamiento.' }
           ]
         },
         {
-          title: 'Git & Control de Versiones',
+          title: 'Git y control de versiones',
           items: [
-            { label: 'Comandos Básicos', description: 'git init, add, commit, push para publicar cambios al repositorio remoto.' },
-            { label: 'git pull', description: 'Trae y actualiza los cambios del repositorio remoto a tu repositorio local.' },
-            { label: 'Branching', description: 'Crear ramas para trabajar en features sin afectar main.' },
-            { label: 'Merge & Conflicts', description: 'Integrar cambios y resolver conflictos entre ramas.' },
-            { label: 'Pull Requests', description: 'Revisión de código antes de integrar cambios.' },
-            { label: 'GitHub/GitLab', description: 'Plataformas para colaboración y hosting de repositorios.' }
+            { label: 'Comandos básicos', description: 'git init, add, commit, push para publicar cambios en el repositorio remoto.' },
+            { label: 'git pull', description: 'Sincroniza los cambios del repositorio remoto con tu repositorio local.' },
+            { label: 'Ramas (branching)', description: 'Crear ramas para trabajar nuevas funcionalidades sin afectar la rama principal.' },
+            { label: 'Merge y conflictos', description: 'Integrar cambios y resolver conflictos entre ramas.' },
+            { label: 'Pull requests', description: 'Solicitudes de revisión de código antes de integrar cambios.' },
+            { label: 'GitHub/GitLab', description: 'Plataformas para colaborar y alojar repositorios.' }
           ]
         }
       ]
@@ -68,26 +71,26 @@ export class StudyGuideComponent {
     {
       id: 'design',
       number: '02',
-      title: 'Diseño y Maquetación',
+      title: 'Diseño y maquetación',
       cards: [
         {
           title: 'Metodologías CSS',
           items: [
-            { label: 'BEM', description: 'Block Element Modifier para nomenclatura clara y escalable de clases CSS.' },
-            { label: 'Mobile First', description: 'Diseñar primero para móviles y escalar hacia pantallas más grandes.' },
-            { label: 'Utility Classes', description: 'Clases pequeñas reutilizables como margin, padding, colores.' },
-            { label: 'CSS Variables', description: 'Variables nativas para temas y valores reutilizables.' },
-            { label: 'Preprocessors', description: 'SASS/SCSS para variables, nesting y mixins.' }
+            { label: 'BEM', description: 'Block Element Modifier para una nomenclatura clara y escalable de clases.' },
+            { label: 'Mobile first', description: 'Diseñar primero para móviles y escalar hacia pantallas más grandes.' },
+            { label: 'Clases utilitarias', description: 'Clases pequeñas reutilizables como márgenes, padding o colores.' },
+            { label: 'Variables CSS', description: 'Variables nativas para temas y valores reutilizables.' },
+            { label: 'Preprocesadores', description: 'Uso de Sass/SCSS para variables, nesting y mixins.' }
           ]
         },
         {
-          title: 'Sistemas de Layout',
+          title: 'Sistemas de layout',
           items: [
-            { label: 'Flexbox', description: 'Layout unidimensional con alineación flexible.' },
-            { label: 'CSS Grid', description: 'Layout bidimensional para diseños complejos.' },
-            { label: 'Responsive Design', description: 'Media queries para adaptar diseño a diferentes tamaños.' },
-            { label: 'Viewport Units', description: 'vw, vh, vmin, vmax para tamaños relativos a la pantalla.' },
-            { label: 'Figma/Mockups', description: 'Herramientas para diseñar interfaces antes de codificar.' }
+            { label: 'Flexbox', description: 'Diseño unidimensional con alineación flexible.' },
+            { label: 'CSS Grid', description: 'Diseño bidimensional para estructuras más complejas.' },
+            { label: 'Diseño responsivo', description: 'Media queries para adaptar la interfaz a distintos tamaños.' },
+            { label: 'Unidades de viewport', description: 'vw, vh, vmin, vmax para tamaños relativos a la pantalla.' },
+            { label: 'Figma y mockups', description: 'Herramientas para diseñar interfaces antes de programar.' }
           ]
         }
       ]
@@ -95,20 +98,20 @@ export class StudyGuideComponent {
     {
       id: 'patterns',
       number: '03',
-      title: 'Patrones y Principios de Diseño',
+      title: 'Patrones y principios de diseño',
       cards: [
         {
           title: 'Principios SOLID',
           items: [
-            { label: 'S - Single Responsibility', description: 'Una clase debe tener solo una razón para cambiar.' },
-            { label: 'O - Open/Closed', description: 'Abierto para extensión, cerrado para modificación.' },
+            { label: 'S - Single Responsibility', description: 'Responsabilidad única: una clase debe tener solo una razón para cambiar.' },
+            { label: 'O - Open/Closed', description: 'Abierto a extensión y cerrado a modificación.' },
             { label: 'L - Liskov Substitution', description: 'Las subclases deben ser intercambiables con sus clases base.' },
-            { label: 'I - Interface Segregation', description: 'No forzar interfaces que no se usan.' },
-            { label: 'D - Dependency Inversion', description: 'Depender de abstracciones, no de implementaciones.' }
+            { label: 'I - Interface Segregation', description: 'No forzar dependencias sobre interfaces que no se usan.' },
+            { label: 'D - Dependency Inversion', description: 'Depender de abstracciones y no de implementaciones concretas.' }
           ]
         },
         {
-          title: 'Singleton Pattern',
+          title: 'Patrón Singleton',
           items: [
             { label: 'Definición', description: 'Garantiza una única instancia de una clase y proporciona un punto de acceso global.' },
             { label: 'Ejemplo conceptual', description: 'Un servicio de autenticación compartido por todos los componentes de la app.' },
@@ -116,7 +119,7 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'Factory Pattern',
+          title: 'Patrón Factory',
           items: [
             { label: 'Definición', description: 'Crea objetos sin especificar la clase exacta; delega la decisión de instanciación.' },
             { label: 'Ejemplo conceptual', description: 'Sistema de notificaciones que decide entre email, SMS o push desde una misma fábrica.' },
@@ -124,7 +127,7 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'Observer Pattern',
+          title: 'Patrón Observer',
           items: [
             { label: 'Definición', description: 'Un subject mantiene observadores y los notifica cuando su estado cambia.' },
             { label: 'Ejemplo conceptual', description: 'Un carrito de compras que notifica al header, sidebar y badges cuando se agrega un producto.' },
@@ -132,7 +135,7 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'Decorator Pattern',
+          title: 'Patrón Decorator',
           items: [
             { label: 'Definición', description: 'Agrega funcionalidad a un objeto sin modificar su estructura original.' },
             { label: 'Ejemplo conceptual', description: 'Envolver una función para medir su tiempo de ejecución sin alterar la función original.' },
@@ -140,7 +143,7 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'POO — Programación Orientada a Objetos',
+          title: 'POO — programación orientada a objetos',
           items: [
             { label: 'Abstracción', description: 'Modelar entidades del dominio resaltando solo los detalles relevantes para la lógica de negocio.' },
             { label: 'Encapsulamiento', description: 'Proteger el estado interno exponiendo solo métodos controlados para interactuar con el objeto.' },
@@ -150,7 +153,7 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'MVVM & Strategy',
+          title: 'MVVM y Strategy',
           items: [
             { label: 'MVVM', description: 'Separa View, ViewModel y Model para aislar la lógica de presentación.' },
             { label: 'MVVM - Ejemplo', description: 'En una lista de tareas, el Model maneja datos, el ViewModel la lógica y la View muestra resultados.' },
@@ -163,16 +166,16 @@ export class StudyGuideComponent {
     {
       id: 'javascript',
       number: '04',
-      title: 'JavaScript Core',
+      title: 'JavaScript esencial',
       cards: [
         {
-          title: 'Conceptos Fundamentales',
+          title: 'Conceptos fundamentales',
           items: [
             { label: 'Closures', description: 'Funciones que recuerdan su ámbito léxico incluso al ejecutarse fuera de él.' },
             { label: 'Hoisting', description: 'Variables y funciones se elevan al inicio del scope.' },
             { label: 'Event Loop', description: 'Gestiona operaciones asíncronas con call stack, task queue y microtask queue.' },
-            { label: 'Promises & Async/Await', description: 'Manejo de operaciones asíncronas de forma más legible.' },
-            { label: 'Coerción de Tipos', description: 'Conversión automática o explícita de un tipo de dato a otro.' }
+            { label: 'Promises y async/await', description: 'Manejo de operaciones asíncronas de forma más legible.' },
+            { label: 'Coerción de tipos', description: 'Conversión automática o explícita de un tipo de dato a otro.' }
           ]
         },
         {
@@ -197,7 +200,7 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'Métodos de Arrays - Funciones Esenciales',
+          title: 'Métodos de arrays esenciales',
           groups: [
             [
               { label: 'map()', description: 'Transforma cada elemento y devuelve un nuevo array sin mutar el original.' },
@@ -224,23 +227,23 @@ export class StudyGuideComponent {
       title: 'TypeScript',
       cards: [
         {
-          title: 'Características Clave',
+          title: 'Características clave',
           items: [
             { label: 'Interfaces', description: 'Definen la estructura de objetos y contratos entre componentes.' },
             { label: 'Generics', description: 'Permiten crear componentes reutilizables para múltiples tipos.' },
-            { label: 'Type Inference', description: 'TypeScript detecta automáticamente el tipo de variables.' },
-            { label: 'Decorators', description: 'Agregan metadata a clases, propiedades y métodos.' },
+            { label: 'Type inference', description: 'TypeScript detecta automáticamente el tipo de las variables.' },
+            { label: 'Decorators', description: 'Agregan metadatos a clases, propiedades y métodos.' },
             { label: 'Herencia', description: 'Extender clases para reutilizar y especializar comportamiento.' }
           ]
         },
         {
-          title: 'Conceptos Avanzados',
+          title: 'Conceptos avanzados',
           items: [
-            { label: 'Union Types', description: 'Variables que pueden ser de múltiples tipos (string | number).' },
-            { label: 'Type Guards', description: 'Técnicas para verificar tipos en runtime.' },
-            { label: 'Utility Types', description: 'Partial, Pick, Omit, Required para transformar tipos.' },
+            { label: 'Union types', description: 'Variables que pueden ser de múltiples tipos (string | number).' },
+            { label: 'Type guards', description: 'Técnicas para verificar tipos en tiempo de ejecución.' },
+            { label: 'Utility types', description: 'Partial, Pick, Omit o Required para transformar tipos.' },
             { label: 'Enums', description: 'Conjuntos de constantes con nombres significativos.' },
-            { label: 'Strict Mode', description: 'Configuración estricta para mayor seguridad de tipos.' }
+            { label: 'Strict mode', description: 'Configuración estricta para mayor seguridad de tipos.' }
           ]
         }
       ]
@@ -248,7 +251,7 @@ export class StudyGuideComponent {
     {
       id: 'json',
       number: '06',
-      title: 'JSON - Intercambio de Datos',
+      title: 'JSON - intercambio de datos',
       cards: [
         {
           title: '¿Qué es JSON?',
@@ -261,7 +264,7 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'Uso en Desarrollo',
+          title: 'Uso en desarrollo',
           items: [
             { label: 'APIs REST', description: 'Formato estándar para enviar y recibir datos en APIs web.' },
             { label: 'Configuración', description: 'Archivos como package.json o tsconfig.json.' },
@@ -275,7 +278,7 @@ export class StudyGuideComponent {
     {
       id: 'http',
       number: '07',
-      title: 'HTTP & APIs',
+      title: 'HTTP y APIs',
       cards: [
         {
           title: 'Métodos HTTP',
@@ -288,7 +291,7 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'REST vs SOAP',
+          title: 'REST vs. SOAP',
           items: [
             { label: 'REST', description: 'Estilo arquitectónico basado en HTTP; ligero, flexible y común con JSON.' },
             { label: 'SOAP', description: 'Protocolo basado en XML con estándares estrictos y seguridad integrada.' },
@@ -300,10 +303,10 @@ export class StudyGuideComponent {
           items: [
             { label: '¿Qué es RESTful?', description: 'API que sigue principios REST: stateless, cacheable, recursos con URIs únicas.' },
             { label: 'Endpoints', description: 'URLs específicas para acceder a recursos del servidor.' },
-            { label: 'Status Codes', description: '200 OK, 201 Created, 400 Bad Request, 401 Unauthorized, 404 Not Found, 500 Server Error.' },
-            { label: 'CRUD Operations', description: 'Create (POST), Read (GET), Update (PUT/PATCH), Delete (DELETE).' },
+            { label: 'Códigos de estado', description: '200 OK, 201 Created, 400 Bad Request, 401 Unauthorized, 404 Not Found, 500 Server Error.' },
+            { label: 'Operaciones CRUD', description: 'Create (POST), Read (GET), Update (PUT/PATCH), Delete (DELETE).' },
             { label: 'Autenticación', description: 'JWT tokens, OAuth, API keys para verificar identidad.' },
-            { label: 'Rate Limiting', description: 'Limitar requests por tiempo para proteger el servidor.' }
+            { label: 'Rate limiting', description: 'Limitar solicitudes por tiempo para proteger el servidor.' }
           ]
         }
       ]
@@ -311,10 +314,10 @@ export class StudyGuideComponent {
     {
       id: 'security',
       number: '08',
-      title: 'Seguridad Web',
+      title: 'Seguridad web',
       cards: [
         {
-          title: 'Amenazas Comunes',
+          title: 'Amenazas comunes',
           items: [
             { label: 'XSS', description: 'Cross-Site Scripting; sanitizar inputs para evitar scripts maliciosos.' },
             { label: 'CSRF', description: 'Cross-Site Request Forgery; usar tokens anti-CSRF.' },
@@ -324,12 +327,12 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'Buenas Prácticas',
+          title: 'Buenas prácticas',
           items: [
-            { label: 'Validación de Inputs', description: 'Validar y sanitizar todos los datos del usuario.' },
+            { label: 'Validación de inputs', description: 'Validar y sanitizar todos los datos del usuario.' },
             { label: 'Encriptación', description: 'Hashear passwords con bcrypt y proteger datos sensibles.' },
             { label: 'Autenticación JWT', description: 'Tokens seguros con expiración para sesiones.' },
-            { label: 'Headers de Seguridad', description: 'CSP, X-Frame-Options, X-XSS-Protection.' },
+            { label: 'Headers de seguridad', description: 'CSP, X-Frame-Options, X-XSS-Protection.' },
             { label: 'Actualizaciones', description: 'Mantener dependencias y frameworks al día.' }
           ]
         }
@@ -341,7 +344,7 @@ export class StudyGuideComponent {
       title: 'Angular',
       cards: [
         {
-          title: 'Conceptos Core',
+          title: 'Conceptos clave',
           items: [
             { label: 'SPA', description: 'Single Page Application que carga una vez y actualiza contenido dinámicamente.' },
             { label: 'Components', description: 'Bloques reutilizables con template, estilos y lógica.' },
@@ -351,7 +354,7 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'Lifecycle Hooks',
+          title: 'Ciclo de vida (hooks)',
           items: [
             { label: 'constructor', description: 'Para inyección de dependencias y tareas ligeras.' },
             { label: 'ngOnInit', description: 'Inicialización del componente y llamadas a APIs.' },
@@ -361,7 +364,7 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'Características Clave',
+          title: 'Características clave',
           items: [
             { label: 'Routing', description: 'Navegación entre vistas con RouterModule.' },
             { label: 'Forms', description: 'Reactive Forms y Template-driven forms.' },
@@ -371,14 +374,14 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'Data Binding y Comunicación',
+          title: 'Data binding y comunicación',
           items: [
             { label: 'Interpolación', description: '{{ }} para mostrar valores de la clase en el template.' },
             { label: 'Property Binding', description: '[prop]="valor"' },
             { label: 'Event Binding', description: '(evento)="handler($event)"' },
             { label: 'Two-way Binding', description: '[(ngModel)] combina property y event binding para inputs.' },
             { label: 'Inputs y Outputs', description: '@Input() para recibir datos del padre y @Output() EventEmitter para notificar al padre.' },
-            { label: 'Servicios Compartidos', description: 'Inyectar servicios con signals u observables para sincronizar estados entre componentes no relacionados.' }
+            { label: 'Servicios compartidos', description: 'Inyectar servicios con signals u observables para sincronizar estados entre componentes no relacionados.' }
           ]
         }
       ]
@@ -386,7 +389,7 @@ export class StudyGuideComponent {
     {
       id: 'angular-modern',
       number: '10',
-      title: 'Novedades Angular 17-20',
+      title: 'Novedades de Angular 17 a 20',
       cards: [
         {
           title: 'Angular 17',
@@ -403,10 +406,10 @@ export class StudyGuideComponent {
               label: 'effect()',
               description: 'Escucha cambios en signals y ejecuta efectos secundarios controlados (peticiones, logs, sincronización). No devuelve valor; su objetivo es reaccionar a la reactividad sin acoplarla al template.'
             },
-            { label: 'Control Flow', description: '@if, @for, @switch reemplazan *ngIf y *ngFor.' },
-            { label: 'Deferrable Views', description: '@defer para lazy loading y mejor tiempo de carga.' },
+            { label: 'Control flow', description: '@if, @for, @switch reemplazan *ngIf y *ngFor.' },
+            { label: 'Deferrable views', description: '@defer para lazy loading y mejor tiempo de carga.' },
             { label: 'Vite + esbuild', description: 'Sistema de build más rápido que webpack.' },
-            { label: 'Nueva Sintaxis', description: 'Templates más declarativos y legibles.' }
+            { label: 'Nueva sintaxis', description: 'Templates más declarativos y legibles.' }
           ]
         },
         {
@@ -422,19 +425,19 @@ export class StudyGuideComponent {
         {
           title: 'Angular 19',
           items: [
-            { label: 'Standalone por Defecto', description: 'Los componentes standalone son el estándar.' },
-            { label: 'Linked Signals', description: 'computed() y effect() mejorados para signals derivados.' },
+            { label: 'Standalone por defecto', description: 'Los componentes standalone son el estándar.' },
+            { label: 'Linked signals', description: 'computed() y effect() mejorados para signals derivados.' },
             { label: 'Resource API', description: 'Manejo eficiente de recursos asíncronos.' },
-            { label: 'Incremental Hydration', description: 'Hidratación progresiva para SSR.' },
-            { label: 'HMR Mejorado', description: 'Hot Module Replacement más rápido en desarrollo.' }
+            { label: 'Incremental hydration', description: 'Hidratación progresiva para SSR.' },
+            { label: 'HMR mejorado', description: 'Hot Module Replacement más rápido en desarrollo.' }
           ]
         },
         {
-          title: 'Angular 20 (Preview)',
+          title: 'Angular 20 (preview)',
           items: [
-            { label: 'Signal-based Forms', description: 'Formularios completamente reactivos con signals.' },
-            { label: 'Zoneless Stable', description: 'Change detection zoneless disponible de forma estable.' },
-            { label: 'Partial Hydration', description: 'Hidratación selectiva de componentes en SSR.' },
+            { label: 'Signal-based forms', description: 'Formularios completamente reactivos con signals.' },
+            { label: 'Zoneless stable', description: 'Change detection zoneless disponible de forma estable.' },
+            { label: 'Partial hydration', description: 'Hidratación selectiva de componentes en SSR.' },
             { label: 'Enhanced DI', description: 'Inyección de dependencias mejorada con signals.' },
             { label: 'TypeScript 5.x', description: 'Integración optimizada con las últimas versiones de TypeScript.' }
           ]
@@ -444,7 +447,7 @@ export class StudyGuideComponent {
     {
       id: 'state-management',
       number: '11',
-      title: 'RxJS, NgRx & Redux - State Management',
+      title: 'RxJS, NgRx y Redux — gestión de estado',
       cards: [
         {
           title: 'RxJS',
@@ -478,7 +481,7 @@ export class StudyGuideComponent {
         {
           title: 'Redux',
           items: [
-            { label: '3 Principios', description: 'Única fuente de verdad, estado de solo lectura, cambios con funciones puras.' },
+            { label: '3 principios', description: 'Única fuente de verdad, estado de solo lectura, cambios con funciones puras.' },
             { label: 'Redux Toolkit', description: 'Forma moderna y simplificada de escribir lógica Redux.' },
             { label: 'Middleware', description: 'Redux Thunk para async, Redux Saga para efectos complejos.' },
             { label: 'DevTools', description: 'Time-travel debugging para inspeccionar estado.' },
@@ -490,20 +493,20 @@ export class StudyGuideComponent {
     {
       id: 'testing',
       number: '12',
-      title: 'Testing y Herramientas de Desarrollo',
+      title: 'Testing y herramientas de desarrollo',
       cards: [
         {
           title: 'Testing',
           items: [
-            { label: 'Unit Tests', description: 'Pruebas de componentes y funciones individuales.' },
-            { label: 'E2E Tests', description: 'Pruebas de flujos completos de usuario.' },
+            { label: 'Tests unitarios', description: 'Pruebas de componentes y funciones individuales.' },
+            { label: 'Tests end-to-end', description: 'Pruebas de flujos completos de usuario.' },
             { label: 'Jasmine/Karma', description: 'Framework de testing y runner por defecto en Angular.' },
             { label: 'Jest', description: 'Framework alternativo más rápido y moderno.' },
-            { label: 'Coverage', description: 'Medir qué porcentaje del código está cubierto por tests.' }
+            { label: 'Cobertura', description: 'Medir qué porcentaje del código está cubierto por tests.' }
           ]
         },
         {
-          title: 'Herramientas de Desarrollo',
+          title: 'Herramientas de desarrollo',
           items: [
             { label: 'Angular CLI', description: 'Generar y gestionar proyectos desde la terminal.' },
             { label: 'VSCode/Cursor', description: 'Editores con extensiones para Angular y TypeScript.' },
@@ -515,5 +518,17 @@ export class StudyGuideComponent {
       ]
     }
   ]);
+
+  readonly showScrollButton = signal(false);
+
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    const y = window.scrollY || document.documentElement.scrollTop || 0;
+    this.showScrollButton.set(y > this.scrollThreshold);
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
 

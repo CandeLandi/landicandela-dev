@@ -8,9 +8,9 @@ import { LucideAngularModule } from 'lucide-angular';
 import { ProjectInfoComponent } from './tabs/project-info/project-info.component';
 import { ProjectGalleryComponent } from './tabs/project-gallery/project-gallery.component';
 import { ProjectSettingsComponent } from './tabs/project-settings/project-settings.component';
-import { ProjectService } from '../../../services/project.service';
-import { AuthService } from '../../../services/auth.service';
-import { Project } from '../../../models/project.interface';
+import { ProjectService } from '../../../core/services/project.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { Project } from '../../../core/models/project.interface';
 import { finalize } from 'rxjs/operators';
 
 
@@ -117,7 +117,7 @@ export class ProjectFormComponent implements OnInit {
           next: () => {
             this.router.navigate(['/admin/dashboard']);
           },
-          error: (error) => {
+          error: (error: unknown) => {
             console.error('Error creating project:', error);
           }
         });
@@ -135,7 +135,7 @@ export class ProjectFormComponent implements OnInit {
           next: () => {
             this.router.navigate(['/admin/dashboard']);
           },
-          error: (error) => {
+          error: (error: unknown) => {
             console.error('Error saving changes:', error);
           }
         });
@@ -169,11 +169,11 @@ export class ProjectFormComponent implements OnInit {
         .createProject(draft)
         .pipe(finalize(() => this.creating.set(false)))
         .subscribe({
-          next: (created) => {
+          next: (created: Project) => {
             this.project.set(created);
             this.mode.set('edit');
           },
-          error: (e) => console.error('Autosave create error:', e)
+          error: (e: unknown) => console.error('Autosave create error:', e)
         });
       return;
     }
@@ -185,7 +185,7 @@ export class ProjectFormComponent implements OnInit {
 
     this.projectService.updateProject(id, updates).subscribe({
       next: () => {},
-      error: (e) => console.error('Autosave update error:', e)
+      error: (e: unknown) => console.error('Autosave update error:', e)
     });
   }
 

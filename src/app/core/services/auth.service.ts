@@ -1,8 +1,8 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { User } from '../pages/admin/interfaces/user.interface';
+import { environment } from '../../../environments/environment';
+import { User } from '../../pages/admin/interfaces/user.interface';
 
 
 

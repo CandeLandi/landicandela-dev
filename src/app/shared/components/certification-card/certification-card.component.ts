@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
-import { Education, EducationProject } from '../../../interfaces/education.interface';
+import { Education, EducationProject } from '../../../core/models/education.interface';
 import { RevealDirective } from '../../../shared/directives/reveal.directive';
 
 @Component({

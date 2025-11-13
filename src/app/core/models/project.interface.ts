@@ -1,15 +1,5 @@
-import { ProjectType, ProjectStatus } from '../interfaces/project.types';
-
-export interface GalleryImage {
-  id: string;
-  url: string;
-  title?: string | null;
-  description?: string | null;
-  order?: number;
-  projectId?: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
+import { Gallery } from "./gallery.interface";
+import { ProjectType, ProjectStatus } from "./project.types";
 
 export interface Project {
   id: string;
@@ -18,16 +8,15 @@ export interface Project {
   longDescription?: string | null;
   type?: ProjectType;
   status: ProjectStatus;
+  url?: string | null;
   demoUrl?: string | null;
   githubUrl?: string | null;
+  gallery?: Gallery[];
   technologies?: string[];
-  // Campo auxiliar de UI para filtros/etiquetas; mapeado desde technologies
   features?: string[];
-  gallery?: GalleryImage[];
   clientId: string;
   createdAt: string;
   updatedAt: string;
-  // Campos opcionales usados en UI o que puede devolver el backend
   featured?: boolean;
   visible?: boolean;
   views?: number;

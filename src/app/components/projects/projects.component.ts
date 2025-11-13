@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
 import { CommonModule } from '@angular/common';
-import { ProjectService } from '../../services/project.service';
-import { Project } from '../../models/project.interface';
+import { ProjectService } from '../../core/services/project.service';
+import { Project } from '../../core/models/project.interface';
 import { GallerySliderComponent } from '../../shared/components/gallery-slider/gallery-slider.component';
 
 @Component({
@@ -29,8 +29,9 @@ export class ProjectsComponent implements OnInit {
 
   loadProjects(): void {
     const CLIENT_ID = '88b59ed0-4d52-45db-bd21-ef72a8338fbc'; // clientId del portfolio
-    this.projectService.getPublicProjects(CLIENT_ID, 1, 6).subscribe(response => {
-      const raw = Array.isArray(response) ? response : (response?.data ?? []);
+    this.projectService.getPublicProjects(CLIENT_ID, 1, 6).subscribe((response: unknown) => {
+      const payload = response as any;
+      const raw = Array.isArray(payload) ? payload : (payload?.data ?? []);
       const mapped: Project[] = (raw || []).map((p: any) => {
         const galleryRaw = (p.gallery ?? p.images ?? []) as any[];
         const gallerySorted = [...galleryRaw].sort((a: any, b: any) => {

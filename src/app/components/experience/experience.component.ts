@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PortfolioService } from '../../services/portfolio.service';
-import { Experience } from '../../interfaces/experience.interface';
+import { PortfolioService } from '../../core/services/portfolio.service';
+import { Experience } from '../../core/models/experience.interface';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
 
 @Component({
@@ -20,7 +20,7 @@ export class ExperienceComponent implements OnInit {
   }
 
   loadExperience(): void {
-    this.portfolioService.getExperience().subscribe(experience => {
+    this.portfolioService.getExperience().subscribe((experience: Experience[]) => {
       this.experience = experience;
     });
   }

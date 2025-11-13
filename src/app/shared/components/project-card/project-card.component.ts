@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
-import { Project } from '../../../models/project.interface';
+import { Project } from '../../../core/models/project.interface';
 
 @Component({
   selector: 'app-project-card',

@@ -14,7 +14,7 @@ export class BackToTopComponent {
   @HostListener('window:scroll')
   onScroll(): void {
     const y = window.scrollY || document.documentElement.scrollTop || 0;
-    this.visible.set(y > 300);
+    this.visible.set(y > 160);
   }
 
   scrollTop(): void {

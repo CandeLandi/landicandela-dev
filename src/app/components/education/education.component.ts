@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PortfolioService } from '../../services/portfolio.service';
-import { Education } from '../../interfaces/education.interface';
+import { PortfolioService } from '../../core/services/portfolio.service';
+import { Education } from '../../core/models/education.interface';
 import { CertificationCardComponent } from '../../shared/components/certification-card/certification-card.component';
 import { StatCardComponent } from '../../shared/components/stat-card/stat-card.component';
 
@@ -22,7 +22,7 @@ export class EducationComponent implements OnInit {
   }
 
   loadEducation(): void {
-    this.portfolioService.getEducation().subscribe(education => {
+    this.portfolioService.getEducation().subscribe((education: Education[]) => {
       this.education = education;
     });
   }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { AuthService } from './auth.service';
 import { Project } from '../models/project.interface';
-import { PaginatedResponse, PaginationDto } from '../pages/admin/interfaces/project.interface';
+import { PaginatedResponse, PaginationDto } from '../../pages/admin/interfaces/project.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {

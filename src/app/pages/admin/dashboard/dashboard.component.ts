@@ -6,9 +6,9 @@ import { LucideAngularModule } from 'lucide-angular';
 import { AdminSidemenuComponent } from '../../../shared/components/admin-sidemenu/admin-sidemenu.component';
 import { StatsCardsComponent } from '../../../shared/components/stats-cards/stats-cards.component';
 import { ProjectCardComponent } from '../../../shared/components/project-card/project-card.component';
-import { ProjectService } from '../../../services/project.service';
-import { AuthService } from '../../../services/auth.service';
-import { Project } from '../../../models/project.interface';
+import { ProjectService } from '../../../core/services/project.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { Project } from '../../../core/models/project.interface';
 
 
 @Component({
@@ -96,8 +96,9 @@ export class DashboardComponent implements OnInit {
   loadProjects() {
     const clientId = this.authService.getClientId() || '';
     this.projectService.getProjectsByClientId(clientId, { page: 1, limit: 100 }).subscribe({
-      next: (response: any) => {
-        const raw: any[] = Array.isArray(response) ? response : (response?.data ?? response?.items ?? []);
+      next: (response: unknown) => {
+        const payload = response as any;
+        const raw: any[] = Array.isArray(payload) ? payload : (payload?.data ?? payload?.items ?? []);
         const clientId = this.authService.getClientId();
         const mapped: Project[] = (raw || [])
           .filter((p: any) => {
@@ -131,27 +132,27 @@ export class DashboardComponent implements OnInit {
           });
         this.projects.set(mapped);
       },
-      error: (error: any) => console.error('Error loading projects:', error)
+      error: (error: unknown) => console.error('Error loading projects:', error)
     });
   }
 
-  onSearchChange(event: any) {
-    this.searchTerm.set(event.target.value);
+  onSearchChange(event: Event) {
+    const value = (event.target as HTMLInputElement | null)?.value ?? '';
+    this.searchTerm.set(value);
   }
 
-  onFilterChange(event: any) {
-    this.filterStatus.set(event.target.value);
+  onFilterChange(event: Event) {
+    const value = (event.target as HTMLSelectElement | null)?.value ?? 'all';
+    this.filterStatus.set(value);
   }
 
-  onSortChange(event: any) {
-    this.sortBy.set(event.target.value);
+  onSortChange(event: Event) {
+    const value = (event.target as HTMLSelectElement | null)?.value ?? 'newest';
+    this.sortBy.set(value);
   }
 
   navigateToNewProject() {
-    console.log('Navigating to new project form...');
-    this.router.navigate(['/admin/dashboard/new']).then(() => {
-      console.log('Navigation completed successfully');
-    }).catch(error => {
+    this.router.navigate(['/admin/dashboard/new']).catch(error => {
       console.error('Navigation error:', error);
     });
   }
@@ -164,7 +165,7 @@ export class DashboardComponent implements OnInit {
     const project = this.projects().find(p => p.id === projectId);
     if (!project) return;
     this.projectService.updateProject(projectId, { featured: !project.featured }).subscribe({
-      next: (updated) => {
+      next: (updated: Project) => {
         this.projects.set(this.projects().map(p => p.id === projectId ? { ...p, featured: updated.featured } : p));
       }
     });
@@ -175,7 +176,7 @@ export class DashboardComponent implements OnInit {
     if (!project) return;
     const newStatus = project.status === 'PUBLISHED' ? 'DRAFT' : 'PUBLISHED';
     this.projectService.updateProject(projectId, { status: newStatus }).subscribe({
-      next: (updated) => {
+      next: (updated: Project) => {
         this.projects.set(this.projects().map(p => p.id === projectId ? { ...p, status: updated.status } : p));
       }
     });
@@ -187,9 +188,6 @@ export class DashboardComponent implements OnInit {
     this.projectService.deleteProject(projectId).subscribe({
       next: () => {
         this.projects.set(this.projects().filter(p => p.id !== projectId));
-      },
-      error: () => {
-        // Optionally handle error UI here
       }
     });
   }

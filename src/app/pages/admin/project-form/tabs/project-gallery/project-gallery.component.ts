@@ -1,9 +1,9 @@
 import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
-import { UploadService } from '../../../../../services/upload.service';
-import { GalleryService } from '../../../../../services/gallery.service';
-import { GalleryImage } from '../../../../../models/project.interface';
+import { UploadService } from '../../../../../core/services/upload.service';
+import { GalleryService } from '../../../../../core/services/gallery.service';
+import { GalleryImage } from '../../../../../core/models/project.model';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';

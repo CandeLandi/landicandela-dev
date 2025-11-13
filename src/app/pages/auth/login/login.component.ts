@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -41,11 +41,11 @@ export class LoginComponent {
       const credentials = this.loginForm.value;
 
       this.authService.login(credentials.email, credentials.password).subscribe({
-        next: (response) => {
+        next: () => {
           this.isLoading = false;
           this.router.navigate(['/admin/dashboard']);
         },
-        error: (error) => {
+        error: (error: unknown) => {
           this.isLoading = false;
           console.error('Login error:', error);
           this.errorMessage = 'Credenciales inválidas. Verifica tu usuario y contraseña.';
