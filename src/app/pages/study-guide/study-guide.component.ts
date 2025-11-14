@@ -34,7 +34,7 @@ export class StudyGuideComponent {
   private readonly scrollThreshold = 320;
 
   readonly intro: StudyGuideIntro = {
-    title: 'Guía de estudio de desarrollo frontend',
+    title: 'Guía de estudio - Desarrollo frontend',
     subtitle: 'Recorrido ordenado para aprender desarrollo frontend según mi experiencia',
     note: 'Orden recomendado: Fundamentos → Diseño → Patrones → JavaScript → TypeScript → HTTP → Framework → Gestión de estado → Testing'
   };
@@ -354,8 +354,9 @@ export class StudyGuideComponent {
           ]
         },
         {
-          title: 'Ciclo de vida (hooks)',
+          title: 'Ciclo de vida',
           items: [
+            { label: 'ngOnChanges', description: 'Se ejecuta cuando cambian las propiedades de @Input().' },
             { label: 'constructor', description: 'Para inyección de dependencias y tareas ligeras.' },
             { label: 'ngOnInit', description: 'Inicialización del componente y llamadas a APIs.' },
             { label: 'ngOnChanges', description: 'Se ejecuta cuando cambian las propiedades de @Input().' },
