@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Project } from '../models/project.interface';
 import { Experience } from '../models/experience.interface';
 import { Education } from '../models/education.interface';
+import { WorkExperience } from '../models/work-experience.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,69 @@ import { Education } from '../models/education.interface';
 export class PortfolioService {
   constructor() { }
 
+
+  getWorkExperience(): Observable<WorkExperience[]> {
+    const workExperience: WorkExperience[] = [
+      {
+        id: '1',
+        role: 'Frontend Developer',
+        company: 'Vippinn / Indra',
+        projectTitle: 'INPLAN – Sistema de Gestión Operativa Aeroportuaria',
+        period: '11/2025 – Actualidad',
+        client: 'FINAVIA (Operador aeroportuario de Finlandia)',
+        description: 'Participo en el desarrollo frontend de una migración aeroportuaria utilizado por FINAVIA (Finlandia), trabajando en su modernización hacia Angular 17 con evolución a Angular 20. Desarrollo de funciones vinculadas a la gestión de vuelos, contribuyendo también al mantenimiento y mejora de librerías internas reutilizables (tabla avanzada con paginación cliente/servidor, ordenación multicolumna, filtros con manejo de timezone, exportación a Excel; gestión de usuarios y eventos). Implementación de actualizaciones en tiempo real mediante WebSockets, manejo de zonas horarias y trabajo bajo arquitectura modular con cobertura de testing superior al 80%.',
+        highlightTerms: [
+          'Angular 17/20',
+          'WebSockets',
+          'arquitectura modular',
+          'cobertura de testing superior al 80%',
+        ],
+        techStack: [
+          'Angular',
+          'TypeScript',
+          'PrimeNG',
+          'JFrog',
+          'Jasmine',
+          'Jira',
+        ],
+        modalSections: [
+          {
+            title: 'Contexto',
+            items: [
+              'Sistema HMI para planificación y operación diaria de aeropuertos FINAVIA (Indra).',
+              'Modernización tecnológica: Angular 17 (Standalone, TypeScript strict) con evolución a Angular 20.',
+              'Arquitectura feature-based, lazy loading y estándares de testing (Jasmine/Karma, cobertura >80%).',
+            ],
+          },
+          {
+            title: 'Tecnologías',
+            items: [
+              'Angular 17/20, TypeScript strict, PrimeNG / PrimeFlex, RxJS.',
+              'STOMP para actualizaciones en tiempo real; i18n dinámico.',
+              'Autenticación Keycloak / Azure Entra ID; despliegue en Kubernetes.',
+            ],
+          },
+          {
+            title: 'Contribuciones destacadas',
+            items: [
+              'Módulos de gestión de vuelos, alertas operativas y procesos aeroportuarios.',
+              'Librerías internas reutilizables: tablas avanzadas, gestión de usuarios, Gantt, auditoría.',
+              'Librería de tablas: paginación cliente/servidor, ordenación multicolumna, filtros avanzados con timezone, exportación a Excel, persistencia de configuración de columnas, soporte multilenguaje con cambio dinámico.',
+              'Consistencia UI/UX, mantenibilidad y escalabilidad en entorno enterprise internacional.',
+            ],
+          },
+        ],
+        linkedInUrl: 'https://www.linkedin.com/in/candela-landi-5651002ab',
+        imageUrl: 'assets/atm-login.png',
+        companyLogoUrl: 'assets/brands/02 Vippinn - Bajada - Principal blanco.png',
+        enterpriseTags: [],
+        current: true,
+        order: 1,
+        visible: true,
+      },
+    ];
+    return of(workExperience);
+  }
 
   getExperience(): Observable<Experience[]> {
     const experience: Experience[] = [

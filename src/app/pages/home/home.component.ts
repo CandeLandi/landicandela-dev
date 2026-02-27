@@ -3,6 +3,7 @@ import { listStagger } from '../../shared/motion';
 import { CommonModule } from '@angular/common';
 import { SidemenuComponent } from '../../shared/components/sidemenu/sidemenu.component';
 import { HeroComponent } from '../../components/hero/hero.component';
+import { WorkExperienceComponent } from '../../components/work-experience/work-experience.component';
 import { ProjectsComponent } from '../../components/projects/projects.component';
 import { ExperienceComponent } from '../../components/experience/experience.component';
 import { EducationComponent } from '../../components/education/education.component';
@@ -18,6 +19,7 @@ import { SeoService } from '../../shared/services/seo.service';
     CommonModule,
     SidemenuComponent,
     HeroComponent,
+    WorkExperienceComponent,
     ProjectsComponent,
     EducationComponent,
     ContactComponent,

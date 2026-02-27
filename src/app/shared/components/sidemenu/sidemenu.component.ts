@@ -26,7 +26,8 @@ export class SidemenuComponent implements OnInit, OnDestroy {
 
   menuItems: MenuItem[] = [
     { id: 'hero', label: 'Inicio', icon: 'home', kind: 'section' },
-    { id: 'projects', label: 'Proyectos', icon: 'briefcase', kind: 'section' },
+    { id: 'work-experience', label: 'Experiencia', icon: 'briefcase', kind: 'section' },
+    { id: 'projects', label: 'Proyectos', icon: 'folder-code', kind: 'section' },
     // { id: 'experience', label: 'Experiencia', icon: 'user', kind: 'section' },
     { id: 'education', label: 'Educación', icon: 'graduation-cap', kind: 'section' },
     { id: 'contact', label: 'Contacto', icon: 'mail', kind: 'section' },

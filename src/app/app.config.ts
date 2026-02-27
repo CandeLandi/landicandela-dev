@@ -38,7 +38,12 @@ import {
   ArrowUp,
   Check,
   Code2,
-  BookOpen
+  BookOpen,
+  Globe,
+  ListChecks,
+  Code,
+  TrendingUp,
+  FolderCode
 } from 'lucide-angular';
 
 import { routes } from './app.routes';
@@ -95,7 +100,12 @@ export const appConfig: ApplicationConfig = {
       ArrowUp,
       Check,
       Code2,
-      BookOpen
+      BookOpen,
+      Globe,
+      ListChecks,
+      Code,
+      TrendingUp,
+      FolderCode
     }))
   ]
 };
