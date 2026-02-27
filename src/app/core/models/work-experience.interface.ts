@@ -33,6 +33,8 @@ export interface WorkExperience {
   imageUrl?: string | null;
   /** Logo de la empresa (ej. en assets/brands). */
   companyLogoUrl?: string | null;
+  /** URL de LinkedIn de la empresa (para hacer el logo clickeable). */
+  companyLinkedInUrl?: string | null;
   /** Etiquetas de contexto enterprise (ej. "International enterprise environment"). */
   enterpriseTags?: string[];
   current?: boolean;

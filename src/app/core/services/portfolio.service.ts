@@ -66,6 +66,7 @@ export class PortfolioService {
         linkedInUrl: 'https://www.linkedin.com/in/candela-landi-5651002ab',
         imageUrl: 'assets/atm-login.png',
         companyLogoUrl: 'assets/brands/02 Vippinn - Bajada - Principal blanco.png',
+        companyLinkedInUrl: 'https://www.linkedin.com/company/vippinn',
         enterpriseTags: [],
         current: true,
         order: 1,

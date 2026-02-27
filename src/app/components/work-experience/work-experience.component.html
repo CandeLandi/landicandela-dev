@@ -40,11 +40,21 @@
                   }
                 </div>
                 @if (we.companyLogoUrl) {
-                  <img
-                    [src]="we.companyLogoUrl"
-                    alt="Company"
-                    class="h-8 md:h-9 w-auto object-contain flex-shrink-0"
-                  />
+                  @if (we.companyLinkedInUrl) {
+                    <a [href]="we.companyLinkedInUrl" target="_blank" rel="noopener noreferrer" class="flex-shrink-0 hover:opacity-90 transition-opacity" aria-label="Ver perfil de la empresa en LinkedIn">
+                      <img
+                        [src]="we.companyLogoUrl"
+                        alt="Company"
+                        class="h-8 md:h-9 w-auto object-contain"
+                      />
+                    </a>
+                  } @else {
+                    <img
+                      [src]="we.companyLogoUrl"
+                      alt="Company"
+                      class="h-8 md:h-9 w-auto object-contain flex-shrink-0"
+                    />
+                  }
                 }
               </div>
 
