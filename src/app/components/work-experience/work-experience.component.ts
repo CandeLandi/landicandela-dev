@@ -28,10 +28,11 @@ export class WorkExperienceComponent implements OnInit {
 
   getHighlightedDescription(text: string | undefined, terms: string[] | undefined): SafeHtml | null {
     if (!text) return null;
-    if (!terms?.length) return this.sanitizer.bypassSecurityTrustHtml(escapeHtml(text));
-    const escaped = escapeHtml(text);
+    const withBreaks = text.replace(/\n/g, '<br>');
+    if (!terms?.length) return this.sanitizer.bypassSecurityTrustHtml(escapeHtml(withBreaks).replace(/&lt;br&gt;/g, '<br>'));
+    const escaped = escapeHtml(withBreaks);
     const sorted = [...terms].sort((a, b) => b.length - a.length);
-    let result = escaped;
+    let result = escaped.replace(/&lt;br&gt;/g, '<br>');
     for (const term of sorted) {
       const span = `<span class="text-purple-300 font-medium">${escapeHtml(term)}</span>`;
       result = result.split(term).join(span);
