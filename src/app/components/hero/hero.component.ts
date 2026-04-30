@@ -22,9 +22,20 @@ export class HeroComponent implements OnInit, OnDestroy {
   currentTechIndex: number = 0;
   private rotateIntervalId: ReturnType<typeof setInterval> | null = null;
   skills: string[] = [
-    'Angular', 'TypeScript', 'JavaScript',
-    'Node.js', 'NestJS', 'Express.js',
-    'Firebase', 'MongoDB', 'Tailwind Css', 'Angular Material', 'Prime NG'
+    'Angular',
+    'TypeScript',
+    'JavaScript',
+    'RxJS',
+    'Angular Material',
+    'REST APIs',
+    'WebSockets',
+    'PrimeNG',
+    'NestJS',
+    'Tailwind CSS',
+    'Node.js',
+    'Express.js',
+    'Firebase',
+    'MongoDB',
   ];
 
   softSkills: string[] = [

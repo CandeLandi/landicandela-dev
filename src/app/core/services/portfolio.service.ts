@@ -21,12 +21,16 @@ export class PortfolioService {
         projectTitle: 'INPLAN – Sistema de Gestión Operativa Aeroportuaria',
         period: '11/2025 – Actualidad',
         client: 'FINAVIA (Operador aeroportuario de Finlandia)',
-        description: 'Participo en el desarrollo frontend de una migración aeroportuaria utilizado por FINAVIA (Finlandia), trabajando en su modernización hacia Angular 17 con evolución a Angular 20.\nDesarrollo de funciones vinculadas a la gestión de vuelos, contribuyendo también al mantenimiento y mejora de librerías internas reutilizables (tabla avanzada con paginación cliente/servidor, ordenación multicolumna, filtros con manejo de timezone, exportación a Excel; gestión de usuarios y eventos). Implementación de actualizaciones en tiempo real mediante WebSockets, manejo de zonas horarias y trabajo bajo arquitectura modular con cobertura de testing superior al 80%.',
+        description:
+          '• Desarrollo de funcionalidades vinculadas a la gestión operativa de vuelos\n' +
+          '• Creación y mantenimiento de librerías reutilizables (tablas avanzadas, filtros, ordenación, exportación)\n' +
+          '• Manejo de datos en tiempo real mediante WebSockets; manejo de zonas horarias (timezone) y sincronización con hora de sistema\n' +
+          '• Implementación bajo arquitectura modular y escalable\n' +
+          '• Desarrollo de testing unitario con cobertura superior al 80%',
         highlightTerms: [
-          'Angular 17/20',
           'WebSockets',
           'arquitectura modular',
-          'cobertura de testing superior al 80%',
+          'cobertura superior al 80%',
         ],
         techStack: [
           'Angular 17/20',
@@ -41,26 +45,24 @@ export class PortfolioService {
           {
             title: 'Contexto',
             items: [
-              'Sistema HMI para planificación y operación diaria de aeropuertos FINAVIA (Indra).',
-              'Modernización tecnológica: Angular 17 (Standalone, TypeScript strict) con evolución a Angular 20.',
-              'Arquitectura feature-based, lazy loading y estándares de testing (Jasmine/Karma, cobertura >80%).',
+              'Proyecto para FINAVIA: modernización del frontend del sistema de gestión operativa aeroportuaria.',
+              'Angular 17 (standalone, TypeScript strict) con evolución a Angular 20.',
             ],
           },
           {
             title: 'Tecnologías',
             items: [
-              'Frontend: Angular 17/20, TypeScript, PrimeNG, PrimeFlex, RxJS.',
-              'i18n: Aplicación multilenguaje con @mova/movarq-language.',
-              'Otros: STOMP (tiempo real) actualización de datos mediante websockets.',
+              'Angular 17/20, TypeScript, PrimeNG, PrimeFlex, RxJS.',
+              'i18n multilenguaje; tiempo real con STOMP / WebSockets.',
             ],
           },
           {
             title: 'Contribuciones destacadas',
             items: [
-              'Módulos de gestión de vuelos, alertas operativas y procesos aeroportuarios.',
-              'Librerías internas reutilizables: tablas avanzadas, gestión de usuarios, Gantt, auditoría.',
-              'Librería de tablas: paginación cliente/servidor, ordenación multicolumna, filtros avanzados con timezone, exportación a Excel, persistencia de configuración de columnas, soporte multilenguaje con cambio dinámico.',
-              'Consistencia UI/UX, mantenibilidad y escalabilidad en entorno enterprise internacional.',
+              'Funcionalidades de gestión operativa de vuelos.',
+              'Librerías reutilizables: tablas avanzadas, filtros, ordenación, exportación.',
+              'Datos en tiempo real; timezone y sincronización con hora de sistema.',
+              'Arquitectura modular y escalable; testing unitario con cobertura superior al 80%.',
             ],
           },
         ],
