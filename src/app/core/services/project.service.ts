@@ -38,7 +38,7 @@ export class ProjectService {
 
   // Public listing for landing (no auth required)
   getPublicProjects(clientId: string, page: number = 1, limit: number = 6): Observable<any> {
-    const url = `${this.baseUrl}/projects/client/${clientId}`;
+    const url = `${this.baseUrl}/projects/client/${clientId}/public`;
     const params = new HttpParams().set('page', String(page)).set('limit', String(limit));
     return this.http.get<any>(url, { params });
   }
