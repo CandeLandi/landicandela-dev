@@ -5,6 +5,34 @@ import { ProjectService } from '../../core/services/project.service';
 import { Project } from '../../core/models/project.interface';
 import { GallerySliderComponent } from '../../shared/components/gallery-slider/gallery-slider.component';
 
+const PORTFOLIO_CLIENT_ID = '1f0139c9-172a-4e63-8c65-a0fa36a8f32e';
+
+const getProjectTimestamp = (project: Project): number => {
+  const dates = [(project as any).date, project.createdAt, project.updatedAt];
+  for (const rawDate of dates) {
+    const timestamp = rawDate ? new Date(rawDate).getTime() : Number.NaN;
+    if (!Number.isNaN(timestamp)) {
+      return timestamp;
+    }
+  }
+  return 0;
+};
+
+const sortProjects = (projects: Project[]): Project[] =>
+  [...projects].sort((a, b) => getProjectTimestamp(b) - getProjectTimestamp(a));
+
+const toPlainText = (value: unknown): string => {
+  if (typeof value !== 'string') {
+    return '';
+  }
+
+  return value
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+};
+
 @Component({
   selector: 'app-projects',
   standalone: true,
@@ -28,33 +56,40 @@ export class ProjectsComponent implements OnInit {
   }
 
   loadProjects(): void {
-    const CLIENT_ID = '88b59ed0-4d52-45db-bd21-ef72a8338fbc'; // clientId del portfolio
-    this.projectService.getPublicProjects(CLIENT_ID, 1, 6).subscribe((response: unknown) => {
-      const payload = response as any;
-      const raw = Array.isArray(payload) ? payload : (payload?.data ?? []);
-      const mapped: Project[] = (raw || []).map((p: any) => {
-        const galleryRaw = (p.gallery ?? p.images ?? []) as any[];
-        const gallerySorted = [...galleryRaw].sort((a: any, b: any) => {
-          const ao = typeof a?.order === 'number' ? a.order : Number.MAX_SAFE_INTEGER;
-          const bo = typeof b?.order === 'number' ? b.order : Number.MAX_SAFE_INTEGER;
-          if (ao !== bo) return ao - bo;
-          const ac = a?.createdAt ? new Date(a.createdAt).getTime() : 0;
-          const bc = b?.createdAt ? new Date(b.createdAt).getTime() : 0;
-          return ac - bc;
+    this.projectService.getPublicProjects(PORTFOLIO_CLIENT_ID, 1, 100).subscribe({
+      next: (response: unknown) => {
+        const payload = response as any;
+        const raw = Array.isArray(payload) ? payload : (payload?.data ?? []);
+        const mapped: Project[] = (raw || []).map((p: any) => {
+          const galleryRaw = (p.gallery ?? p.images ?? []) as any[];
+          const gallerySorted = [...galleryRaw].sort((a: any, b: any) => {
+            const ao = typeof a?.order === 'number' ? a.order : Number.MAX_SAFE_INTEGER;
+            const bo = typeof b?.order === 'number' ? b.order : Number.MAX_SAFE_INTEGER;
+            if (ao !== bo) return ao - bo;
+            const ac = a?.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const bc = b?.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return ac - bc;
+          });
+          return {
+            ...p,
+            name: p.name ?? p.title,
+            description: toPlainText(p.description) || toPlainText(p.longDescription),
+            features: Array.isArray(p.technologies) ? p.technologies : typeof p.technologies === 'string' ? p.technologies.split(',').map((t: string) => t.trim()).filter(Boolean) : [],
+            demoUrl: p.demoUrl ?? p.url ?? undefined,
+            githubUrl: p.githubUrl ?? p.github ?? undefined,
+            gallery: gallerySorted
+          } as any;
         });
-        return {
-          ...p,
-          name: p.name ?? p.title,
-          features: Array.isArray(p.technologies) ? p.technologies : typeof p.technologies === 'string' ? p.technologies.split(',').map((t: string) => t.trim()).filter(Boolean) : [],
-          demoUrl: p.demoUrl ?? p.url ?? undefined,
-          githubUrl: p.githubUrl ?? p.github ?? undefined,
-          gallery: gallerySorted
-        } as any;
-      });
-      this.projects = mapped as any;
-      mapped.forEach(project => {
-        this.currentImageIndex[project.id] = 0;
-      });
+        this.setProjects(sortProjects(mapped));
+      },
+      error: () => this.setProjects([])
+    });
+  }
+
+  private setProjects(projects: Project[]): void {
+    this.projects = projects as any;
+    projects.forEach(project => {
+      this.currentImageIndex[project.id] = 0;
     });
   }
 
